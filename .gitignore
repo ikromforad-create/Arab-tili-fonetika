@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.netlify/
+.npm-cache/
+tmp/
+.env
+.env.*
+!.env.example
+
+.vercel
+.env*

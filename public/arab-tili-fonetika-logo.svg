@@ -1,0 +1,24 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="72" y1="42" x2="440" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E1726"/>
+      <stop offset="0.55" stop-color="#143B5B"/>
+      <stop offset="1" stop-color="#1F7A8C"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="112" y1="92" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFCE5C"/>
+      <stop offset="1" stop-color="#FF7A45"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="248" fill="url(#bg)"/>
+  <circle cx="160" cy="154" r="62" fill="#7AE7FF" fill-opacity="0.18"/>
+  <circle cx="372" cy="152" r="74" fill="#FFCE5C" fill-opacity="0.16"/>
+  <path d="M114 320C154 252 208 222 256 222C304 222 358 252 398 320" stroke="url(#accent)" stroke-width="22" stroke-linecap="round"/>
+  <path d="M148 318C177 270 218 246 256 246C294 246 335 270 364 318" stroke="#FFFFFF" stroke-opacity="0.26" stroke-width="16" stroke-linecap="round"/>
+  <path d="M190 176H210V294H190V176Z" fill="#FFCE5C"/>
+  <path d="M226 156H246V314H226V156Z" fill="#FFFFFF"/>
+  <path d="M262 182H282V284H262V182Z" fill="#7AE7FF"/>
+  <path d="M298 166H318V300H298V166Z" fill="#FF7A45"/>
+  <rect x="132" y="340" width="248" height="66" rx="33" fill="#FFFFFF" fill-opacity="0.12"/>
+  <text x="256" y="382" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="2">ARAB TILI FONETIKA</text>
+</svg>

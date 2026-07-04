@@ -1,0 +1,871 @@
+{
+  "source": {
+    "title": "Shifohiyya 1 lug'ati",
+    "pdf": "/Users/ikrom/Desktop/Kitoblar/العربية/اللغة/المطالعة/Shifohiya/lug'atlar/shifohiyya 1_lug'ati (1).pdf",
+    "note": "Birinchi 10 dars lug'atlari PDF skanidan ko'z bilan ajratildi. Database importidan oldin yakuniy tekshiruv kerak."
+  },
+  "lessons": [
+    {
+      "lesson": 1,
+      "level": 1,
+      "words": [
+        {
+          "arabic": "هُوَ",
+          "uzbek": "u"
+        },
+        {
+          "arabic": "هُمْ",
+          "uzbek": "ular"
+        },
+        {
+          "arabic": "أَنْتَ",
+          "uzbek": "sen"
+        },
+        {
+          "arabic": "أَنْتُمْ",
+          "uzbek": "sizlar"
+        },
+        {
+          "arabic": "أَنَا",
+          "uzbek": "men"
+        },
+        {
+          "arabic": "نَحْنُ",
+          "uzbek": "biz"
+        },
+        {
+          "arabic": "كَبِيرٌ",
+          "uzbek": "katta"
+        },
+        {
+          "arabic": "كِبَارٌ",
+          "uzbek": "kattalar"
+        },
+        {
+          "arabic": "صَغِيرٌ",
+          "uzbek": "kichik"
+        },
+        {
+          "arabic": "صِغَارٌ",
+          "uzbek": "kichiklar"
+        },
+        {
+          "arabic": "طَوِيلٌ",
+          "uzbek": "uzun"
+        },
+        {
+          "arabic": "طِوَالٌ",
+          "uzbek": "uzunlar"
+        },
+        {
+          "arabic": "قَصِيرٌ",
+          "uzbek": "qisqa"
+        },
+        {
+          "arabic": "قِصَارٌ",
+          "uzbek": "qisqalar"
+        }
+      ]
+    },
+    {
+      "lesson": 2,
+      "level": 2,
+      "words": [
+        {
+          "arabic": "هِيَ",
+          "uzbek": "u (ayol)"
+        },
+        {
+          "arabic": "هُنَّ",
+          "uzbek": "ular (ayollar)"
+        },
+        {
+          "arabic": "أَنْتِ",
+          "uzbek": "sen (ayol)"
+        },
+        {
+          "arabic": "أَنْتُنَّ",
+          "uzbek": "sizlar (ayollar)"
+        },
+        {
+          "arabic": "كَبِيرَةٌ",
+          "uzbek": "katta (ayol)"
+        },
+        {
+          "arabic": "كَبِيرَاتٌ",
+          "uzbek": "kattalar (ayol)"
+        },
+        {
+          "arabic": "صَغِيرَةٌ",
+          "uzbek": "kichik (ayol)"
+        },
+        {
+          "arabic": "صَغِيرَاتٌ",
+          "uzbek": "kichiklar (ayol)"
+        },
+        {
+          "arabic": "طَوِيلَةٌ",
+          "uzbek": "uzun (ayol)"
+        },
+        {
+          "arabic": "طَوِيلَاتٌ",
+          "uzbek": "uzunlar (ayol)"
+        },
+        {
+          "arabic": "قَصِيرَةٌ",
+          "uzbek": "qisqa (ayol)"
+        },
+        {
+          "arabic": "قَصِيرَاتٌ",
+          "uzbek": "qisqalar (ayol)"
+        }
+      ]
+    },
+    {
+      "lesson": 3,
+      "level": 3,
+      "words": [
+        {
+          "arabic": "هَذَا",
+          "uzbek": "bu"
+        },
+        {
+          "arabic": "هَذِهِ",
+          "uzbek": "bu (ayol/narsa)"
+        },
+        {
+          "arabic": "هَؤُلَاءِ",
+          "uzbek": "bular"
+        },
+        {
+          "arabic": "ذَلِكَ",
+          "uzbek": "o'sha"
+        },
+        {
+          "arabic": "تِلْكَ",
+          "uzbek": "o'sha (ayol/narsa)"
+        },
+        {
+          "arabic": "أُولَئِكَ",
+          "uzbek": "o'shalar"
+        },
+        {
+          "arabic": "غَنِيٌّ",
+          "uzbek": "boy"
+        },
+        {
+          "arabic": "أَغْنِيَاءُ",
+          "uzbek": "boylar"
+        },
+        {
+          "arabic": "فَقِيرٌ",
+          "uzbek": "kambag'al"
+        },
+        {
+          "arabic": "فُقَرَاءُ",
+          "uzbek": "kambag'allar"
+        },
+        {
+          "arabic": "رَجُلٌ",
+          "uzbek": "erkak"
+        },
+        {
+          "arabic": "رِجَالٌ",
+          "uzbek": "erkaklar"
+        },
+        {
+          "arabic": "اِمْرَأَةٌ",
+          "uzbek": "ayol"
+        },
+        {
+          "arabic": "نِسَاءٌ",
+          "uzbek": "ayollar"
+        }
+      ]
+    },
+    {
+      "lesson": 4,
+      "level": 4,
+      "words": [
+        {
+          "arabic": "إِنْسَانٌ",
+          "uzbek": "kishi"
+        },
+        {
+          "arabic": "أُنَاسٌ",
+          "uzbek": "kishilar"
+        },
+        {
+          "arabic": "اَلنَّاسُ",
+          "uzbek": "kishilar/odamlar"
+        },
+        {
+          "arabic": "شَيْخٌ",
+          "uzbek": "qariya"
+        },
+        {
+          "arabic": "شُيُوخٌ",
+          "uzbek": "qariyalar"
+        },
+        {
+          "arabic": "عَجُوزٌ",
+          "uzbek": "kampir"
+        },
+        {
+          "arabic": "عَجَائِزُ",
+          "uzbek": "kampirlar"
+        },
+        {
+          "arabic": "شَابٌّ",
+          "uzbek": "yigit"
+        },
+        {
+          "arabic": "شُبَّانٌ",
+          "uzbek": "yigitlar"
+        },
+        {
+          "arabic": "صَبِيٌّ",
+          "uzbek": "go'dak"
+        },
+        {
+          "arabic": "صِبْيَانٌ",
+          "uzbek": "go'daklar"
+        },
+        {
+          "arabic": "وَلَدٌ",
+          "uzbek": "bola"
+        },
+        {
+          "arabic": "أَوْلَادٌ",
+          "uzbek": "bolalar"
+        },
+        {
+          "arabic": "خَادِمٌ",
+          "uzbek": "xodim"
+        },
+        {
+          "arabic": "خُدَّامٌ",
+          "uzbek": "xodimlar"
+        },
+        {
+          "arabic": "عَالِمٌ",
+          "uzbek": "olim"
+        },
+        {
+          "arabic": "عُلَمَاءُ",
+          "uzbek": "olimlar"
+        }
+      ]
+    },
+    {
+      "lesson": 5,
+      "level": 5,
+      "words": [
+        {
+          "arabic": "عَاقِلٌ",
+          "uzbek": "aqlli"
+        },
+        {
+          "arabic": "عُقَلَاءُ",
+          "uzbek": "aqllilar"
+        },
+        {
+          "arabic": "سَفِيهٌ",
+          "uzbek": "telba"
+        },
+        {
+          "arabic": "سُفَهَاءُ",
+          "uzbek": "telbalar"
+        },
+        {
+          "arabic": "ذَكِيٌّ",
+          "uzbek": "dono"
+        },
+        {
+          "arabic": "أَذْكِيَاءُ",
+          "uzbek": "donolar"
+        },
+        {
+          "arabic": "غَبِيٌّ",
+          "uzbek": "tentak"
+        },
+        {
+          "arabic": "أَغْبِيَاءُ",
+          "uzbek": "tentaklar"
+        },
+        {
+          "arabic": "سَمِينٌ",
+          "uzbek": "semiz"
+        },
+        {
+          "arabic": "سِمَانٌ",
+          "uzbek": "semizlar"
+        },
+        {
+          "arabic": "نَحِيفٌ",
+          "uzbek": "oriq"
+        },
+        {
+          "arabic": "نِحَافٌ",
+          "uzbek": "oriqlar"
+        },
+        {
+          "arabic": "قَوِيٌّ",
+          "uzbek": "kuchli"
+        },
+        {
+          "arabic": "أَقْوِيَاءُ",
+          "uzbek": "kuchlilar"
+        },
+        {
+          "arabic": "ضَعِيفٌ",
+          "uzbek": "kuchsiz"
+        },
+        {
+          "arabic": "ضُعَفَاءُ",
+          "uzbek": "kuchsizlar"
+        },
+        {
+          "arabic": "صَحِيحٌ",
+          "uzbek": "sog'lom"
+        },
+        {
+          "arabic": "أَصِحَّاءُ",
+          "uzbek": "sog'lomlar"
+        },
+        {
+          "arabic": "مَرِيضٌ",
+          "uzbek": "bemor"
+        },
+        {
+          "arabic": "مَرْضَى",
+          "uzbek": "bemorlar"
+        }
+      ]
+    },
+    {
+      "lesson": 6,
+      "level": 6,
+      "words": [
+        {
+          "arabic": "صَدِيقٌ",
+          "uzbek": "do'st"
+        },
+        {
+          "arabic": "أَصْدِقَاءُ",
+          "uzbek": "do'stlar"
+        },
+        {
+          "arabic": "عَدُوٌّ",
+          "uzbek": "dushman"
+        },
+        {
+          "arabic": "أَعْدَاءُ",
+          "uzbek": "dushmanlar"
+        },
+        {
+          "arabic": "جَارٌ",
+          "uzbek": "qo'shni"
+        },
+        {
+          "arabic": "جِيرَانٌ",
+          "uzbek": "qo'shnilar"
+        },
+        {
+          "arabic": "ضَيْفٌ",
+          "uzbek": "mehmon"
+        },
+        {
+          "arabic": "ضُيُوفٌ",
+          "uzbek": "mehmonlar"
+        },
+        {
+          "arabic": "صَدِيقَةٌ",
+          "uzbek": "do'st (ayol)"
+        },
+        {
+          "arabic": "عَدُوَّةٌ",
+          "uzbek": "dushman (ayol)"
+        },
+        {
+          "arabic": "جَارَةٌ",
+          "uzbek": "qo'shni (ayol)"
+        },
+        {
+          "arabic": "ضَيْفَةٌ",
+          "uzbek": "mehmon (ayol)"
+        }
+      ]
+    },
+    {
+      "lesson": 7,
+      "level": 7,
+      "words": [
+        {
+          "arabic": "أَبٌ",
+          "uzbek": "ota"
+        },
+        {
+          "arabic": "آبَاءٌ",
+          "uzbek": "otalar"
+        },
+        {
+          "arabic": "أُمٌّ",
+          "uzbek": "ona"
+        },
+        {
+          "arabic": "أُمَّهَاتٌ",
+          "uzbek": "onalar"
+        },
+        {
+          "arabic": "اِبْنٌ",
+          "uzbek": "o'g'il"
+        },
+        {
+          "arabic": "أَبْنَاءٌ",
+          "uzbek": "o'g'illar"
+        },
+        {
+          "arabic": "اِبْنَةٌ",
+          "uzbek": "qiz"
+        },
+        {
+          "arabic": "بَنَاتٌ",
+          "uzbek": "qizlar"
+        },
+        {
+          "arabic": "أَخٌ",
+          "uzbek": "aka/ini"
+        },
+        {
+          "arabic": "إِخْوَةٌ",
+          "uzbek": "akalar/inilar"
+        },
+        {
+          "arabic": "أُخْتٌ",
+          "uzbek": "opa/singil"
+        },
+        {
+          "arabic": "أَخَوَاتٌ",
+          "uzbek": "opa-singillar"
+        },
+        {
+          "arabic": "جَدٌّ",
+          "uzbek": "bobo"
+        },
+        {
+          "arabic": "أَجْدَادٌ",
+          "uzbek": "bobolar"
+        },
+        {
+          "arabic": "جَدَّةٌ",
+          "uzbek": "momo"
+        },
+        {
+          "arabic": "جَدَّاتٌ",
+          "uzbek": "momolar"
+        },
+        {
+          "arabic": "زَوْجٌ",
+          "uzbek": "er"
+        },
+        {
+          "arabic": "أَزْوَاجٌ",
+          "uzbek": "erlar"
+        },
+        {
+          "arabic": "زَوْجَةٌ",
+          "uzbek": "xotin"
+        },
+        {
+          "arabic": "زَوْجَاتٌ",
+          "uzbek": "xotinlar"
+        }
+      ]
+    },
+    {
+      "lesson": 8,
+      "level": 8,
+      "words": [
+        {
+          "arabic": "أُسْتَاذٌ",
+          "uzbek": "ustoz"
+        },
+        {
+          "arabic": "أَسَاتِذَةٌ",
+          "uzbek": "ustozlar"
+        },
+        {
+          "arabic": "تِلْمِيذٌ",
+          "uzbek": "shogird"
+        },
+        {
+          "arabic": "تَلَامِيذُ",
+          "uzbek": "shogirdlar"
+        },
+        {
+          "arabic": "طَبِيبٌ",
+          "uzbek": "tabib"
+        },
+        {
+          "arabic": "أَطِبَّاءُ",
+          "uzbek": "tabiblar"
+        },
+        {
+          "arabic": "تَاجِرٌ",
+          "uzbek": "savdogar"
+        },
+        {
+          "arabic": "تُجَّارٌ",
+          "uzbek": "savdogarlar"
+        },
+        {
+          "arabic": "صَانِعٌ",
+          "uzbek": "hunarmand"
+        },
+        {
+          "arabic": "صَنَعَةٌ",
+          "uzbek": "hunarmandlar"
+        },
+        {
+          "arabic": "مَاهِرٌ",
+          "uzbek": "mohir"
+        },
+        {
+          "arabic": "مَهَرَةٌ",
+          "uzbek": "mohirlar"
+        },
+        {
+          "arabic": "صَالِحٌ",
+          "uzbek": "solih kishi"
+        },
+        {
+          "arabic": "صُلَحَاءُ",
+          "uzbek": "solih kishilar"
+        }
+      ]
+    },
+    {
+      "lesson": 9,
+      "level": 9,
+      "words": [
+        {
+          "arabic": "إِمَامٌ",
+          "uzbek": "imom"
+        },
+        {
+          "arabic": "أَئِمَّةٌ",
+          "uzbek": "imomlar"
+        },
+        {
+          "arabic": "مُعَلِّمٌ",
+          "uzbek": "muallim"
+        },
+        {
+          "arabic": "مُعَلِّمُونَ",
+          "uzbek": "muallimlar"
+        },
+        {
+          "arabic": "مُدَرِّسٌ",
+          "uzbek": "mudarris/o'qituvchi"
+        },
+        {
+          "arabic": "مُدَرِّسُونَ",
+          "uzbek": "mudarrislar"
+        },
+        {
+          "arabic": "مُؤَذِّنٌ",
+          "uzbek": "muazzin"
+        },
+        {
+          "arabic": "مُؤَذِّنُونَ",
+          "uzbek": "muazzinlar"
+        },
+        {
+          "arabic": "مُتَكَبِّرٌ",
+          "uzbek": "mutakabbir"
+        },
+        {
+          "arabic": "مُتَكَبِّرُونَ",
+          "uzbek": "mutakabbirlar"
+        },
+        {
+          "arabic": "مُتَوَاضِعٌ",
+          "uzbek": "tavozeli"
+        },
+        {
+          "arabic": "مُتَوَاضِعُونَ",
+          "uzbek": "tavozelilar"
+        },
+        {
+          "arabic": "مَسْرُورٌ",
+          "uzbek": "xursand bo'lgan"
+        },
+        {
+          "arabic": "مَسْرُورُونَ",
+          "uzbek": "xursand bo'lganlar"
+        },
+        {
+          "arabic": "مَحْزُونٌ",
+          "uzbek": "xafa bo'lgan"
+        },
+        {
+          "arabic": "مَحْزُونُونَ",
+          "uzbek": "xafa bo'lganlar"
+        },
+        {
+          "arabic": "مُجْتَهِدٌ",
+          "uzbek": "tirishqoq/faol"
+        },
+        {
+          "arabic": "مُجْتَهِدُونَ",
+          "uzbek": "tirishqoq/faollar"
+        },
+        {
+          "arabic": "كَسْلَانُ",
+          "uzbek": "dangasa"
+        },
+        {
+          "arabic": "كُسَالَى",
+          "uzbek": "dangasalar"
+        },
+        {
+          "arabic": "صَادِقٌ",
+          "uzbek": "rostgo'y"
+        },
+        {
+          "arabic": "صَادِقُونَ",
+          "uzbek": "rostgo'ylar"
+        },
+        {
+          "arabic": "كَاذِبٌ",
+          "uzbek": "yolg'onchi"
+        },
+        {
+          "arabic": "كَاذِبُونَ",
+          "uzbek": "yolg'onchilar"
+        }
+      ]
+    },
+    {
+      "lesson": 10,
+      "level": 10,
+      "words": [
+        {
+          "arabic": "خَيَّاطٌ",
+          "uzbek": "tikuvchi"
+        },
+        {
+          "arabic": "خَيَّاطُونَ",
+          "uzbek": "tikuvchilar"
+        },
+        {
+          "arabic": "نَجَّارٌ",
+          "uzbek": "duradgor"
+        },
+        {
+          "arabic": "نَجَّارُونَ",
+          "uzbek": "duradgorlar"
+        },
+        {
+          "arabic": "حَدَّادٌ",
+          "uzbek": "temirchi"
+        },
+        {
+          "arabic": "خَبَّازٌ",
+          "uzbek": "nonvoy"
+        },
+        {
+          "arabic": "قَصَّابٌ",
+          "uzbek": "qassob"
+        },
+        {
+          "arabic": "خَفَّافٌ",
+          "uzbek": "etikdo'z/kosib"
+        },
+        {
+          "arabic": "حَلَّاقٌ",
+          "uzbek": "sartarosh"
+        },
+        {
+          "arabic": "قَصَّارٌ",
+          "uzbek": "kir yuvuvchi/oqqa bo'yovchi"
+        },
+        {
+          "arabic": "فَرَّاشٌ",
+          "uzbek": "farrosh"
+        },
+        {
+          "arabic": "حَمَّالٌ",
+          "uzbek": "yuk tashuvchi"
+        },
+        {
+          "arabic": "دَلَّالٌ",
+          "uzbek": "dallol"
+        },
+        {
+          "arabic": "فَلَّاحٌ",
+          "uzbek": "dehqon"
+        },
+        {
+          "arabic": "مَلَّاحٌ",
+          "uzbek": "dengizchi/matros"
+        },
+        {
+          "arabic": "بَطَّالٌ",
+          "uzbek": "ishsiz"
+        }
+      ]
+    },
+    {
+      "lesson": 11,
+      "level": 11,
+      "words": [
+        {
+          "arabic": "أَزْهَرُ",
+          "uzbek": "oq yuzli"
+        },
+        {
+          "arabic": "زُهْرٌ",
+          "uzbek": "oq yuzlilar"
+        },
+        {
+          "arabic": "أَسْمَرُ",
+          "uzbek": "qora yuzli"
+        },
+        {
+          "arabic": "سُمْرٌ",
+          "uzbek": "qora yuzlilar"
+        },
+        {
+          "arabic": "أَشْقَرُ",
+          "uzbek": "qizil yuzli"
+        },
+        {
+          "arabic": "شُقْرٌ",
+          "uzbek": "qizil yuzlilar"
+        },
+        {
+          "arabic": "أَخْرَسُ",
+          "uzbek": "tilsiz"
+        },
+        {
+          "arabic": "خُرْسٌ",
+          "uzbek": "tilsizlar"
+        },
+        {
+          "arabic": "أَصَمُّ",
+          "uzbek": "kar"
+        },
+        {
+          "arabic": "صُمٌّ",
+          "uzbek": "karlar"
+        },
+        {
+          "arabic": "أَعْمَى",
+          "uzbek": "ko'r"
+        },
+        {
+          "arabic": "عُمْيٌ",
+          "uzbek": "ko'rlar"
+        },
+        {
+          "arabic": "أَحْوَلُ",
+          "uzbek": "g'ilay ko'zli"
+        },
+        {
+          "arabic": "حُولٌ",
+          "uzbek": "g'ilay ko'zlilar"
+        },
+        {
+          "arabic": "أَشَلُّ",
+          "uzbek": "shol"
+        },
+        {
+          "arabic": "شُلٌّ",
+          "uzbek": "shollar"
+        },
+        {
+          "arabic": "أَعْرَجُ",
+          "uzbek": "oqsoq"
+        },
+        {
+          "arabic": "عُرْجٌ",
+          "uzbek": "oqsoqlar"
+        },
+        {
+          "arabic": "أَحْدَبُ",
+          "uzbek": "bukri"
+        },
+        {
+          "arabic": "حُدْبٌ",
+          "uzbek": "bukrilar"
+        },
+        {
+          "arabic": "أَلْثَغُ",
+          "uzbek": "soqov"
+        },
+        {
+          "arabic": "لُثْغٌ",
+          "uzbek": "soqovlar"
+        },
+        {
+          "arabic": "أَحْمَقُ",
+          "uzbek": "ahmoq"
+        },
+        {
+          "arabic": "حُمْقٌ",
+          "uzbek": "ahmoqlar"
+        },
+        {
+          "arabic": "زَهْرَاءُ",
+          "uzbek": "oq yuzli ayol"
+        },
+        {
+          "arabic": "سَمْرَاءُ",
+          "uzbek": "qora yuzli ayol"
+        },
+        {
+          "arabic": "شَقْرَاءُ",
+          "uzbek": "qizil yuzli ayol"
+        },
+        {
+          "arabic": "خَرْسَاءُ",
+          "uzbek": "tilsiz ayol"
+        },
+        {
+          "arabic": "صَمَّاءُ",
+          "uzbek": "kar ayol"
+        },
+        {
+          "arabic": "عَمْيَاءُ",
+          "uzbek": "ko'r ayol"
+        },
+        {
+          "arabic": "حَوْلَاءُ",
+          "uzbek": "g'ilay ko'zli ayol"
+        },
+        {
+          "arabic": "شَلَّاءُ",
+          "uzbek": "shol ayol"
+        },
+        {
+          "arabic": "عَرْجَاءُ",
+          "uzbek": "oqsoq ayol"
+        },
+        {
+          "arabic": "حَدْبَاءُ",
+          "uzbek": "bukri ayol"
+        },
+        {
+          "arabic": "لَثْغَاءُ",
+          "uzbek": "soqov ayol"
+        },
+        {
+          "arabic": "حَمْقَاءُ",
+          "uzbek": "ahmoq ayol"
+        }
+      ]
+    }
+  ]
+}

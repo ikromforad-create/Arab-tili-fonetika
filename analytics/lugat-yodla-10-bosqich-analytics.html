@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arab tili fonetika - 10 bosqich analitika</title>
+    <style>
+      :root {
+        --ink: #14201d;
+        --muted: #66746f;
+        --paper: #fbfbf7;
+        --line: #dfe6dd;
+        --track: #eef2ec;
+        --started: #9ad5d1;
+        --passed: #1f8a62;
+        --accent: #e2a43b;
+        --deep: #24463d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #ecf1ec;
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .report {
+        width: 1600px;
+        min-height: 1100px;
+        padding: 56px 64px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.4)),
+          var(--paper);
+      }
+
+      .top {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 30px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--passed);
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 58px;
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin: 18px 0 0;
+        max-width: 900px;
+        color: var(--muted);
+        font-size: 24px;
+        line-height: 1.38;
+      }
+
+      .date-box {
+        justify-self: end;
+        width: 520px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 22px 26px;
+      }
+
+      .date-label {
+        display: block;
+        color: var(--muted);
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .date-value {
+        display: block;
+        color: var(--deep);
+        font-size: 26px;
+        font-weight: 800;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-bottom: 34px;
+      }
+
+      .daily-users {
+        display: grid;
+        grid-template-columns: 0.72fr 1fr;
+        gap: 22px;
+        align-items: stretch;
+        margin-bottom: 34px;
+      }
+
+      .daily-total {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 26px 28px;
+      }
+
+      .daily-total span {
+        display: block;
+        color: var(--muted);
+        font-size: 20px;
+      }
+
+      .daily-total strong {
+        display: block;
+        margin-top: 10px;
+        color: var(--deep);
+        font-size: 64px;
+        line-height: 1;
+      }
+
+      .daily-total small {
+        display: block;
+        margin-top: 12px;
+        color: var(--passed);
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .daily-breakdown {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 24px 28px;
+      }
+
+      .daily-breakdown h2 {
+        margin: 0 0 18px;
+        font-size: 28px;
+        letter-spacing: 0;
+      }
+
+      .daily-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .daily-list div {
+        border-left: 5px solid var(--started);
+        padding: 4px 0 4px 14px;
+      }
+
+      .daily-list span {
+        display: block;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.25;
+      }
+
+      .daily-list strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--ink);
+        font-size: 34px;
+        line-height: 1;
+      }
+
+      .kpi {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 22px 24px;
+        min-height: 150px;
+      }
+
+      .kpi span {
+        display: block;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.3;
+      }
+
+      .kpi strong {
+        display: block;
+        margin-top: 12px;
+        font-size: 48px;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .kpi small {
+        display: block;
+        margin-top: 10px;
+        color: var(--passed);
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 26px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 28px;
+      }
+
+      .panel h2 {
+        margin: 0 0 18px;
+        font-size: 30px;
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
+      .legend {
+        display: flex;
+        gap: 18px;
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .swatch {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      .swatch.started {
+        background: var(--started);
+      }
+
+      .swatch.passed {
+        background: var(--passed);
+      }
+
+      .rows {
+        display: grid;
+        gap: 13px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 122px 1fr 250px;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .stage {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--deep);
+      }
+
+      .bar {
+        position: relative;
+        height: 34px;
+        border-radius: 8px;
+        background: var(--track);
+        overflow: hidden;
+        border: 1px solid #e2e8df;
+      }
+
+      .bar .started {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: calc(var(--started-pct) * 1%);
+        background: var(--started);
+      }
+
+      .bar .passed {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: calc(var(--passed-pct) * 1%);
+        background: linear-gradient(90deg, var(--passed), #2fb87f);
+      }
+
+      .numbers {
+        display: grid;
+        grid-template-columns: 86px 76px 70px;
+        gap: 8px;
+        align-items: baseline;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .numbers b {
+        font-size: 23px;
+      }
+
+      .numbers span {
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .table th,
+      .table td {
+        padding: 11px 8px;
+        border-bottom: 1px solid var(--line);
+        text-align: right;
+        font-size: 17px;
+      }
+
+      .table th:first-child,
+      .table td:first-child {
+        text-align: left;
+      }
+
+      .table th {
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .table td {
+        font-weight: 700;
+      }
+
+      .note {
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.42;
+      }
+
+      .highlight {
+        color: var(--deep);
+        font-weight: 800;
+      }
+
+      .callout {
+        margin-top: 22px;
+        border-left: 6px solid var(--accent);
+        padding: 15px 0 15px 18px;
+        color: var(--deep);
+        font-size: 21px;
+        line-height: 1.36;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="report">
+      <section class="top">
+        <div>
+          <p class="eyebrow">Supabase live DB analitikasi</p>
+          <h1>Arab tili fonetika: 10 bosqich bo'yicha o'tish analitikasi</h1>
+          <p class="subtitle">
+            Jami ro'yxatdan o'tgan foydalanuvchilarga nisbatan har bir bosqichni boshlaganlar va o'tganlar ko'rsatkichi.
+          </p>
+        </div>
+        <div class="date-box">
+          <span class="date-label">Tahlil davri</span>
+          <span class="date-value">2026-05-31 - 2026-06-07</span>
+          <span class="date-label" style="margin-top: 14px;">Bazada oxirgi ro'yxatdan o'tish</span>
+          <span class="date-value">2026-06-06</span>
+        </div>
+      </section>
+
+      <section class="kpis">
+        <div class="kpi">
+          <span>Umumiy ro'yxatdan o'tganlar</span>
+          <strong>103</strong>
+          <small>loyiha ochilgandan beri</small>
+        </div>
+        <div class="kpi">
+          <span>1-bosqichni o'tganlar</span>
+          <strong>59</strong>
+          <small>57.3%</small>
+        </div>
+        <div class="kpi">
+          <span>5-bosqichni o'tganlar</span>
+          <strong>9</strong>
+          <small>8.7%</small>
+        </div>
+        <div class="kpi">
+          <span>10-bosqichni o'tganlar</span>
+          <strong>2</strong>
+          <small>1.9%</small>
+        </div>
+      </section>
+
+      <section class="daily-users">
+        <div class="daily-total">
+          <span>Umumiy kunlik userlar</span>
+          <strong>-</strong>
+          <small>daily_activity_history.total_daily_users</small>
+        </div>
+        <div class="daily-breakdown">
+          <h2>Kunlik faollik manbalari</h2>
+          <div class="daily-list">
+            <div>
+              <span>Dars yechganlar</span>
+              <strong>-</strong>
+            </div>
+            <div>
+              <span>Telegram bot</span>
+              <strong>-</strong>
+            </div>
+            <div>
+              <span>Sayt</span>
+              <strong>-</strong>
+            </div>
+            <div>
+              <span>Telegram Web App</span>
+              <strong>-</strong>
+            </div>
+          </div>
+          <p class="note">
+            Bu section yangi migrationdagi dedupe qilingan <span class="highlight">total_daily_users</span> ustunidan olinadi.
+          </p>
+        </div>
+      </section>
+
+      <section class="content">
+        <section class="panel">
+          <h2>Bosqichlar bo'yicha funnel</h2>
+          <div class="legend">
+            <span class="legend-item"><span class="swatch started"></span>Boshlagan</span>
+            <span class="legend-item"><span class="swatch passed"></span>O'tgan</span>
+          </div>
+          <div class="rows">
+            <div class="row" style="--started-pct: 73.8; --passed-pct: 57.3;">
+              <div class="stage">1-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>59</b><span>/ 76</span><span>57.3%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 37.9; --passed-pct: 29.1;">
+              <div class="stage">2-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>30</b><span>/ 39</span><span>29.1%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 24.3; --passed-pct: 20.4;">
+              <div class="stage">3-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>21</b><span>/ 25</span><span>20.4%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 17.5; --passed-pct: 11.7;">
+              <div class="stage">4-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>12</b><span>/ 18</span><span>11.7%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 10.7; --passed-pct: 8.7;">
+              <div class="stage">5-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>9</b><span>/ 11</span><span>8.7%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 7.8; --passed-pct: 6.8;">
+              <div class="stage">6-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>7</b><span>/ 8</span><span>6.8%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 5.8; --passed-pct: 4.9;">
+              <div class="stage">7-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>5</b><span>/ 6</span><span>4.9%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 4.9; --passed-pct: 3.9;">
+              <div class="stage">8-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>4</b><span>/ 5</span><span>3.9%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 3.9; --passed-pct: 2.9;">
+              <div class="stage">9-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>3</b><span>/ 4</span><span>2.9%</span></div>
+            </div>
+            <div class="row" style="--started-pct: 2.9; --passed-pct: 1.9;">
+              <div class="stage">10-bosqich</div>
+              <div class="bar"><span class="started"></span><span class="passed"></span></div>
+              <div class="numbers"><b>2</b><span>/ 3</span><span>1.9%</span></div>
+            </div>
+          </div>
+          <p class="note">
+            Qator oxiridagi ko'rinish: <span class="highlight">o'tganlar / boshlaganlar / umumiy ro'yxatdan o'tganlarga nisbatan foiz</span>.
+          </p>
+        </section>
+
+        <aside class="panel">
+          <h2>Raqamli jadval</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Bosqich</th>
+                <th>Boshlagan</th>
+                <th>O'tgan</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>76</td><td>59</td><td>57.3</td></tr>
+              <tr><td>2</td><td>39</td><td>30</td><td>29.1</td></tr>
+              <tr><td>3</td><td>25</td><td>21</td><td>20.4</td></tr>
+              <tr><td>4</td><td>18</td><td>12</td><td>11.7</td></tr>
+              <tr><td>5</td><td>11</td><td>9</td><td>8.7</td></tr>
+              <tr><td>6</td><td>8</td><td>7</td><td>6.8</td></tr>
+              <tr><td>7</td><td>6</td><td>5</td><td>4.9</td></tr>
+              <tr><td>8</td><td>5</td><td>4</td><td>3.9</td></tr>
+              <tr><td>9</td><td>4</td><td>3</td><td>2.9</td></tr>
+              <tr><td>10</td><td>3</td><td>2</td><td>1.9</td></tr>
+            </tbody>
+          </table>
+          <p class="callout">
+            Eng katta pasayish 1-bosqichdan 2-bosqichga o'tishda ko'rinadi: 59 tadan 30 taga.
+          </p>
+          <p class="note">
+            "O'tgan" deb ikkala bo'limni tugatib, o'rtacha natijasi kamida 76% bo'lgan foydalanuvchilar olindi.
+          </p>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

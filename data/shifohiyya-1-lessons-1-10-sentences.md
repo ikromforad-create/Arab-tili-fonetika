@@ -1,0 +1,433 @@
+# Shifohiyya 1: 1-10-dars jumlalari
+
+Manba: `/Users/ikrom/Desktop/Kitoblar/العربية/اللغة/المطالعة/Shifohiya/Addurusul Shifohiyya-1 20141.pdf`
+
+Eslatma: PDF matni extract bo'lyapti, lekin arabcha harflar ayrim joylarda buzilib chiqadi. Quyidagi jumlalar 1-pass sifatida yozildi; app databasega kiritishdan oldin PDF rasmi bilan yana tekshiriladi.
+
+## 1-dars
+
+- هُوَ كَبِيرٌ - U kattadir.
+- هُمْ كِبَارٌ - Ular kattalardir.
+- أَنْتَ صَغِيرٌ - Sen kichiksan.
+- أَنْتُمْ صِغَارٌ - Sizlar kichiklarsiz.
+- أَنَا طَوِيلٌ - Men uzunman.
+- نَحْنُ طِوَالٌ - Biz uzunlarmiz.
+- هُوَ قَصِيرٌ - U qisqadir.
+- هُمْ قِصَارٌ - Ular qisqalardir.
+- أَنْتَ طَوِيلٌ - Sen uzunsan.
+- أَنْتُمْ طِوَالٌ - Sizlar uzunlarsiz.
+- أَنَا كَبِيرٌ - Men kattaman.
+- نَحْنُ كِبَارٌ - Biz kattalarmiz.
+
+## 2-dars
+
+- هِيَ كَبِيرَةٌ - U (ayol) kattadir.
+- هُنَّ كَبِيرَاتٌ - Ular (ayollar) kattalardir.
+- أَنْتِ صَغِيرَةٌ - Sen (ayol) kichiksan.
+- أَنْتُنَّ صَغِيرَاتٌ - Siz (ayollar) kichiklarsiz.
+- أَنَا طَوِيلَةٌ - Men (ayol) uzunman.
+- نَحْنُ طَوِيلَاتٌ - Biz (ayollar) uzunlarmiz.
+- هِيَ قَصِيرَةٌ - U (ayol) qisqadir.
+- هُنَّ قَصِيرَاتٌ - Ular (ayollar) qisqalardir.
+- أَنْتِ طَوِيلَةٌ - Sen (ayol) uzunsan.
+- أَنْتُنَّ طَوِيلَاتٌ - Siz (ayollar) uzunlarsiz.
+- أَنَا كَبِيرَةٌ - Men (ayol) kattaman.
+- نَحْنُ كَبِيرَاتٌ - Biz (ayollar) kattalarmiz.
+
+## 3-dars
+
+- هَذَا الرَّجُلُ غَنِيٌّ - Bu kishi boydir.
+- هَؤُلَاءِ الرِّجَالُ أَغْنِيَاءُ - Bu kishilar boylardir.
+- هَذِهِ الْمَرْأَةُ غَنِيَّةٌ - Bu ayol boydir.
+- هَؤُلَاءِ النِّسَاءُ غَنِيَّاتٌ - Bu ayollar boylardir.
+- ذَاكَ الرَّجُلُ فَقِيرٌ - Anavi kishi kambag'aldir.
+- أُولَئِكَ الرِّجَالُ فُقَرَاءُ - Anavi kishilar kambag'allardir.
+- تِلْكَ الْمَرْأَةُ فَقِيرَةٌ - Anavi ayol kambag'aldir.
+- أُولَئِكَ النِّسَاءُ فَقِيرَاتٌ - Anavi ayollar kambag'allardir.
+- هَذَا الرَّجُلُ كَبِيرٌ - Bu kishi kattadir.
+- هَؤُلَاءِ الرِّجَالُ كِبَارٌ - Bu kishilar kattalardir.
+- هَذِهِ الْمَرْأَةُ صَغِيرَةٌ - Bu ayol kichikdir.
+- هَؤُلَاءِ النِّسَاءُ صَغِيرَاتٌ - Bu ayollar kichiklardir.
+- ذَاكَ الرَّجُلُ طَوِيلٌ - Anavi kishi uzundir.
+- أُولَئِكَ الرِّجَالُ طِوَالٌ - Anavi kishilar uzunlardir.
+- تِلْكَ الْمَرْأَةُ قَصِيرَةٌ - Anavi ayol qisqadir.
+- أُولَئِكَ النِّسَاءُ قَصِيرَاتٌ - Anavi ayollar qisqalardir.
+
+## 4-dars
+
+- هَذَا الإِنْسَانُ شَيْخٌ - Bu kishi qariyadir.
+- هَؤُلَاءِ النَّاسُ شُيُوخٌ - Bu kishilar qariyalardir.
+- ذَاكَ الشَّيْخُ عَالِمٌ - Anavi qariya olimdir.
+- أُولَئِكَ الشُّيُوخُ عُلَمَاءُ - Anavi qariyalar olimlardir.
+- تِلْكَ الْعَجُوزُ جَاهِلَةٌ - Anavi kampir johildir.
+- أُولَئِكَ الْعَجَائِزُ جَاهِلَاتٌ - Anavi kampirlar johillardir.
+- هَذَا الْوَلَدُ صَبِيٌّ - Bu bola go'dakdir.
+- هَؤُلَاءِ الأَوْلَادُ صِبْيَانٌ - Bu bolalar go'daklardir.
+- تِلْكَ الصَّبِيَّةُ جَاهِلَةٌ - Anavi go'dak qiz johildir.
+- أُولَئِكَ الصَّبِيَّاتُ جَاهِلَاتٌ - Anavi go'dak qizlar johillardir.
+- هَذَا الْخَادِمُ شَابٌّ - Bu xodim yigitdir.
+- هَؤُلَاءِ الْخُدَّامُ شُبَّانٌ - Bu xodimlar yigitlardir.
+- تِلْكَ الْخَادِمَةُ شَابَّةٌ - Anavi xodima bo'yga yetgan qizdir.
+- أُولَئِكَ الْخَادِمَاتُ شَابَّاتٌ - Anavi xodimalar bo'yga yetgan qizlardir.
+- هُوَ شَابٌّ - U yigitdir.
+- هُمْ شُبَّانٌ - Ular yigitlardir.
+- هِيَ شَابَّةٌ - U qiz bo'yga yetgandir.
+- هُنَّ شَابَّاتٌ - Ular qizlar bo'yga yetgandirlar.
+- أَنْتَ صَبِيٌّ - Sen go'daksan.
+- أَنْتُمْ صِبْيَانٌ - Sizlar go'daklarsiz.
+- أَنْتِ صَبِيَّةٌ - Sen go'dak qizsan.
+- أَنْتُنَّ صَبِيَّاتٌ - Sizlar go'dak qizlarsiz.
+- أَنَا شَيْخٌ - Men qariyaman.
+- نَحْنُ شُيُوخٌ - Biz qariyalarmiz.
+- هُوَ خَادِمٌ - U xodimdir.
+- هُمْ خُدَّامٌ - Ular xodimlardir.
+- هِيَ خَادِمَةٌ - U xodimadir.
+- هُنَّ خَادِمَاتٌ - Ular xodimalardir.
+- أَنْتَ عَالِمٌ - Sen olimsan.
+- أَنْتُمْ عُلَمَاءُ - Sizlar olimlarsiz.
+- أَنْتِ عَالِمَةٌ - Sen (ayol) olimasan.
+- أَنْتُنَّ عَالِمَاتٌ - Siz (ayollar) olimalarsiz.
+- أَنَا جَاهِلٌ - Men johilman.
+- نَحْنُ جُهَلَاءُ - Biz johillarmiz.
+- أَنَا جَاهِلَةٌ - Men (ayol) johilman.
+- نَحْنُ جَاهِلَاتٌ - Biz (ayollar) johillarmiz.
+- هَذَا الرَّجُلُ شَيْخٌ - Bu kishi qariyadir.
+- هَؤُلَاءِ الرِّجَالُ شُيُوخٌ - Bu kishilar qariyalardir.
+- هَذِهِ الْمَرْأَةُ عَجُوزٌ - Bu ayol kampirdir.
+- هَؤُلَاءِ النِّسَاءُ عَجَائِزُ - Bu ayollar kampirlardir.
+
+## 5-dars
+
+- هُوَ عَاقِلٌ - U aqllidir.
+- هُمْ عُقَلَاءُ - Ular aqllilardir.
+- هِيَ سَفِيهَةٌ - U (ayol) telbadir.
+- هُنَّ سَفِيهَاتٌ - Ular (ayollar) telbalardir.
+- أَنْتَ ذَكِيٌّ - Sen donosans.
+- أَنْتُمْ أَذْكِيَاءُ - Sizlar donolarsiz.
+- أَنْتِ غَبِيَّةٌ - Sen (ayol) tentaksan.
+- أَنْتُنَّ غَبِيَّاتٌ - Siz (ayollar) tentaklarsiz.
+- أَنَا سَمِينٌ - Men semizman.
+- نَحْنُ سِمَانٌ - Biz semizlarmiz.
+- هَذَا الرَّجُلُ سَمِينٌ - Bu kishi semizdir.
+- هَؤُلَاءِ الرِّجَالُ سِمَانٌ - Bu kishilar semizlardir.
+- هَذِهِ الْمَرْأَةُ نَحِيفَةٌ - Bu ayol oriqdir.
+- هَؤُلَاءِ النِّسَاءُ نَحِيفَاتٌ - Bu ayollar oriqlardir.
+- ذَاكَ الرَّجُلُ قَوِيٌّ - Anavi kishi kuchlidir.
+- أُولَئِكَ الرِّجَالُ أَقْوِيَاءُ - Anavi kishilar kuchlilardir.
+- تِلْكَ الْمَرْأَةُ ضَعِيفَةٌ - Anavi ayol kuchsizdir.
+- أُولَئِكَ النِّسَاءُ ضَعِيفَاتٌ - Anavi ayollar kuchsizlardir.
+- هَذَا الإِنْسَانُ صَحِيحٌ - Bu kishi sog'lomdir.
+- هَؤُلَاءِ النَّاسُ أَصِحَّاءُ - Bu kishilar sog'lomlardir.
+- ذَاكَ الإِنْسَانُ مَرِيضٌ - Anavi kishi bemordir.
+- أُولَئِكَ النَّاسُ مَرْضَى - Anavi kishilar bemorlardir.
+- هَذَا الشَّيْخُ عَاقِلٌ - Bu qariya aqllidir.
+- هَؤُلَاءِ الشُّيُوخُ عُقَلَاءُ - Bu qariyalar aqllilardir.
+- تِلْكَ الْعَجُوزُ سَفِيهَةٌ - Anavi kampir telbadir.
+- أُولَئِكَ الْعَجَائِزُ سَفِيهَاتٌ - Anavi kampirlar telbalardir.
+- هَذَا الشَّابُّ ذَكِيٌّ - Bu yigit donodir.
+- هَؤُلَاءِ الشُّبَّانُ أَذْكِيَاءُ - Bu yigitlar donolardir.
+- هَذَا الصَّبِيُّ سَمِينٌ - Bu go'dak semizdir.
+- هَؤُلَاءِ الصِّبْيَانُ سِمَانٌ - Bu go'daklar semizlardir.
+- ذَاكَ الْوَلَدُ قَوِيٌّ - Anavi bola kuchlidir.
+- أُولَئِكَ الأَوْلَادُ أَقْوِيَاءُ - Anavi bolalar kuchlilardir.
+- هَذَا الْخَادِمُ صَحِيحٌ - Bu xodim sog'lomdir.
+- هَؤُلَاءِ الْخُدَّامُ أَصِحَّاءُ - Bu xodimlar sog'lomlardir.
+- هَذِهِ الْخَادِمَةُ مَرِيضَةٌ - Bu xodima bemordir.
+- هَؤُلَاءِ الْخَادِمَاتُ مَرِيضَاتٌ - Bu xodimalar bemorlardir.
+- هُوَ قَوِيٌّ - U kuchlidir.
+- هُمْ أَقْوِيَاءُ - Ular kuchlilardir.
+- هِيَ ضَعِيفَةٌ - U (ayol) kuchsizdir.
+- هُنَّ ضَعِيفَاتٌ - Ular (ayollar) kuchsizlardir.
+- أَنْتَ صَحِيحٌ - Sen sog'lomsan.
+- أَنْتُمْ أَصِحَّاءُ - Sizlar sog'lomlarsiz.
+- أَنْتِ مَرِيضَةٌ - Sen (ayol) bemorsan.
+- أَنْتُنَّ مَرِيضَاتٌ - Siz (ayollar) bemorlarsiz.
+- أَنَا صَحِيحٌ - Men sog'lomman.
+- نَحْنُ أَصِحَّاءُ - Biz sog'lomlarmiz.
+
+## 6-dars
+
+- صَدِيقُهُ غَنِيٌّ - Uning do'sti boydir.
+- أَصْدِقَاؤُهُمْ أَغْنِيَاءُ - Ularning do'stlari boylardir.
+- صَدِيقَتُهَا فَقِيرَةٌ - Uning ayol do'sti kambag'aldir.
+- صَدِيقَاتُهَا فَقِيرَاتٌ - Uning ayol do'stlari kambag'allardir.
+- صَدِيقُكَ شَيْخٌ - Sening do'sting qariyadir.
+- أَصْدِقَاؤُكُمْ شُيُوخٌ - Sizlarning do'stlaringiz qariyalardir.
+- صَدِيقَتُكِ عَجُوزٌ - Sening ayol do'sting kampirdir.
+- صَدِيقَاتُكُنَّ عَجَائِزُ - Siz ayollarning do'stlari kampirlardir.
+- صَدِيقِي شَابٌّ - Mening do'stim yigitdir.
+- أَصْدِقَائِي شُبَّانٌ - Mening do'stlarim yigitlardir.
+- صَدِيقَتِي شَابَّةٌ - Mening ayol do'stim bo'yga yetgan qizdir.
+- صَدِيقَاتُنَا شَابَّاتٌ - Bizning ayol do'stlarimiz bo'yga yetgan qizlardir.
+- عَدُوُّهُ جَاهِلٌ - Uning dushmani johildir.
+- أَعْدَاؤُهُمْ جُهَلَاءُ - Ularning dushmanlari johillardir.
+- عَدُوَّتُهَا سَفِيهَةٌ - Uning ayol dushmani telbadir.
+- عَدُوَّاتُهَا سَفِيهَاتٌ - Uning ayol dushmanlari telbalardir.
+- عَدُوُّكَ غَبِيٌّ - Sening dushmaning tentakdir.
+- أَعْدَاؤُكُمْ أَغْبِيَاءُ - Sizlarning dushmanlaringiz tentaklardir.
+- عَدُوَّتُكِ ضَعِيفَةٌ - Sening ayol dushmaning kuchsizdir.
+- عَدُوَّاتُكُنَّ ضَعِيفَاتٌ - Siz ayollarning dushmanlari kuchsizlardir.
+- عَدُوِّي مَرِيضٌ - Mening dushmanim bemordir.
+- أَعْدَاؤُنَا مَرْضَى - Bizning dushmanlarimiz bemorlardir.
+- جَارُهُ عَاقِلٌ - Uning qo'shnisi aqllidir.
+- جِيرَانُهُمْ عُقَلَاءُ - Ularning qo'shnilari aqllilardir.
+- جَارَتُكِ ذَكِيَّةٌ - Sening ayol qo'shning donodir.
+- جَارَاتُكُنَّ ذَكِيَّاتٌ - Siz ayollarning qo'shnilari donolardir.
+- جَارِي مَرِيضٌ - Mening qo'shnim bemordir.
+- جِيرَانُنَا سِمَانٌ - Bizning qo'shnilarimiz semizlardir.
+- جَارَتِي سَفِيهَةٌ - Mening ayol qo'shnim telbadir.
+- جَارَاتِي سَفِيهَاتٌ - Mening ayol qo'shnilarim telbalardir.
+- ضَيْفُهُ قَوِيٌّ - Uning mehmoni kuchlidir.
+- ضُيُوفُهُمْ أَقْوِيَاءُ - Ularning mehmonlari kuchlilardir.
+- ضَيْفَتُكَ صَحِيحَةٌ - Sening ayol mehmoning sog'lomdir.
+- ضَيْفَاتُكُمْ صَحِيحَاتٌ - Sizlarning ayol mehmonlaringiz sog'lomdir.
+- ضَيْفِي عَالِمٌ - Mening mehmonim olimdir.
+- ضُيُوفُنَا عُلَمَاءُ - Bizning mehmonlarimiz olimlardir.
+- ضَيْفَتِي جَاهِلَةٌ - Mening ayol mehmonim johildir.
+- ضَيْفَاتِي جَاهِلَاتٌ - Mening ayol mehmonlarim johillardir.
+- وَلَدُهُ ذَكِيٌّ - Uning bolasi donodir.
+- أَوْلَادُهُمْ أَذْكِيَاءُ - Ularning bolalari donolardir.
+- وَلَدُكَ سَمِينٌ - Sening bolang semizdir.
+- أَوْلَادُكُمْ سِمَانٌ - Sizlarning bolalaringiz semizlardir.
+- وَلَدِي قَوِيٌّ - Mening bolam kuchlidir.
+- أَوْلَادُنَا أَقْوِيَاءُ - Bizning bolalarimiz kuchlilardir.
+- خَادِمُهُ سَفِيهٌ - Uning xodimi telbadir.
+- خُدَّامُهُمْ سُفَهَاءُ - Ularning xodimlari telbalardir.
+- خَادِمَتُهَا ذَكِيَّةٌ - Uning xodimasi donodir.
+- خَادِمَاتُهَا ذَكِيَّاتٌ - Uning xodimalari donolardir.
+- خَادِمُكَ غَبِيٌّ - Sening xodiming tentakdir.
+- خُدَّامُكُمْ أَغْبِيَاءُ - Sizlarning xodimlaringiz tentaklardir.
+- خَادِمَتُكِ سَمِينَةٌ - Sening xodimang semizdir.
+- خَادِمَاتُكُنَّ سَمِينَاتٌ - Siz ayollarning xodimalari semizlardir.
+- خَادِمِي قَوِيٌّ - Mening xodimim kuchlidir.
+- خُدَّامُنَا أَقْوِيَاءُ - Bizning xodimlarimiz kuchlilardir.
+- خَادِمَتِي عَاقِلَةٌ - Mening xodimam aqllidir.
+- خَادِمَاتُنَا عَاقِلَاتٌ - Bizning xodimalarimiz aqllilardir.
+- هُوَ صَدِيقِي - U mening do'stimdir.
+- هُمْ أَصْدِقَاؤُنَا - Ular bizning do'stlarimizdir.
+- أَنْتَ عَدُوُّهُ - Sen uning dushmanisan.
+- أَنْتُمْ أَعْدَاؤُهُمْ - Sizlar ularning dushmanlarisiz.
+- أَنَا صَدِيقُكَ - Men sening do'stingman.
+- نَحْنُ أَصْدِقَاؤُكُمْ - Biz sizlarning do'stlaringizmiz.
+- هُوَ جَارُكَ - U sening qo'shningdir.
+- هُمْ جِيرَانُكُمْ - Ular sizlarning qo'shnilaringizdir.
+- أَنْتَ ضَيْفِي - Sen mening mehmonimsan.
+- أَنْتُمْ ضُيُوفُنَا - Sizlar bizning mehmonlarimizsiz.
+- أَنَا جَارُكَ - Men sening qo'shningman.
+- نَحْنُ جِيرَانُكُمْ - Biz sizlarning qo'shnilaringizmiz.
+
+## 7-dars
+
+- أَبُوهُ غَنِيٌّ - Uning otasi boydir.
+- آبَاؤُهُمْ أَغْنِيَاءُ - Ularning otalari boylardir.
+- أَبُوهَا عَالِمٌ - Uning otasi olimdir.
+- آبَاؤُهَا عُلَمَاءُ - Ularning otalari olimlardir.
+- أَبُوكَ شَيْخٌ - Sening otang qariyadir.
+- آبَاؤُكُمْ شُيُوخٌ - Sizlarning otalaringiz qariyalardir.
+- أَبُوكِ شَابٌّ - Sening otang yigitdir.
+- آبَاؤُكُنَّ شُبَّانٌ - Siz ayollarning otalari yigitlardir.
+- أَبِي عَاقِلٌ - Mening otam aqllidir.
+- آبَاؤُنَا عُقَلَاءُ - Bizning otalarimiz aqllilardir.
+- أُمُّهُ غَنِيَّةٌ - Uning onasi boydir.
+- أُمَّهَاتُهُمْ غَنِيَّاتٌ - Ularning onalari boylardir.
+- أُمُّهَا عَالِمَةٌ - Uning onasi olimadir.
+- أُمَّهَاتُهُنَّ عَالِمَاتٌ - Ularning onalari olimalardir.
+- أُمُّكَ عَجُوزٌ - Sening onang kampirdir.
+- أُمَّهَاتُكُمْ عَجَائِزُ - Sizlarning onalaringiz kampirlardir.
+- أُمُّكِ عَاقِلَةٌ - Sening onang aqllidir.
+- أُمَّهَاتُكُنَّ عَاقِلَاتٌ - Siz ayollarning onalari aqllilardir.
+- أُمِّي عَالِمَةٌ - Mening onam olimadir.
+- أُمَّهَاتُنَا عَالِمَاتٌ - Bizning onalarimiz olimalardir.
+- اِبْنُهُ كَبِيرٌ - Uning o'g'li kattadir.
+- أَبْنَاؤُهُمْ كِبَارٌ - Ularning o'g'illari kattalardir.
+- اِبْنُكَ صَغِيرٌ - Sening o'g'ling kichikdir.
+- أَبْنَاؤُكُمْ صِغَارٌ - Sizlarning o'g'illaringiz kichiklardir.
+- اِبْنِي عَاقِلٌ - Mening o'g'lim aqllidir.
+- أَبْنَائِي عُقَلَاءُ - Mening o'g'illarim aqllilardir.
+- اِبْنَتُهَا ذَكِيَّةٌ - Uning qizi donodir.
+- بَنَاتُهَا ذَكِيَّاتٌ - Uning qizlari donolardir.
+- اِبْنَتُكِ سَمِينَةٌ - Sening qizing semizdir.
+- بَنَاتُكُنَّ سَمِينَاتٌ - Siz ayollarning qizlari semizdir.
+- اِبْنَتِي صَحِيحَةٌ - Mening qizim sog'lomdir.
+- بَنَاتُنَا صَحِيحَاتٌ - Bizning qizlarimiz sog'lomdir.
+- أَخُوهُ قَوِيٌّ - Uning akasi/inisi kuchlidir.
+- إِخْوَتُهُمْ أَقْوِيَاءُ - Ularning aka-ukalari kuchlilardir.
+- أُخْتُكَ ضَعِيفَةٌ - Sening opa-singling kuchsizdir.
+- أَخَوَاتُكُمْ ضَعِيفَاتٌ - Sizlarning opa-singillaringiz kuchsizdir.
+- جَدِّي شَيْخٌ - Mening bobom qariyadir.
+- أَجْدَادِي شُيُوخٌ - Mening bobolarim qariyalardir.
+- جَدَّتِي عَجُوزٌ - Mening momom kampirdir.
+- جَدَّاتِي عَجَائِزُ - Mening momolarim kampirlardir.
+- زَوْجُهَا غَنِيٌّ - Uning eri boydir.
+- أَزْوَاجُهَا أَغْنِيَاءُ - Ularning erlari boylardir.
+- زَوْجَتُكَ عَالِمَةٌ - Sening xotining olimadir.
+- زَوْجَاتُكُمْ عَالِمَاتٌ - Sizlarning xotinlaringiz olimalardir.
+- خَتَنُ عَلِيٍّ فَقِيرٌ - Alining kuyovi kambag'aldir.
+- أَخْتَانُ عَلِيٍّ فُقَرَاءُ - Alining kuyovlari kambag'allardir.
+- كَنَّةُ عَلِيٍّ جَاهِلَةٌ - Alining kelini johildir.
+- كَنَّاتُ عَلِيٍّ جَاهِلَاتٌ - Alining kelinlari johillardir.
+- أَبُو مَرْيَمَ عَاقِلٌ - Maryamning otasi aqllidir.
+- أُمُّ زَيْنَبَ عَاقِلَةٌ - Zaynabning onasi aqllidir.
+- اِبْنُ خَدِيجَةَ ذَكِيٌّ - Xadichaning o'g'li donodir.
+- أَبْنَاءُ خَدِيجَةَ أَذْكِيَاءُ - Xadichaning o'g'illari donolardir.
+- اِبْنَةُ عَائِشَةَ غَبِيَّةٌ - Oishaning qizi tentakdir.
+- بَنَاتُ عَائِشَةَ غَبِيَّاتٌ - Oishaning qizlari tentaklardir.
+- هُوَ أَبُوكَ - U sening otangdir.
+- هُمْ آبَاؤُكُمْ - Ular sizlarning otalaringizdir.
+- هِيَ أُمُّكِ - U sening onangdir.
+- هُنَّ أُمَّهَاتُكُنَّ - Ular siz ayollarning onalaridir.
+- أَنْتَ اِبْنُهُ - Sen uning o'g'lisan.
+- أَنْتُمْ أَبْنَاءٌ - Sizlar o'g'illarsiz.
+- أَنْتِ اِبْنَتُهَا - Sen uning qizisan.
+- أَنْتُنَّ بَنَاتُهَا - Sizlar uning qizlarisiz.
+- أَنَا أَخُوكَ - Men sening akang/iningsan.
+- نَحْنُ إِخْوَتُكُمْ - Biz sizlarning aka-ukalaringizmiz.
+
+## 8-dars
+
+- هَذَا أُسْتَاذٌ - Bu ustozdir.
+- هَؤُلَاءِ أَسَاتِذَةٌ - Bular ustozlardir.
+- ذَلِكَ تِلْمِيذٌ - Anavi shogirddir.
+- أُولَئِكَ تَلَامِيذُ - Anavilar shogirdlardir.
+- هَذَا طَبِيبٌ مَاهِرٌ - Bu mohir tabibdir.
+- هَؤُلَاءِ أَطِبَّاءُ مَهَرَةٌ - Bular mohir tabiblardir.
+- ذَلِكَ تَاجِرٌ صَالِحٌ - Anavi solih savdogardir.
+- أُولَئِكَ تُجَّارٌ صُلَحَاءُ - Anavilar solih savdogarlardir.
+- هَذَا صَانِعٌ مَاهِرٌ - Bu mohir hunarmanddir.
+- هَؤُلَاءِ صَنَعَةٌ مَهَرَةٌ - Bular mohir hunarmandlardir.
+- أُسْتَاذُنَا صَالِحٌ - Bizning ustozimiz solih kishidir.
+- تَلَامِيذُكُمْ مَهَرَةٌ - Sizlarning shogirdlaringiz mohirlardir.
+- أَطِبَّاؤُنَا صُلَحَاءُ - Bizning tabiblarimiz solih kishilardir.
+- صَنَعَتُهُمْ مَهَرَةٌ - Ularning hunarmandlari mohirlardir.
+
+## 9-dars
+
+- هَذَا الرَّجُلُ إِمَامٌ غَنِيٌّ - Bu kishi boy imomdir.
+- هَؤُلَاءِ الرِّجَالُ أَئِمَّةٌ أَغْنِيَاءُ - Bu kishilar boy imomlardir.
+- هَذَا الْمُعَلِّمُ رَجُلٌ ذَكِيٌّ - Bu o'qituvchi dono kishidir.
+- هَؤُلَاءِ الْمُعَلِّمُونَ رِجَالٌ أَذْكِيَاءُ - Bu o'qituvchilar dono kishilardir.
+- الرَّجُلُ الْفَاسِقُ غَبِيٌّ - Gunohkor kishi nodondir.
+- الرِّجَالُ الْفَسَقَةُ أَغْبِيَاءُ - Gunohkor kishilar nodonlardir.
+- هَذَا الْمُدَرِّسُ غَنِيٌّ - Bu mudarris badavlatdir.
+- هَؤُلَاءِ الْمُدَرِّسُونَ أَغْنِيَاءُ - Bu mudarrislar badavlatlardir.
+- ذَاكَ الْمُؤَذِّنُ فَقِيرٌ - Anavi muazzin kambag'aldir.
+- أُولَئِكَ الْمُؤَذِّنُونَ فُقَرَاءُ - Anavi muazzinlar kambag'allardir.
+- هَذَا الرَّجُلُ مُتَكَبِّرٌ - Bu kishi takabburdir.
+- هَؤُلَاءِ الرِّجَالُ مُتَكَبِّرُونَ - Bu kishilar takabburlardir.
+- تِلْكَ الْمَرْأَةُ مُتَوَاضِعَةٌ - Anavi xotin tavozelidir.
+- أُولَئِكَ النِّسَاءُ مُتَوَاضِعَاتٌ - Anavi xotinlar tavozelilardir.
+- الْإِنْسَانُ الصَّحِيحُ مَسْرُورٌ - Sog'lom kishi xursanddir.
+- النَّاسُ الْأَصِحَّاءُ مَسْرُورُونَ - Sog'lom kishilar xursanddirlar.
+- الْمَرْأَةُ الْمَرِيضَةُ مَحْزُونَةٌ - Bemor xotin mahzundir.
+- النِّسَاءُ الْمَرِيضَاتُ مَحْزُونَاتٌ - Bemor xotinlar mahzundirlar.
+- هَذَا الْوَلَدُ مُجْتَهِدٌ - Bu bola faoldir.
+- هَؤُلَاءِ الْأَوْلَادُ مُجْتَهِدُونَ - Bu bolalar faoldirlar.
+- ذَاكَ التِّلْمِيذُ كَسْلَانُ - Anavi shogird dangasadir.
+- أُولَئِكَ التَّلَامِيذُ كُسَالَى - Anavi shogirdlar dangasalardir.
+- هَذَا الرَّجُلُ صَادِقٌ - Bu kishi rostgo'ydir.
+- هَؤُلَاءِ الرِّجَالُ صَادِقُونَ - Bu kishilar rostgo'ylardir.
+- تِلْكَ الْخَادِمَةُ كَاذِبَةٌ - Anavi xizmatchi ayol yolg'onchidir.
+- أُولَئِكَ الْخَادِمَاتُ كَاذِبَاتٌ - Anavi xizmatchi ayollar yolg'onchilardir.
+- هُوَ مُتَوَاضِعٌ - U tavozelidir.
+- هُمْ مُتَوَاضِعُونَ - Ular tavozelilardir.
+- أَنْتَ مُتَكَبِّرٌ - Sen takabbursan.
+- أَنْتُمْ مُتَكَبِّرُونَ - Sizlar takabburlisizlar.
+- أَنَا مَسْرُورٌ - Men xursandman.
+- نَحْنُ مَسْرُورُونَ - Biz xursandmiz.
+- هِيَ كَاذِبَةٌ - U yolg'onchidir.
+- هُنَّ كَاذِبَاتٌ - Ular yolg'onchilardir.
+- أَنْتَ صَادِقٌ - Sen rostgo'ysan.
+- أَنْتُمْ صَادِقُونَ - Sizlar rostgo'ylarsiz.
+
+## 10-dars
+
+- هَذَا الرَّجُلُ نَجَّارٌ - Bu kishi duradgordir.
+- هَؤُلَاءِ الرِّجَالُ نَجَّارُونَ - Bu kishilar duradgorlardir.
+- هَذَا الْخَيَّاطُ شَيْخٌ - Bu tikuvchi qariyadir.
+- هَؤُلَاءِ الْخَيَّاطُونَ شُيُوخٌ - Bu tikuvchilar qariyalardir.
+- جَارُكَ خَبَّازٌ - Sening qo'shning nonvoydir.
+- جِيرَانُكُمْ خَبَّازُونَ - Sizning qo'shnilaringiz nonvoylardir.
+- جَارِي حَدَّادٌ - Mening qo'shnim temirchidir.
+- جِيرَانُنَا حَدَّادُونَ - Bizning qo'shnilarimiz temirchilardir.
+- هَذَا الْقَصَّابُ مَرِيضٌ - Bu qassob bemordir.
+- هَؤُلَاءِ الْقَصَّابُونَ مَرْضَى - Bu qassoblar bemorlardir.
+- ذَاكَ الْخَفَّافُ فَقِيرٌ - Anavi etikdo'z kambag'aldir.
+- أُولَئِكَ الْخَفَّافُونَ فُقَرَاءُ - Anavi etikdo'zlar kambag'allardir.
+- هَذَا الْحَلَّاقُ كَاذِبٌ - Bu sartarosh yolg'onchidir.
+- هَؤُلَاءِ الْحَلَّاقُونَ كَاذِبُونَ - Bu sartaroshlar yolg'onchilardir.
+- تِلْكَ الْقَصَّارَةُ فَقِيرَةٌ - Anavi kir yuvuvchi xotin kambag'aldir.
+- أُولَئِكَ الْقَصَّارَاتُ فَقِيرَاتٌ - Anavi kir yuvuvchi xotinlar kambag'allardir.
+- هَذَا الرَّجُلُ فَرَّاشٌ - Bu kishi farroshdir.
+- هَؤُلَاءِ الرِّجَالُ فَرَّاشُونَ - Bu kishilar farroshlardir.
+- ذَاكَ الْحَمَّالُ قَوِيٌّ - Anavi hammol kuchlidir.
+- أُولَئِكَ الْحَمَّالُونَ أَقْوِيَاءُ - Anavi hammollar kuchlilardir.
+- هَذَا الدَّلَّالُ صَادِقٌ - Bu dallol rostgo'ydir.
+- هَؤُلَاءِ الدَّلَّالُونَ صَادِقُونَ - Bu dallollar rostgo'ylardir.
+- ذَاكَ الْفَلَّاحُ غَنِيٌّ - Anavi dehqon boydir.
+- أُولَئِكَ الْفَلَّاحُونَ أَغْنِيَاءُ - Anavi dehqonlar boylardir.
+- هَذَا الْمَلَّاحُ صَحِيحٌ - Bu kemachi sog'lomdir.
+- هَؤُلَاءِ الْمَلَّاحُونَ أَصِحَّاءُ - Bu kemachilar sog'lomlardir.
+- ذَاكَ الْكَسْلَانُ بَطَّالٌ - Anavi dangasa ishsizdir.
+- أُولَئِكَ الْكُسَالَى بَطَّالُونَ - Anavi dangasalar ishsizlardir.
+- هُوَ نَجَّارٌ - U duradgordir.
+- هُمْ نَجَّارُونَ - Ular duradgorlardir.
+- أَنْتَ خَيَّاطٌ - Sen tikuvchisan.
+- أَنْتُمْ خَيَّاطُونَ - Sizlar tikuvchisizlar.
+- أَنَا حَدَّادٌ - Men temirchiman.
+- نَحْنُ حَدَّادُونَ - Bizlar temirchilarmiz.
+- هُوَ خَبَّازٌ - U nonvoydir.
+- هُمْ خَبَّازُونَ - Ular nonvoylardir.
+- أَنْتَ قَصَّابٌ - Sen qassobsan.
+- أَنْتُمْ قَصَّابُونَ - Sizlar qassoblarsiz.
+- أَنَا خَفَّافٌ - Men etikdo'zman.
+- نَحْنُ خَفَّافُونَ - Bizlar etikdo'zlarmiz.
+- الرَّجُلُ الْبَطَّالُ كَسْلَانُ - Ishsiz kishi dangasadir.
+- الرِّجَالُ الْبَطَّالُونَ كُسَالَى - Ishsiz kishilar dangasalardir.
+- الرَّجُلُ الْكَسْلَانُ مَرِيضٌ - Dangasa kishi bemordir.
+- الرِّجَالُ الْكُسَالَى مَرْضَى - Dangasa kishilar bemorlardir.
+
+## 11-dars
+
+- هُوَ أَزْهَرُ - U oq yuzlidir.
+- هُمْ زُهْرٌ - Ular oq yuzlilardir.
+- هِيَ زَهْرَاءُ - U ayol oq yuzlidir.
+- هُنَّ زُهْرٌ - U ayollar oq yuzlilardir.
+- أَنْتَ أَسْمَرُ - Sen qora yuzlisan.
+- أَنْتُمْ سُمْرٌ - Sizlar qora yuzlisizlar.
+- أَنْتِ خَرْسَاءُ - Sen ayol tilsizsan.
+- أَنْتُنَّ خُرْسٌ - Siz ayollar tilsizsizlar.
+- أَنَا أَشْقَرُ - Men qizil yuzliman.
+- نَحْنُ شُقْرٌ - Biz qizil yuzlilarmiz.
+- هُوَ أَصَمُّ - U kardir.
+- هُمْ صُمٌّ - Ular karlardir.
+- هِيَ عَمْيَاءُ - U ayol ko'rdir.
+- هُنَّ عُمْيٌ - U ayollar ko'rlardir.
+- هَذَا الرَّجُلُ أَحْمَقُ - Bu kishi ahmoqdir.
+- هَذِهِ الْمَرْأَةُ حَمْقَاءُ - Bu ayol ahmoqdir.
+- هَذَا الإِنْسَانُ أَشَلُّ - Bu kishi sholdir.
+- هَذَا الشَّيْخُ أَعْرَجُ - Bu qariya oqsoqdir.
+- هَذِهِ الْعَجُوزُ حَدْبَاءُ - Bu kampir bukridir.
+- ذَاكَ الشَّابُّ أَزْهَرُ - Anavi yigit oq yuzlidir.
+- تِلْكَ الشَّابَّةُ شَلَّاءُ - Anavi qiz sholdir.
+- هَذَا الصَّبِيُّ أَلْثَغُ - Bu go'dak soqovdir.
+- هَذِهِ الصَّبِيَّةُ لَثْغَاءُ - Bu go'dak qiz soqovdir.
+- صَدِيقُهُ أَزْهَرُ - Uning do'sti oq yuzlidir.
+- صَدِيقَتُهَا زَهْرَاءُ - Uning ayol do'sti oq yuzlidir.
+- اِبْنُكَ أَسْمَرُ - Sening o'g'ling qora yuzlidir.
+- اِبْنَتُكَ سَمْرَاءُ - Sening qizing qora yuzlidir.
+- أَبُوهُ أَصَمُّ - Uning otasi kardir.
+- أُمُّهُ عَمْيَاءُ - Uning onasi ko'rdir.
+- أَخِي أَعْرَجُ - Mening akam/ukam oqsoqdir.
+- أُخْتِي لَثْغَاءُ - Mening opam/singlim soqovdir.
+- الرَّجُلُ الأَخْرَسُ أَصَمُّ - Tilsiz kishi kardir.
+- الرِّجَالُ الْخُرْسُ صُمٌّ - Tilsiz kishilar karlardir.
+- الْمَرْأَةُ الْخَرْسَاءُ صَمَّاءُ - Tilsiz ayol kardir.
+- النِّسَاءُ الْخُرْسُ صُمٌّ - Tilsiz ayollar karlardir.
+- الإِنْسَانُ الأَعْمَى مَحْزُونٌ - Ko'r kishi xafadir.
+- الشَّيْخُ الأَعْرَجُ ضَعِيفٌ - Oqsoq qariya kuchsizdir.
+- الْعَجُوزُ الْحَدْبَاءُ مَرِيضَةٌ - Bukri kampir bemordir.
+- الْوَلَدُ الأَلْثَغُ مَرِيضٌ - Soqov bola bemordir.
+- هَذَا الشَّابُّ الأَشْقَرُ خَيَّاطٌ مَاهِرٌ - Bu qizil yuzli yigit mohir tikuvchidir.
+- ذَاكَ النَّجَّارُ الأَخْرَسُ أَصَمُّ - Anavi tilsiz duradgor kardir.
+- هَؤُلَاءِ الْحَدَّادُونَ الْخُرْسُ صُمٌّ - Bu tilsiz temirchilar karlardir.
+- أُولَئِكَ الْحَمَّالُونَ الْفُقَرَاءُ حُولٌ - Anavi kambag'al hammollar g'ilay ko'zlilardir.
