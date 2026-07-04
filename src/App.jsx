@@ -82,6 +82,36 @@ const ALPHABET_LESSON_LETTERS = [
   { arabic: 'ش', uzbek: 'shin', speech: 'شين' },
   { arabic: 'ص', uzbek: 'sod', speech: 'صاد' },
   { arabic: 'ض', uzbek: 'dod', speech: 'ضاد' },
+  { arabic: 'ط', uzbek: 'to', speech: 'طاء' },
+  { arabic: 'ظ', uzbek: 'zo', speech: 'ظاء' },
+  { arabic: 'ع', uzbek: "a'yn", speech: 'عين' },
+  { arabic: 'غ', uzbek: "g'oyn", speech: 'غين' },
+  { arabic: 'ف', uzbek: 'fa', speech: 'فاء' },
+  { arabic: 'ق', uzbek: 'qof', speech: 'قاف' },
+  { arabic: 'ك', uzbek: 'kaf', speech: 'كاف' },
+  { arabic: 'ل', uzbek: 'lam', speech: 'لام' },
+  { arabic: 'لا', uzbek: 'lam alif', speech: 'لام ألف' },
+  { arabic: 'م', uzbek: 'mim', speech: 'ميم' },
+  { arabic: 'ن', uzbek: 'nun', speech: 'نون' },
+  { arabic: 'ه', uzbek: 'ha', speech: 'هاء' },
+  { arabic: 'و', uzbek: 'vav', speech: 'واو' },
+  { arabic: 'ي', uzbek: 'ya', speech: 'ياء' },
+];
+const ALPHABET_LESSON_2_LETTERS = [
+  { arabic: 'ط', uzbek: 'to', speech: 'طاء' },
+  { arabic: 'ظ', uzbek: 'zo', speech: 'ظاء' },
+  { arabic: 'ع', uzbek: "a'yn", speech: 'عين' },
+  { arabic: 'غ', uzbek: "g'oyn", speech: 'غين' },
+  { arabic: 'ف', uzbek: 'fa', speech: 'فاء' },
+  { arabic: 'ق', uzbek: 'qof', speech: 'قاف' },
+  { arabic: 'ك', uzbek: 'kaf', speech: 'كاف' },
+  { arabic: 'ل', uzbek: 'lam', speech: 'لام' },
+  { arabic: 'م', uzbek: 'mim', speech: 'ميم' },
+  { arabic: 'ن', uzbek: 'nun', speech: 'نون' },
+  { arabic: 'و', uzbek: 'vav', speech: 'واو' },
+  { arabic: 'ه', uzbek: 'ha', speech: 'هاء' },
+  { arabic: 'لا', uzbek: 'lam alif', speech: 'لام ألف' },
+  { arabic: 'ي', uzbek: 'ya', speech: 'ياء' },
 ];
 const ALPHABET_LETTER_AUDIO_FILES = new Map([
   ['ا', 'alif.mp3'],
@@ -99,6 +129,20 @@ const ALPHABET_LETTER_AUDIO_FILES = new Map([
   ['ش', 'shin.mp3'],
   ['ص', 'sod.mp3'],
   ['ض', 'dod.mp3'],
+  ['ط', 'to.mp3'],
+  ['ظ', 'zo.mp3'],
+  ['ع', 'ayn.mp3'],
+  ['غ', 'goyn.mp3'],
+  ['ف', 'fa.mp3'],
+  ['ق', 'qof.mp3'],
+  ['ك', 'kaf.mp3'],
+  ['ل', 'lam.mp3'],
+  ['لا', 'lam-alif.mp3'],
+  ['م', 'mim.mp3'],
+  ['ن', 'nun.mp3'],
+  ['ه', 'ha.mp3'],
+  ['و', 'vav.mp3'],
+  ['ي', 'ya.mp3'],
 ]);
 const ACCOUNT_PLANS = {
   indiv: [
@@ -425,6 +469,9 @@ function getPlanUsage(profile, users) {
     }).length;
     const teacherLimit = plan === 'center_plus' ? 20 : 10;
     const studentLimit = plan === 'center_plus' ? 200 : 100;
+    const totalUsed = teacherCount + studentCount;
+    const totalLimit = teacherLimit + studentLimit;
+    const usagePercent = Math.max(Math.round((totalUsed / totalLimit) * 100), 0);
     return {
       label: plan === 'center_plus' ? 'MARKAZ +' : 'MARKAZ',
       title: meta.title.toUpperCase(),
@@ -433,23 +480,30 @@ function getPlanUsage(profile, users) {
       studentCount,
       teacherLimit,
       studentLimit,
+      totalUsed,
+      totalLimit,
+      usagePercent,
       teacherPercent: Math.round((teacherCount / teacherLimit) * 100),
       studentPercent: Math.round((studentCount / studentLimit) * 100),
-      usageText: `SIZ TARIFNING ${Math.max(Math.round(Math.max(teacherCount / teacherLimit, studentCount / studentLimit) * 100), 0)}% NI ISHLATIB BO'LDINGIZ.`,
+      usageText: `SIZ TARIFNING ${usagePercent}% NI ISHLATIB BO'LDINGIZ.`,
     };
   }
 
   if (accountType === 'indiv') {
     const studentCount = users.filter((candidate) => getProfileAccountType(candidate) === 'student' && getProfileParentId(candidate) === profile.id).length;
     const studentLimit = plan === 'indiv_plus' ? 40 : 20;
+    const usagePercent = Math.max(Math.round((studentCount / studentLimit) * 100), 0);
     return {
       label: plan === 'indiv_plus' ? 'INDIV +' : 'INDIV',
       title: meta.title.toUpperCase(),
       limitText: meta.limit.toUpperCase(),
       studentCount,
       studentLimit,
+      totalUsed: studentCount,
+      totalLimit: studentLimit,
+      usagePercent,
       studentPercent: Math.round((studentCount / studentLimit) * 100),
-      usageText: `SIZ TARIFNING ${Math.round((studentCount / studentLimit) * 100)}% NI ISHLATIB BO'LDINGIZ.`,
+      usageText: `SIZ TARIFNING ${usagePercent}% NI ISHLATIB BO'LDINGIZ.`,
     };
   }
 
@@ -861,6 +915,9 @@ function makeOralPracticeItems(lesson) {
   if (lesson.level === 1 && !lesson.isReview) {
     return shuffle(ALPHABET_LESSON_LETTERS, lesson.seed * 91).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
   }
+  if (lesson.level === 2 && !lesson.isReview) {
+    return shuffle(ALPHABET_LESSON_2_LETTERS, lesson.seed * 92).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
+  }
   const words = shuffle(lesson.words, lesson.seed * 70)
     .slice(0, ORAL_PRACTICE_WORD_COUNT)
     .map((item) => ({ ...item, oralType: 'word' }));
@@ -877,6 +934,15 @@ function makeSectionFlow(lesson, sectionId) {
       { type: 'section', title: "1-BO'LIM", subtitle: 'ARAB HARFLARI', description: "Arab harflari bilan tanishamiz, so'ng test va og'zaki mashq qilamiz." },
       { type: 'study', title: 'ARAB HARFLARI', mode: 'letters', items: letters, canSkipToTest: false },
       { type: 'quiz', title: "1-MASHQ: HARF NOMINI TOPING", questions: makeChoiceQuestions(letters, 'arabic', 'uzbek', lesson.seed * 11, letters.length) },
+      { type: 'oral', title: "OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
+    ];
+  }
+  if (lesson.level === 2 && !lesson.isReview) {
+    const letters = ALPHABET_LESSON_2_LETTERS;
+    return [
+      { type: 'section', title: "1-BO'LIM", subtitle: 'ARAB HARFLARI', description: "T dan boshlab arab harflari bilan tanishamiz, so'ng test va og'zaki mashq qilamiz." },
+      { type: 'study', title: 'ARAB HARFLARI', mode: 'letters', items: letters, canSkipToTest: false },
+      { type: 'quiz', title: "1-MASHQ: HARF NOMINI TOPING", questions: makeChoiceQuestions(letters, 'arabic', 'uzbek', lesson.seed * 12, letters.length) },
       { type: 'oral', title: "OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
     ];
   }
@@ -938,6 +1004,7 @@ function makeReviewLesson(baseLessons, review) {
 
 function lessonTitle(lesson) {
   if (lesson?.level === 1 && !lesson?.isReview) return '1-DARS: ARAB HARFLARI (1-QISM)';
+  if (lesson?.level === 2 && !lesson?.isReview) return '2-DARS: ARAB HARFLARI (2-QISM)';
   return lesson.title || `${lesson.level}-bosqich`;
 }
 
@@ -1893,7 +1960,10 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
 
 function LevelSections({ user, lesson, onBack, onStartSection }) {
   const levelScore = getLevelScore(user, lesson);
-  const isAlphabetLesson = lesson.level === 1 && !lesson.isReview;
+  const isAlphabetLesson = (lesson.level === 1 || lesson.level === 2) && !lesson.isReview;
+  const alphabetStartText = lesson.level === 1
+    ? "Bu darsda arab harflarini 1-dan 15-gacha o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz."
+    : "Bu darsda arab harflarini ط dan boshlab o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz.";
   const sectionConfigs = getLessonSectionIds(lesson).map((sectionId, index) => {
     const descriptions = {
       letters: "Arab harflari bilan tanishish, test va og'zaki mashq.",
@@ -1932,7 +2002,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
           <h1>{lessonTitle(lesson)}</h1>
           <p>
             {isAlphabetLesson
-              ? "Bu darsda arab harflarini 1-dan 15-gacha o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz."
+              ? alphabetStartText
               : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
           </p>
           <div className="average-box">
@@ -1947,7 +2017,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
                 <span>1-BO'LIM</span>
                 <strong>ARAB HARFLARI</strong>
               </div>
-              <p>Arab harflari bilan tanishish, test va og'zaki mashq uchun yagona dars.</p>
+              <p>{lesson.level === 1 ? "Arab harflari bilan tanishish, test va og'zaki mashq uchun yagona dars." : "T dan boshlab arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('letters', { restart: true })}>
                   BOSHLASH
