@@ -2205,100 +2205,6 @@ function supportsBrowserSpeechRecognition() {
   return Boolean(getSpeechRecognitionCtor());
 }
 
-function supportsMediaRecorder() {
-  return typeof window !== 'undefined' && typeof window.MediaRecorder !== 'undefined';
-}
-
-async function transcribeWithServerRecording({ lang = 'ar', durationMs = 5000 } = {}) {
-  if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
-    throw new Error('getUserMedia');
-  }
-  if (!supportsMediaRecorder()) {
-    throw new Error('MediaRecorder not supported');
-  }
-
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  const chunks = [];
-  const mimeTypeCandidates = [
-    'audio/webm;codecs=opus',
-    'audio/webm',
-    'audio/mp4',
-  ];
-  const mimeType = mimeTypeCandidates.find((candidate) => window.MediaRecorder.isTypeSupported?.(candidate)) || '';
-  const recorder = new window.MediaRecorder(stream, mimeType ? { mimeType } : undefined);
-
-  return await new Promise((resolve, reject) => {
-    let settled = false;
-    const cleanup = () => {
-      stream.getTracks().forEach((track) => track.stop());
-    };
-    const finish = (fn, value) => {
-      if (settled) return;
-      settled = true;
-      window.clearTimeout(timeoutId);
-      recorder.ondataavailable = null;
-      recorder.onerror = null;
-      recorder.onstop = null;
-      cleanup();
-      fn(value);
-    };
-
-    const timeoutId = window.setTimeout(() => {
-      // Note: we intentionally do NOT call recorder.requestData() here.
-      // recorder.stop() already fires a final 'dataavailable' event on its own,
-      // and calling requestData() immediately before stop() has been observed to
-      // leave MediaRecorder in a stuck state (no 'onstop' ever fires) on some
-      // Android Chromium builds, which made the UI hang forever on "Ovoz yozib
-      // olinmoqda...".
-      try {
-        recorder.stop();
-      } catch (error) {
-        finish(reject, error);
-      }
-    }, durationMs);
-
-    recorder.ondataavailable = (event) => {
-      if (event.data && event.data.size > 0) chunks.push(event.data);
-    };
-
-    recorder.onerror = (event) => {
-      finish(reject, new Error(event?.error?.name || event?.error?.message || 'MediaRecorder error'));
-    };
-
-    recorder.onstop = async () => {
-      try {
-        const finalMimeType = recorder.mimeType || mimeType || 'audio/webm';
-        const blob = new Blob(chunks, { type: finalMimeType });
-        // Use a filename extension that matches the actual recorded format.
-        // iOS Safari (and some Android browsers) only support audio/mp4, not
-        // audio/webm. Always naming the file "speech.webm" made the backend
-        // tell OpenAI to decode mp4 data as webm, which fails or produces
-        // garbage transcripts on those devices.
-        const extension = finalMimeType.includes('mp4') ? 'm4a'
-          : finalMimeType.includes('ogg') ? 'ogg'
-          : 'webm';
-        const formData = new FormData();
-        formData.append('file', blob, `speech.${extension}`);
-        formData.append('language', lang);
-
-        const response = await fetch('/api/transcribe', {
-          method: 'POST',
-          body: formData,
-        });
-        const payload = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          throw new Error(payload?.error || 'Transkripsiya xatosi.');
-        }
-        finish(resolve, payload.text || '');
-      } catch (error) {
-        finish(reject, error);
-      }
-    };
-
-    recorder.start(1000);
-  });
-}
-
 function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000 } = {}) {
   const SpeechRecognition = getSpeechRecognitionCtor();
   if (!SpeechRecognition) {
@@ -2336,7 +2242,10 @@ function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000
     };
 
     recognition.onerror = (event) => {
-      finish(reject, new Error(event?.error || 'SpeechRecognition error'));
+      const error = new Error(event?.error || 'SpeechRecognition error');
+      error.name = event?.error || 'SpeechRecognitionError';
+      error.code = event?.error || 'SpeechRecognitionError';
+      finish(reject, error);
     };
 
     recognition.onend = () => {
@@ -2530,12 +2439,7 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
   const item = step.items[index];
   const isSentence = item.oralType === 'sentence';
   const isLetter = item.oralType === 'letter';
-  const hasGetUserMedia = typeof navigator !== 'undefined' && Boolean(navigator.mediaDevices?.getUserMedia);
-  // Only report mic support when we actually have a working transcription path:
-  // getUserMedia + MediaRecorder (uploads to /api/transcribe), or the browser's
-  // native SpeechRecognition. getUserMedia alone (with neither of those) used to
-  // report canUseMic = true but then fail with a confusing error when tapped.
-  const canUseMic = (hasGetUserMedia && supportsMediaRecorder()) || supportsBrowserSpeechRecognition();
+  const canUseMic = supportsBrowserSpeechRecognition();
   const expectedSpeech = isLetter
     ? (item.speech || item.uzbek || item.arabic)
     : (item.speech || item.arabic || item.uzbek);
@@ -2561,7 +2465,7 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
     if (!canUseMic) {
       setStatus(isTelegramIOSWebApp()
         ? "Telegram mini app bu qurilmada mikrofonga kirishni cheklaydi. Sahifani Safari yoki Chrome'da ochib ko'ring."
-        : "Bu brauzer audio yozishni qo'llamaydi.");
+        : "Bu brauzer SpeechRecognition'ni qo'llamaydi.");
       return;
     }
     if (force) setLocked(false);
@@ -2570,16 +2474,10 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
     if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
 
     try {
-      setStatus(supportsMediaRecorder()
-        ? 'Ovoz yozib olinmoqda...'
-        : 'Ovoz tinglanmoqda...');
-      const recordingPromise = supportsMediaRecorder()
-        ? transcribeWithServerRecording({ lang: 'ar', durationMs: ORAL_PRACTICE_RECORDING_MS })
-        : transcribeWithBrowserSpeechRecognition({ lang: 'ar', durationMs: ORAL_PRACTICE_RECORDING_MS });
-      // Watchdog: some Android browsers can leave MediaRecorder (or the
-      // upload/transcription request) stuck with no 'onstop'/'onerror' ever
-      // firing, which used to hang the UI on "Ovoz yozib olinmoqda..."
-      // forever. This guarantees the user always gets feedback.
+      setStatus('Ovoz tinglanmoqda...');
+      const recordingPromise = transcribeWithBrowserSpeechRecognition({ lang: 'ar', durationMs: ORAL_PRACTICE_RECORDING_MS });
+      // Watchdog: some browsers can keep speech recognition open longer than
+      // expected, so we always end the attempt deterministically.
       const watchdogPromise = new Promise((_resolve, reject) => {
         window.setTimeout(() => reject(new Error('Timeout')), ORAL_PRACTICE_RECORDING_MS + 6000);
       });
@@ -2591,19 +2489,22 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
       return;
     } catch (error) {
       setListening(false);
-      const code = error?.name || error?.message || '';
-      if (code === 'Timeout') {
+      const code = error?.name || error?.code || '';
+      const detail = error?.message || error?.error?.message || error?.error || '';
+      const label = code && code !== 'Error' ? code : detail;
+      const fallbackLabel = label || 'unknown';
+      if (label === 'Timeout') {
         setStatus("Javob juda uzoq kutildi. Qayta urinib ko'ring.");
-      } else if (code === 'NotAllowedError' || code === 'PermissionDeniedError') {
+      } else if (label === 'NotAllowedError' || label === 'PermissionDeniedError') {
         setStatus('Mikrofonga ruxsat berilmagan. Brauzer sozlamalarida mic permission ni yoqing.');
-      } else if (code === 'NotFoundError' || code === 'DevicesNotFoundError') {
+      } else if (label === 'NotFoundError' || label === 'DevicesNotFoundError') {
         setStatus('Mikrofon topilmadi. Qurilmada mic borligini tekshiring.');
-      } else if (code === 'NotReadableError' || code === 'TrackStartError') {
+      } else if (label === 'NotReadableError' || label === 'TrackStartError') {
         setStatus('Mikrofon band yoki ishlamayapti. Boshqa ilovalar mic ishlatayotgan bo‘lishi mumkin.');
       } else if (isTelegramIOSWebApp()) {
         setStatus("Telegram mini app bu qurilmada mikrofonga kirishni cheklaydi. Safari'da ochib ko'ring.");
       } else {
-        setStatus(`Mikrofon ruxsati olinmadi (${code || 'unknown'}).`);
+        setStatus(`Mikrofon ruxsati olinmadi (${fallbackLabel}).`);
       }
     }
   }
