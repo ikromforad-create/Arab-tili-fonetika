@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import wordsSource from '../data/shifohiyya-1-lessons-1-10.json';
 import sentencesMarkdown from '../data/shifohiyya-1-lessons-1-10-sentences.md?raw';
-import { getTelegramUser, initTelegramWebApp, isTelegramWebApp } from './telegramWebApp';
+import { getTelegramUser, getTelegramWebApp, initTelegramWebApp, isTelegramWebApp } from './telegramWebApp';
 import {
   getSiteClientId,
   createProfileByAdmin,
@@ -63,10 +63,73 @@ const GOOGLE_TRANSLATE_TTS_URL = 'https://translate.google.com/translate_tts';
 const PRONUNCIATION_REPLACEMENTS = [
   ['طَوِيلَاتٌ', 'طَوِيلَااتٌ'],
 ];
+const LETTER_SPEECH_ALIASES = {
+  alif: ['alif', 'elif'],
+  ba: ['ba'],
+  ta: ['ta'],
+  sa: ['sa'],
+  jim: ['jim'],
+  ha: ['ha'],
+  xo: ['xo', 'kho'],
+  dal: ['dal'],
+  zal: ['zal'],
+  ro: ['ro'],
+  za: ['za'],
+  sin: ['sin'],
+  shin: ['shin'],
+  sod: ['sod'],
+  dod: ['dod'],
+  to: ['to'],
+  zo: ['zo'],
+  "a'yn": ['ayn', 'a yn', 'ain', 'a' + 'yn'],
+  "g'oyn": ['goyn', 'g' + 'oyn', 'ghayn', 'ghoyn'],
+  fa: ['fa'],
+  qof: ['qof'],
+  kaf: ['kaf'],
+  lam: ['lam'],
+  'lam alif': ['lam alif', 'lamelif', 'lam-alif', 'lamalif', 'laam alif'],
+  mim: ['mim'],
+  nun: ['nun'],
+  haa: ['ha', 'haa'],
+  vav: ['vav', 'waw', 'vaav'],
+  ya: ['ya', 'yya', 'yaa'],
+};
+const LETTER_ARABIC_TO_LATIN = new Map([
+  ['ا', 'alif'],
+  ['ب', 'ba'],
+  ['ت', 'ta'],
+  ['ث', 'sa'],
+  ['ج', 'jim'],
+  ['ح', 'ha'],
+  ['خ', 'xo'],
+  ['د', 'dal'],
+  ['ذ', 'zal'],
+  ['ر', 'ro'],
+  ['ز', 'za'],
+  ['س', 'sin'],
+  ['ش', 'shin'],
+  ['ص', 'sod'],
+  ['ض', 'dod'],
+  ['ط', 'to'],
+  ['ظ', 'zo'],
+  ['ع', "a'yn"],
+  ['غ', "g'oyn"],
+  ['ف', 'fa'],
+  ['ق', 'qof'],
+  ['ك', 'kaf'],
+  ['ل', 'lam'],
+  ['لا', 'lam alif'],
+  ['م', 'mim'],
+  ['ن', 'nun'],
+  ['ه', 'ha'],
+  ['و', 'vav'],
+  ['ي', 'ya'],
+]);
 const ORAL_PRACTICE_ITEM_COUNT = 20;
 const ORAL_PRACTICE_WORD_COUNT = 10;
+const ORAL_PRACTICE_RECORDING_MS = 9000;
 const ARABIC_DIACRITICS_PATTERN = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
-const ALPHABET_LESSON_LETTERS = [
+const ALPHABET_LESSON_1_LETTERS = [
   { arabic: 'ا', uzbek: 'alif', speech: 'ألف' },
   { arabic: 'ب', uzbek: 'ba', speech: 'باء' },
   { arabic: 'ت', uzbek: 'ta', speech: 'تاء' },
@@ -81,6 +144,8 @@ const ALPHABET_LESSON_LETTERS = [
   { arabic: 'س', uzbek: 'sin', speech: 'سين' },
   { arabic: 'ش', uzbek: 'shin', speech: 'شين' },
   { arabic: 'ص', uzbek: 'sod', speech: 'صاد' },
+];
+const ALPHABET_LESSON_2_LETTERS = [
   { arabic: 'ض', uzbek: 'dod', speech: 'ضاد' },
   { arabic: 'ط', uzbek: 'to', speech: 'طاء' },
   { arabic: 'ظ', uzbek: 'zo', speech: 'ظاء' },
@@ -95,22 +160,6 @@ const ALPHABET_LESSON_LETTERS = [
   { arabic: 'ن', uzbek: 'nun', speech: 'نون' },
   { arabic: 'ه', uzbek: 'ha', speech: 'هاء' },
   { arabic: 'و', uzbek: 'vav', speech: 'واو' },
-  { arabic: 'ي', uzbek: 'ya', speech: 'ياء' },
-];
-const ALPHABET_LESSON_2_LETTERS = [
-  { arabic: 'ط', uzbek: 'to', speech: 'طاء' },
-  { arabic: 'ظ', uzbek: 'zo', speech: 'ظاء' },
-  { arabic: 'ع', uzbek: "a'yn", speech: 'عين' },
-  { arabic: 'غ', uzbek: "g'oyn", speech: 'غين' },
-  { arabic: 'ف', uzbek: 'fa', speech: 'فاء' },
-  { arabic: 'ق', uzbek: 'qof', speech: 'قاف' },
-  { arabic: 'ك', uzbek: 'kaf', speech: 'كاف' },
-  { arabic: 'ل', uzbek: 'lam', speech: 'لام' },
-  { arabic: 'م', uzbek: 'mim', speech: 'ميم' },
-  { arabic: 'ن', uzbek: 'nun', speech: 'نون' },
-  { arabic: 'و', uzbek: 'vav', speech: 'واو' },
-  { arabic: 'ه', uzbek: 'ha', speech: 'هاء' },
-  { arabic: 'لا', uzbek: 'lam alif', speech: 'لام ألف' },
   { arabic: 'ي', uzbek: 'ya', speech: 'ياء' },
 ];
 const ALPHABET_LETTER_AUDIO_FILES = new Map([
@@ -388,6 +437,10 @@ function isRemovedLocalUsername(username) {
 
 function isAdminUsername(username) {
   return normalizeUsername(username) === ADMIN_USERNAME;
+}
+
+function isAdminUser(user) {
+  return Boolean(user?.isAdmin || isAdminUsername(user?.username));
 }
 
 function getAccountTypeLabel(accountType) {
@@ -913,7 +966,7 @@ function makeArrangeQuestions(items, promptKey, answerKey, seed, limit = 10) {
 
 function makeOralPracticeItems(lesson) {
   if (lesson.level === 1 && !lesson.isReview) {
-    return shuffle(ALPHABET_LESSON_LETTERS, lesson.seed * 91).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
+    return shuffle(ALPHABET_LESSON_1_LETTERS, lesson.seed * 91).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
   }
   if (lesson.level === 2 && !lesson.isReview) {
     return shuffle(ALPHABET_LESSON_2_LETTERS, lesson.seed * 92).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
@@ -929,7 +982,7 @@ function makeOralPracticeItems(lesson) {
 
 function makeSectionFlow(lesson, sectionId) {
   if (lesson.level === 1 && !lesson.isReview) {
-    const letters = ALPHABET_LESSON_LETTERS;
+    const letters = ALPHABET_LESSON_1_LETTERS;
     return [
       { type: 'section', title: "1-BO'LIM", subtitle: 'ARAB HARFLARI', description: "Arab harflari bilan tanishamiz, so'ng test va og'zaki mashq qilamiz." },
       { type: 'study', title: 'ARAB HARFLARI', mode: 'letters', items: letters, canSkipToTest: false },
@@ -940,7 +993,7 @@ function makeSectionFlow(lesson, sectionId) {
   if (lesson.level === 2 && !lesson.isReview) {
     const letters = ALPHABET_LESSON_2_LETTERS;
     return [
-      { type: 'section', title: "1-BO'LIM", subtitle: 'ARAB HARFLARI', description: "T dan boshlab arab harflari bilan tanishamiz, so'ng test va og'zaki mashq qilamiz." },
+      { type: 'section', title: "1-BO'LIM", subtitle: 'ARAB HARFLARI', description: "Qolgan arab harflari bilan tanishamiz, so'ng test va og'zaki mashq qilamiz." },
       { type: 'study', title: 'ARAB HARFLARI', mode: 'letters', items: letters, canSkipToTest: false },
       { type: 'quiz', title: "1-MASHQ: HARF NOMINI TOPING", questions: makeChoiceQuestions(letters, 'arabic', 'uzbek', lesson.seed * 12, letters.length) },
       { type: 'oral', title: "OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
@@ -1291,7 +1344,7 @@ function leaderboardStage(player) {
 }
 
 function isLevelLocked(user, lesson) {
-  if (UNLOCK_ALL_LEVELS) return false;
+  if (UNLOCK_ALL_LEVELS || isAdminUser(user)) return false;
   if (lesson.isReview) return passedLevels(user) < lesson.reviewThroughLevel;
   return (lesson.unlockLevel ?? lesson.level) > (user.progress.unlockedLevel || 1);
 }
@@ -1962,11 +2015,13 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
   const levelScore = getLevelScore(user, lesson);
   const isAlphabetLesson = (lesson.level === 1 || lesson.level === 2) && !lesson.isReview;
   const alphabetStartText = lesson.level === 1
-    ? "Bu darsda arab harflarini 1-dan 15-gacha o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz."
-    : "Bu darsda arab harflarini ط dan boshlab o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz.";
+    ? "Bu darsda arab harflarini alifdan sodgacha o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz."
+    : "Bu darsda qolgan arab harflarini o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz.";
   const sectionConfigs = getLessonSectionIds(lesson).map((sectionId, index) => {
     const descriptions = {
-      letters: "Arab harflari bilan tanishish, test va og'zaki mashq.",
+      letters: lesson.level === 1
+        ? "Alifdan sodgacha bo'lgan harflar, test va og'zaki mashq."
+        : "Qolgan harflar, test va og'zaki mashq.",
       words: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich so'zlaridan takrorlash mashqlari.` : "Arabcha so'zlarni yodlash va mashqlarini bajarish.",
       sentences: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich jumlalaridan takrorlash mashqlari.` : "Jumlalar, tarjima tanlash va so'zlardan gap tuzish.",
       oral: "Arabcha so'zlar va jumlalarni to'g'ri o'qib berish.",
@@ -2017,7 +2072,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
                 <span>1-BO'LIM</span>
                 <strong>ARAB HARFLARI</strong>
               </div>
-              <p>{lesson.level === 1 ? "Arab harflari bilan tanishish, test va og'zaki mashq uchun yagona dars." : "T dan boshlab arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
+              <p>{lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('letters', { restart: true })}>
                   BOSHLASH
@@ -2106,6 +2161,266 @@ function normalizeArabicSpeech(text) {
     .trim();
 }
 
+function normalizeLatinSpeech(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/['’`]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isTelegramIOSWebApp() {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPad|iPhone|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  return isIOS && Boolean(window.Telegram?.WebApp?.initData);
+}
+
+function openCurrentPageInExternalBrowser() {
+  const webApp = getTelegramWebApp();
+  const url = window.location.href;
+  if (webApp?.openLink) {
+    webApp.openLink(url);
+    return;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+async function ensureMicrophoneAccess() {
+  if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
+    throw new Error('getUserMedia');
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  stream.getTracks().forEach((track) => track.stop());
+  return true;
+}
+
+function getSpeechRecognitionCtor() {
+  if (typeof window === 'undefined') return null;
+  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
+
+function supportsBrowserSpeechRecognition() {
+  return Boolean(getSpeechRecognitionCtor());
+}
+
+function supportsMediaRecorder() {
+  return typeof window !== 'undefined' && typeof window.MediaRecorder !== 'undefined';
+}
+
+async function transcribeWithServerRecording({ lang = 'ar', durationMs = 5000 } = {}) {
+  if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
+    throw new Error('getUserMedia');
+  }
+  if (!supportsMediaRecorder()) {
+    throw new Error('MediaRecorder not supported');
+  }
+
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const chunks = [];
+  const mimeTypeCandidates = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/mp4',
+  ];
+  const mimeType = mimeTypeCandidates.find((candidate) => window.MediaRecorder.isTypeSupported?.(candidate)) || '';
+  const recorder = new window.MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+
+  return await new Promise((resolve, reject) => {
+    let settled = false;
+    const cleanup = () => {
+      stream.getTracks().forEach((track) => track.stop());
+    };
+    const finish = (fn, value) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeoutId);
+      recorder.ondataavailable = null;
+      recorder.onerror = null;
+      recorder.onstop = null;
+      cleanup();
+      fn(value);
+    };
+
+    const timeoutId = window.setTimeout(() => {
+      // Note: we intentionally do NOT call recorder.requestData() here.
+      // recorder.stop() already fires a final 'dataavailable' event on its own,
+      // and calling requestData() immediately before stop() has been observed to
+      // leave MediaRecorder in a stuck state (no 'onstop' ever fires) on some
+      // Android Chromium builds, which made the UI hang forever on "Ovoz yozib
+      // olinmoqda...".
+      try {
+        recorder.stop();
+      } catch (error) {
+        finish(reject, error);
+      }
+    }, durationMs);
+
+    recorder.ondataavailable = (event) => {
+      if (event.data && event.data.size > 0) chunks.push(event.data);
+    };
+
+    recorder.onerror = (event) => {
+      finish(reject, new Error(event?.error?.name || event?.error?.message || 'MediaRecorder error'));
+    };
+
+    recorder.onstop = async () => {
+      try {
+        const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'audio/webm' });
+        const formData = new FormData();
+        formData.append('file', blob, 'speech.webm');
+        formData.append('language', lang);
+
+        const response = await fetch('/api/transcribe', {
+          method: 'POST',
+          body: formData,
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(payload?.error || 'Transkripsiya xatosi.');
+        }
+        finish(resolve, payload.text || '');
+      } catch (error) {
+        finish(reject, error);
+      }
+    };
+
+    recorder.start(1000);
+  });
+}
+
+function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000 } = {}) {
+  const SpeechRecognition = getSpeechRecognitionCtor();
+  if (!SpeechRecognition) {
+    return Promise.reject(new Error('SpeechRecognition not supported'));
+  }
+
+  return new Promise((resolve, reject) => {
+    const recognition = new SpeechRecognition();
+    let settled = false;
+    let timeoutId = null;
+    let restarting = false;
+    let finalTranscript = '';
+
+    const finish = (fn, value) => {
+      if (settled) return;
+      settled = true;
+      if (timeoutId) window.clearTimeout(timeoutId);
+      recognition.onresult = null;
+      recognition.onerror = null;
+      recognition.onend = null;
+      fn(value);
+    };
+
+    recognition.lang = lang;
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = (event) => {
+      for (let index = event.resultIndex || 0; index < event.results.length; index += 1) {
+        const result = event.results[index];
+        const value = result?.[0]?.transcript || '';
+        if (result?.isFinal) finalTranscript += value;
+      }
+    };
+
+    recognition.onerror = (event) => {
+      finish(reject, new Error(event?.error || 'SpeechRecognition error'));
+    };
+
+    recognition.onend = () => {
+      if (!settled && timeoutId && !restarting) {
+        restarting = true;
+        window.setTimeout(() => {
+          restarting = false;
+          try {
+            recognition.start();
+          } catch (error) {
+            finish(reject, error);
+          }
+        }, 0);
+        return;
+      }
+      finish(resolve, finalTranscript.trim());
+    };
+
+    timeoutId = window.setTimeout(() => {
+      try {
+        recognition.stop();
+      } catch {
+        finish(resolve, '');
+      }
+    }, durationMs);
+
+    recognition.start();
+  });
+}
+
+function transliterateArabicToLatin(text) {
+  const source = normalizeArabicSpeech(text);
+  if (!source) return '';
+  const map = {
+    ا: 'a',
+    ب: 'b',
+    ت: 't',
+    ث: 's',
+    ج: 'j',
+    ح: 'h',
+    خ: 'x',
+    د: 'd',
+    ذ: 'z',
+    ر: 'r',
+    ز: 'z',
+    س: 's',
+    ش: 'sh',
+    ص: 's',
+    ض: 'd',
+    ط: 't',
+    ظ: 'z',
+    ع: 'a',
+    غ: 'g',
+    ف: 'f',
+    ق: 'q',
+    ك: 'k',
+    ل: 'l',
+    م: 'm',
+    ن: 'n',
+    ه: 'h',
+    و: 'v',
+    ي: 'y',
+    ء: '',
+    ؤ: 'v',
+    ئ: 'y',
+    ة: 'h',
+    ى: 'y',
+  };
+  return source
+    .split('')
+    .map((char) => map[char] ?? ' ')
+    .join('')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getLetterSpeechCandidates(item) {
+  const normalizedLatin = normalizeLatinSpeech(item?.uzbek);
+  const normalizedArabicSpeech = normalizeArabicSpeech(item?.speech);
+  const transliteratedArabicSpeech = transliterateArabicToLatin(item?.speech);
+  const transliteratedArabicLetter = LETTER_ARABIC_TO_LATIN.get(item?.arabic) || '';
+  const aliases = LETTER_SPEECH_ALIASES[normalizedLatin] || [];
+  const hamzaLessArabicSpeech = normalizedArabicSpeech.replace(/اء$/g, 'ا');
+  return [...new Set([
+    normalizedLatin,
+    normalizedArabicSpeech,
+    hamzaLessArabicSpeech,
+    transliteratedArabicSpeech,
+    transliteratedArabicLetter,
+    ...aliases.map(normalizeLatinSpeech),
+  ].filter(Boolean))];
+}
+
 function levenshteinDistance(left, right) {
   if (left === right) return 0;
   if (!left) return right.length;
@@ -2141,27 +2456,59 @@ function bestTokenSimilarity(expectedToken, heardTokens) {
 }
 
 function isArabicSpeechMatch(expected, heard) {
-  const normalizedExpected = normalizeArabicSpeech(expected);
-  const normalizedHeard = normalizeArabicSpeech(heard);
-  if (!normalizedExpected || !normalizedHeard) return false;
-  if (normalizedExpected === normalizedHeard) return true;
-  const compactExpected = normalizedExpected.replace(/\s/g, '');
-  const compactHeard = normalizedHeard.replace(/\s/g, '');
-  if (compactExpected === compactHeard) return true;
-  if (compactExpected.length > 4 && (compactHeard.includes(compactExpected) || compactExpected.includes(compactHeard))) return true;
+  const normalizedExpectedArabic = normalizeArabicSpeech(expected);
+  const normalizedHeardArabic = normalizeArabicSpeech(heard);
+  const normalizedExpectedLatin = normalizeLatinSpeech(expected);
+  const normalizedHeardLatin = normalizeLatinSpeech(heard);
+  const transliteratedExpected = transliterateArabicToLatin(expected);
+  const transliteratedHeard = transliterateArabicToLatin(heard);
 
-  const compactScore = textSimilarity(compactExpected, compactHeard);
-  const expectedTokens = normalizedExpected.split(' ').filter(Boolean);
-  const heardTokens = normalizedHeard.split(' ').filter(Boolean);
+  const candidates = [
+    [normalizedExpectedArabic, normalizedHeardArabic],
+    [normalizedExpectedLatin, normalizedHeardLatin],
+    [normalizedExpectedLatin, transliteratedHeard],
+    [transliteratedExpected, normalizedHeardLatin],
+    [transliteratedExpected, transliteratedHeard],
+  ].filter(([left, right]) => left && right);
 
-  if (expectedTokens.length === 1) {
-    const threshold = compactExpected.length <= 4 ? 0.66 : 0.72;
-    return compactScore >= threshold || bestTokenSimilarity(expectedTokens[0], heardTokens) >= threshold;
-  }
+  return candidates.some(([left, right]) => {
+    if (left === right) return true;
+    const compactLeft = left.replace(/\s/g, '');
+    const compactRight = right.replace(/\s/g, '');
+    if (compactLeft === compactRight) return true;
+    if (compactLeft.length > 4 && (compactRight.includes(compactLeft) || compactLeft.includes(compactRight))) return true;
 
-  const tokenAverage = expectedTokens.reduce((sum, token) => sum + bestTokenSimilarity(token, heardTokens), 0) / expectedTokens.length;
-  const strongTokenMatches = expectedTokens.filter((token) => bestTokenSimilarity(token, heardTokens) >= 0.7).length / expectedTokens.length;
-  return compactScore >= 0.7 || tokenAverage >= 0.72 || strongTokenMatches >= 0.7;
+    const compactScore = textSimilarity(compactLeft, compactRight);
+    const leftTokens = left.split(' ').filter(Boolean);
+    const rightTokens = right.split(' ').filter(Boolean);
+
+    if (leftTokens.length === 1) {
+      const threshold = compactLeft.length <= 4 ? 0.66 : 0.72;
+      return compactScore >= threshold || bestTokenSimilarity(leftTokens[0], rightTokens) >= threshold;
+    }
+
+    const tokenAverage = leftTokens.reduce((sum, token) => sum + bestTokenSimilarity(token, rightTokens), 0) / leftTokens.length;
+    const strongTokenMatches = leftTokens.filter((token) => bestTokenSimilarity(token, rightTokens) >= 0.7).length / leftTokens.length;
+    return compactScore >= 0.7 || tokenAverage >= 0.72 || strongTokenMatches >= 0.7;
+  });
+}
+
+function isLetterSpeechMatch(item, heard) {
+  const heardLatin = normalizeLatinSpeech(heard);
+  const heardArabic = normalizeArabicSpeech(heard);
+  const heardTranslit = transliterateArabicToLatin(heard);
+  const heardCanonical = heardArabic ? (LETTER_ARABIC_TO_LATIN.get(heardArabic) || '') : '';
+  const candidates = getLetterSpeechCandidates(item);
+  const compared = [heardLatin, heardArabic, heardTranslit, heardCanonical].filter(Boolean);
+  if (!candidates.length || !compared.length) return false;
+  return candidates.some((candidate) => compared.some((value) => {
+    if (candidate === value) return true;
+    const compactCandidate = candidate.replace(/\s/g, '');
+    const compactValue = value.replace(/\s/g, '');
+    if (compactCandidate === compactValue) return true;
+    if (candidate.length <= 3 && compactValue.length <= 3 && candidate[0] === compactValue[0]) return true;
+    return textSimilarity(compactCandidate, compactValue) >= 0.8;
+  }));
 }
 
 function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionChange }) {
@@ -2170,15 +2517,22 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
   const [listening, setListening] = useState(false);
   const [locked, setLocked] = useState(false);
   const [status, setStatus] = useState('');
-  const recognitionRef = useRef(null);
+  const stopTimerRef = useRef(null);
   const item = step.items[index];
-  const SpeechRecognition = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
   const isSentence = item.oralType === 'sentence';
   const isLetter = item.oralType === 'letter';
-  const expectedSpeech = item.speech || item.uzbek || item.arabic;
+  const hasGetUserMedia = typeof navigator !== 'undefined' && Boolean(navigator.mediaDevices?.getUserMedia);
+  // Only report mic support when we actually have a working transcription path:
+  // getUserMedia + MediaRecorder (uploads to /api/transcribe), or the browser's
+  // native SpeechRecognition. getUserMedia alone (with neither of those) used to
+  // report canUseMic = true but then fail with a confusing error when tapped.
+  const canUseMic = (hasGetUserMedia && supportsMediaRecorder()) || supportsBrowserSpeechRecognition();
+  const expectedSpeech = isLetter
+    ? (item.speech || item.uzbek || item.arabic)
+    : (item.speech || item.arabic || item.uzbek);
 
   useEffect(() => () => {
-    recognitionRef.current?.abort?.();
+    if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
   }, []);
 
   function markResult(isCorrect) {
@@ -2192,41 +2546,61 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
     }
   }
 
-  function startListening(options = {}) {
+  async function startListening(options = {}) {
     const force = Boolean(options.force);
     if (listening || (locked && !force)) return;
-    if (!SpeechRecognition) {
-      setStatus("Bu brauzerda mikrofon orqali tekshirish ishlamadi. Telefon uchun HTTPS linkdan oching.");
+    if (!canUseMic) {
+      setStatus(isTelegramIOSWebApp()
+        ? "Telegram mini app bu qurilmada mikrofonga kirishni cheklaydi. Sahifani Safari yoki Chrome'da ochib ko'ring."
+        : "Bu brauzer audio yozishni qo'llamaydi.");
       return;
     }
     if (force) setLocked(false);
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'ar-SA';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 5;
-    recognition.continuous = false;
-    recognitionRef.current = recognition;
-    setStatus('Tinglanmoqda...');
+    setStatus('Mikrofon ruxsatini tekshiryapmiz...');
     setListening(true);
-    recognition.onresult = (event) => {
-      const alternatives = Array.from(event.results?.[0] || []).map((result) => result.transcript);
-      markResult(alternatives.some((candidate) => isArabicSpeechMatch(expectedSpeech, candidate)));
-    };
-    recognition.onerror = () => {
-      setStatus('Mikrofon biroz aniq eshitmadi, yana urinib ko‘ring');
-      setListening(false);
-    };
-    recognition.onend = () => setListening(false);
+    if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
+
     try {
-      recognition.start();
-    } catch {
-      setStatus("Mikrofon ishga tushmadi. Telefon uchun HTTPS link kerak bo'lishi mumkin.");
+      setStatus(supportsMediaRecorder()
+        ? 'Ovoz yozib olinmoqda...'
+        : 'Ovoz tinglanmoqda...');
+      const recordingPromise = supportsMediaRecorder()
+        ? transcribeWithServerRecording({ lang: 'ar', durationMs: ORAL_PRACTICE_RECORDING_MS })
+        : transcribeWithBrowserSpeechRecognition({ lang: 'ar', durationMs: ORAL_PRACTICE_RECORDING_MS });
+      // Watchdog: some Android browsers can leave MediaRecorder (or the
+      // upload/transcription request) stuck with no 'onstop'/'onerror' ever
+      // firing, which used to hang the UI on "Ovoz yozib olinmoqda..."
+      // forever. This guarantees the user always gets feedback.
+      const watchdogPromise = new Promise((_resolve, reject) => {
+        window.setTimeout(() => reject(new Error('Timeout')), ORAL_PRACTICE_RECORDING_MS + 6000);
+      });
+      const transcript = await Promise.race([recordingPromise, watchdogPromise]);
+      const matched = isLetter ? isLetterSpeechMatch(item, transcript) : isArabicSpeechMatch(expectedSpeech, transcript);
+      setStatus(transcript ? `Eshitilgan: ${transcript}` : 'Ovoz matnga aylantirilmadi');
+      markResult(matched);
       setListening(false);
+      return;
+    } catch (error) {
+      setListening(false);
+      const code = error?.name || error?.message || '';
+      if (code === 'Timeout') {
+        setStatus("Javob juda uzoq kutildi. Qayta urinib ko'ring.");
+      } else if (code === 'NotAllowedError' || code === 'PermissionDeniedError') {
+        setStatus('Mikrofonga ruxsat berilmagan. Brauzer sozlamalarida mic permission ni yoqing.');
+      } else if (code === 'NotFoundError' || code === 'DevicesNotFoundError') {
+        setStatus('Mikrofon topilmadi. Qurilmada mic borligini tekshiring.');
+      } else if (code === 'NotReadableError' || code === 'TrackStartError') {
+        setStatus('Mikrofon band yoki ishlamayapti. Boshqa ilovalar mic ishlatayotgan bo‘lishi mumkin.');
+      } else if (isTelegramIOSWebApp()) {
+        setStatus("Telegram mini app bu qurilmada mikrofonga kirishni cheklaydi. Safari'da ochib ko'ring.");
+      } else {
+        setStatus(`Mikrofon ruxsati olinmadi (${code || 'unknown'}).`);
+      }
     }
   }
 
   function next() {
-    recognitionRef.current?.abort?.();
+    if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
     setLocked(false);
     setStatus('');
     if (index === step.items.length - 1) onDone();
@@ -2261,8 +2635,13 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
           disabled={listening || (locked && status.includes("To'g'ri"))}
           title="Mikrofon"
         >
-          {SpeechRecognition ? (listening ? <MicOff size={34} /> : <Mic size={34} />) : <MicOff size={34} />}
+          {canUseMic ? (listening ? <MicOff size={34} /> : <Mic size={34} />) : <MicOff size={34} />}
         </button>
+        {!canUseMic && (
+          <button className="secondary-btn" type="button" onClick={openCurrentPageInExternalBrowser}>
+            Tashqi brauzerda ochish
+          </button>
+        )}
         {locked && status.includes("To'g'ri") ? (
           <button className="primary-btn compact" type="button" onClick={next}>
             {index === step.items.length - 1 ? 'Natijaga o‘tish' : 'Keyingi'}
@@ -2823,7 +3202,15 @@ export default function App() {
 
   function saveAuthedUser(authedUser) {
     const normalizedUser = authedUser.username === ADMIN_USERNAME || authedUser.isAdmin
-      ? { ...authedUser, accountType: 'admin', isAdmin: true }
+      ? {
+          ...authedUser,
+          accountType: 'admin',
+          isAdmin: true,
+          progress: {
+            ...(authedUser.progress || {}),
+            unlockedLevel: ACTIVE_LESSONS,
+          },
+        }
       : authedUser;
     const enrichedUser = {
       ...normalizedUser,
@@ -2946,7 +3333,9 @@ export default function App() {
       ...user,
       exerciseProgress: withoutSavedExerciseProgress(user, activeLesson, activeSection),
       progress: {
-        unlockedLevel: passedLevel && !activeLesson.excludeFromRating
+        unlockedLevel: isAdminUser(user)
+          ? ACTIVE_LESSONS
+          : passedLevel && !activeLesson.excludeFromRating
           ? Math.max(user.progress.unlockedLevel || 1, Math.min(ACTIVE_LESSONS, activeLesson.level + 1))
           : user.progress.unlockedLevel || 1,
         bestScores: {
