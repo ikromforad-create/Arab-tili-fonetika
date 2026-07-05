@@ -11,15 +11,15 @@ Manba:
 Reja:
 - Web app uchun kod yozish.
 - Appni lokalda tekshirish.
-- Netlify uchun build tayyorlash.
-- Netlifyga deploy/upload qilish.
-- Supabase/Postgres orqali user, progress va lug'at ma'lumotlarini saqlash.
+- Vercel uchun build tayyorlash.
+- Vercelga deploy/upload qilish.
+- Postgres (Neon) orqali user, progress va lug'at ma'lumotlarini saqlash.
 - Boshlanishida PDFdagi dastlabki 10 ta dars lug'atlari asosida 10 ta darajali o'yin tuzish.
 
 Tanlangan arxitektura:
-- Frontend va deploy: Netlify.
-- Database va auth: Supabase/Postgres.
-- Boshlanishi: Supabase Free plan bilan MVP.
+- Frontend va deploy: Vercel.
+- Database va auth: Postgres (Neon), `pg` orqali `api/` ichidagi serverless funksiyalardan ulanadi.
+- Boshlanishi: Neon Free plan bilan MVP.
 
 Boshlang'ich database g'oyasi:
 - users: foydalanuvchi profili.
@@ -46,5 +46,5 @@ Eslatma:
 Qoida:
 - Yangi bosqichlar qo'shilganda mavjud bosqichlar o'zgarishsiz qoladi.
 - Eski bosqichlarning lug'atlari, jumlalari, tartibi, level raqami, seed ma'lumotlari va migratsiya ma'lumotlari avtomatik tahrirlanmaydi.
-- Supabase seed yoki migration yozilganda yangi bosqichlar append-only usulida qo'shiladi; mavjud bosqichlar uchun umumiy delete/update ishlatilmaydi.
+- Postgres seed yoki migration yozilganda yangi bosqichlar append-only usulida qo'shiladi; mavjud bosqichlar uchun umumiy delete/update ishlatilmaydi.
 - Agar eski bosqichdan biror narsa o'zgarishi kerak bo'lsa, faqat foydalanuvchi aniq aytgandan keyin o'zgartiriladi.

@@ -1,6 +1,6 @@
 # Telegram Bot
 
-Bu bot Telegram ichida mavjud web appni ochib beradi. Web App ochilganda Supabase sessiya tracking yozuvi yaratiladi: foydalanuvchi necha marta kirgani va ilovada taxminan qancha vaqt qolganini ko'rish mumkin.
+Bu bot Telegram ichida mavjud web appni ochib beradi.
 
 ## Sozlash
 
@@ -10,12 +10,8 @@ Bu bot Telegram ichida mavjud web appni ochib beradi. Web App ochilganda Supabas
 
 ```bash
 BOT_TOKEN=123456:bot-token
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-TELEGRAM_DB_WRITE_SECRET=your-telegram-db-write-secret
 BOT_ADMIN_IDS=123456789
-WEB_APP_URL=https://your-site.netlify.app
-VITE_SUPABASE_URL=https://lmguiyywgkucvkxcfrai.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+WEB_APP_URL=https://your-deployed-site.example.com
 ```
 
 ## Ishga tushirish
@@ -32,6 +28,9 @@ Admin komandalar:
 /id
 /users
 /broadcast Assalomu alaykum! Bugun yangi mashqlar qo'shildi.
+/progress_reminder
 ```
 
-`/broadcast`, `/progress_reminder` va `/users` faqat `BOT_ADMIN_IDS` ichidagi Telegram ID larga ishlaydi. Telegram foydalanuvchilari `telegram_bot_users` jadvaliga yoziladi. Web App ichida login/register qilgan profil Telegram ID bilan bog'lanadi. Web App kirishlari `telegram_web_app_sessions` jadvaliga yoziladi, umumiy ko'rinish esa `analytics_telegram_web_app_usage` view orqali olinadi. `/progress_reminder` profili bog'langan foydalanuvchilarga `Siz {bosqich} bosqichiga yetib kelibsiz, so'z yodlashni davom ettiring.` mazmunidagi xabarni yuboradi. `SUPABASE_SERVICE_ROLE_KEY` bo'lmasa, bot `TELEGRAM_DB_WRITE_SECRET` orqali maxfiy RPC lardan foydalanadi.
+`/users`, `/broadcast` va `/progress_reminder` faqat `BOT_ADMIN_IDS` ichidagi Telegram ID larga ishlaydi.
+
+> **Eslatma:** loyiha avval Supabase'da Telegram foydalanuvchilarini kuzatib borgan (`telegram_bot_users` va shunga o'xshash jadvallar orqali). Supabase butunlay olib tashlangan, shuning uchun `/users`, `/broadcast` va `/progress_reminder` hozircha faqat xabar qaytaradi va real ishlamaydi. Bu funksiyalarni qayta ishga tushirish uchun yangi Postgres (Neon) bazasida mos jadvallarni yaratib, `bot.mjs`ni `pg` orqali yozish kerak (xuddi `api/_db.js` qilgani kabi).

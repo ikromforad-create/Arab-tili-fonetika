@@ -2267,9 +2267,18 @@ async function transcribeWithServerRecording({ lang = 'ar', durationMs = 5000 } 
 
     recorder.onstop = async () => {
       try {
-        const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'audio/webm' });
+        const finalMimeType = recorder.mimeType || mimeType || 'audio/webm';
+        const blob = new Blob(chunks, { type: finalMimeType });
+        // Use a filename extension that matches the actual recorded format.
+        // iOS Safari (and some Android browsers) only support audio/mp4, not
+        // audio/webm. Always naming the file "speech.webm" made the backend
+        // tell OpenAI to decode mp4 data as webm, which fails or produces
+        // garbage transcripts on those devices.
+        const extension = finalMimeType.includes('mp4') ? 'm4a'
+          : finalMimeType.includes('ogg') ? 'ogg'
+          : 'webm';
         const formData = new FormData();
-        formData.append('file', blob, 'speech.webm');
+        formData.append('file', blob, `speech.${extension}`);
         formData.append('language', lang);
 
         const response = await fetch('/api/transcribe', {
