@@ -2215,7 +2215,7 @@ function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000
     const recognition = new SpeechRecognition();
     let settled = false;
     let timeoutId = null;
-    let restarting = false;
+    let stopping = false;
     let finalTranscript = '';
 
     const finish = (fn, value) => {
@@ -2237,7 +2237,18 @@ function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000
       for (let index = event.resultIndex || 0; index < event.results.length; index += 1) {
         const result = event.results[index];
         const value = result?.[0]?.transcript || '';
-        if (result?.isFinal) finalTranscript += value;
+        if (!value) continue;
+        finalTranscript = value;
+        if (result?.isFinal || value.trim()) {
+          stopping = true;
+          try {
+            recognition.stop();
+          } catch {
+            // If stop() fails, the watchdog/timeout path will still end it.
+          }
+          finish(resolve, finalTranscript.trim());
+          return;
+        }
       }
     };
 
@@ -2249,22 +2260,16 @@ function transcribeWithBrowserSpeechRecognition({ lang = 'ar', durationMs = 5000
     };
 
     recognition.onend = () => {
-      if (!settled && timeoutId && !restarting) {
-        restarting = true;
-        window.setTimeout(() => {
-          restarting = false;
-          try {
-            recognition.start();
-          } catch (error) {
-            finish(reject, error);
-          }
-        }, 0);
+      if (!settled && !stopping) {
+        // If the browser ends without producing a transcript, let the timeout
+        // handler or error path decide what to show.
         return;
       }
       finish(resolve, finalTranscript.trim());
     };
 
     timeoutId = window.setTimeout(() => {
+      stopping = true;
       try {
         recognition.stop();
       } catch {
