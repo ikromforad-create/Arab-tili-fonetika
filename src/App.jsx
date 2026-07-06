@@ -129,20 +129,20 @@ const ORAL_PRACTICE_WORD_COUNT = 10;
 const ORAL_PRACTICE_RECORDING_MS = 9000;
 const ARABIC_DIACRITICS_PATTERN = /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g;
 const ALPHABET_LESSON_1_LETTERS = [
-  { arabic: 'ا', uzbek: 'alif', speech: 'ألف' },
-  { arabic: 'ب', uzbek: 'ba', speech: 'باء' },
-  { arabic: 'ت', uzbek: 'ta', speech: 'تاء' },
-  { arabic: 'ث', uzbek: 'sa', speech: 'ثاء' },
-  { arabic: 'ج', uzbek: 'jim', speech: 'جيم' },
-  { arabic: 'ح', uzbek: 'ha', speech: 'حاء' },
-  { arabic: 'خ', uzbek: 'xo', speech: 'خاء' },
-  { arabic: 'د', uzbek: 'dal', speech: 'دال' },
-  { arabic: 'ذ', uzbek: 'zal', speech: 'ذال' },
-  { arabic: 'ر', uzbek: 'ro', speech: 'راء' },
-  { arabic: 'ز', uzbek: 'za', speech: 'زاي' },
-  { arabic: 'س', uzbek: 'sin', speech: 'سين' },
-  { arabic: 'ش', uzbek: 'shin', speech: 'شين' },
-  { arabic: 'ص', uzbek: 'sod', speech: 'صاد' },
+  { arabic: 'ا', uzbek: 'alif', speech: 'ألف', accepted: ['alif', 'elif', 'الف', 'أَلِفْ', 'أَلِفٌ', 'أَلف'] },
+  { arabic: 'ب', uzbek: 'ba', speech: 'باء', accepted: ['ba', 'be', 'bay', 'بَ', 'بَا', 'بَاءْ', 'بَاءٌ'] },
+  { arabic: 'ت', uzbek: 'ta', speech: 'تاء', accepted: ['ta', 'te', 'تَ', 'تَا', 'تَاءْ', 'تَاءٌ'] },
+  { arabic: 'ث', uzbek: 'sa', speech: 'ثاء', accepted: ['sa', 's', 'ثَ', 'ثَا', 'ثَاءْ'] },
+  { arabic: 'ج', uzbek: 'jim', speech: 'جيم', accepted: ['jim', 'j', 'جِ', 'جِيمْ', 'جِيمٌ'] },
+  { arabic: 'ح', uzbek: 'ha', speech: 'حاء', accepted: ['ha', 'h', 'haa', 'حَ', 'حَا', 'حَاءٌ'] },
+  { arabic: 'خ', uzbek: 'xo', speech: 'خاء', accepted: ['xo', 'kho', 'kh', 'خَ', 'خَا', 'خَاءْ'] },
+  { arabic: 'د', uzbek: 'dal', speech: 'دال', accepted: ['dal', 'd', 'دَ', 'دَالْ', 'دَالٌ'] },
+  { arabic: 'ذ', uzbek: 'zal', speech: 'ذال', accepted: ['zal', 'z', 'ذَ', 'ذَالْ', 'ذَالٌ'] },
+  { arabic: 'ر', uzbek: 'ro', speech: 'راء', accepted: ['ro', 'r', 'رَ', 'رَا', 'رَاءْ'] },
+  { arabic: 'ز', uzbek: 'za', speech: 'زاي', accepted: ['za', 'z', 'زَ', 'زَا', 'زَاءْ'] },
+  { arabic: 'س', uzbek: 'sin', speech: 'سين', accepted: ['sin', 's', 'سِينْ', 'سِ', 'سِينٌ'] },
+  { arabic: 'ش', uzbek: 'shin', speech: 'شين', accepted: ['shin', 'sh', 'شِ', 'شِينْ', 'شين'] },
+  { arabic: 'ص', uzbek: 'sod', speech: 'صاد', accepted: ['sod', 'sad', 's', 'صَ', 'صَادٌ', 'صَادْ'] },
 ];
 const ALPHABET_LESSON_2_LETTERS = [
   { arabic: 'ض', uzbek: 'dod', speech: 'ضاد' },
@@ -1066,7 +1066,7 @@ function getInitials(user) {
 
 function AuthScreen({ onAuth, telegramUser }) {
   const [form, setForm] = useState({
-    username: telegramUser?.username || '',
+    username: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -1109,7 +1109,12 @@ function AuthScreen({ onAuth, telegramUser }) {
         <form onSubmit={submit} className="auth-form">
           <label>
             Username
-            <input value={form.username} onChange={(event) => update('username', event.target.value)} autoComplete="username" />
+            <input
+              value={form.username}
+              onChange={(event) => update('username', event.target.value)}
+              autoComplete="username"
+              placeholder={telegramUser?.username ? 'Username kiriting' : 'Username'}
+            />
           </label>
           <label>
             Parol
@@ -2334,6 +2339,7 @@ function getLetterSpeechCandidates(item) {
   const transliteratedArabicSpeech = transliterateArabicToLatin(item?.speech);
   const transliteratedArabicLetter = LETTER_ARABIC_TO_LATIN.get(item?.arabic) || '';
   const aliases = LETTER_SPEECH_ALIASES[normalizedLatin] || [];
+  const accepted = Array.isArray(item?.accepted) ? item.accepted : [];
   const hamzaLessArabicSpeech = normalizedArabicSpeech.replace(/اء$/g, 'ا');
   return [...new Set([
     normalizedLatin,
@@ -2342,6 +2348,7 @@ function getLetterSpeechCandidates(item) {
     transliteratedArabicSpeech,
     transliteratedArabicLetter,
     ...aliases.map(normalizeLatinSpeech),
+    ...accepted.map(normalizeLatinSpeech),
   ].filter(Boolean))];
 }
 
@@ -2593,6 +2600,11 @@ function StudyStep({ step, initialIndex = 0, onProgress, onDone }) {
         <ArabicPronunciationButton text={item.arabic} />
       </div>
       <div className="study-uzbek">{item.uzbek}</div>
+      {isLetters && Array.isArray(item.accepted) && item.accepted.length > 0 && (
+        <div className="study-variants">
+          Qabul qilinadigan variantlar: {item.accepted.join(', ')}
+        </div>
+      )}
       <div className="study-progress">{index + 1} / {step.items.length}</div>
       <div className="study-controls">
         <button className="secondary-btn" onClick={() => goToIndex(index - 1)} disabled={index === 0}><ChevronLeft size={18} /> Oldingi</button>
