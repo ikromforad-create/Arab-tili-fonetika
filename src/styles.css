@@ -898,6 +898,12 @@ textarea:focus {
   font-weight: 950;
 }
 
+.personal-rating-title {
+  font-size: 20px;
+  line-height: 1.1;
+  text-align: center;
+}
+
 .personal-rating-row small {
   margin-top: 3px;
   color: #6a7a6f;
