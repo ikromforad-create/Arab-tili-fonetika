@@ -1337,6 +1337,12 @@ function personalRatingRows(user) {
   });
 }
 
+function currentRatingPercent(user) {
+  const rows = personalRatingRows(user).filter((row) => row.percent !== null);
+  if (!rows.length) return 0;
+  return Math.round(rows.reduce((sum, row) => sum + row.percent, 0) / rows.length);
+}
+
 function leaderboardStage(player) {
   return Math.min(ACTIVE_LESSONS, Math.max(1, player.current_level || (player.passed_levels || 0) + 1));
 }
@@ -1926,6 +1932,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
             <div><span>Jami ball</span><strong>{totalScore(user)}</strong></div>
             <div><span>O'tgan bosqich</span><strong>{passedLevels(user)}</strong></div>
             <div><span>Ochilgan bosqich</span><strong>{user.progress.unlockedLevel || 1}</strong></div>
+            <div><span>Rating</span><strong>{currentRatingPercent(user)}%</strong></div>
           </div>
         )}
       </section>
