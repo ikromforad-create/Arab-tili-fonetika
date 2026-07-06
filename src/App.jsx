@@ -2600,11 +2600,6 @@ function StudyStep({ step, initialIndex = 0, onProgress, onDone }) {
         <ArabicPronunciationButton text={item.arabic} />
       </div>
       <div className="study-uzbek">{item.uzbek}</div>
-      {isLetters && Array.isArray(item.accepted) && item.accepted.length > 0 && (
-        <div className="study-variants">
-          Qabul qilinadigan variantlar: {item.accepted.join(', ')}
-        </div>
-      )}
       <div className="study-progress">{index + 1} / {step.items.length}</div>
       <div className="study-controls">
         <button className="secondary-btn" onClick={() => goToIndex(index - 1)} disabled={index === 0}><ChevronLeft size={18} /> Oldingi</button>
