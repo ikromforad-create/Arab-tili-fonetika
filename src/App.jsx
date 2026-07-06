@@ -1392,8 +1392,8 @@ function LevelMap({ user, lessons, pendingExercise, onStart, onResumeExercise, o
       </header>
 
       <section className="map-intro">
-        <h1>{ACTIVE_LESSONS} bosqichli yo'l</h1>
-        <p>Har bosqichda so'zlar, jumlalar va mashqlar bor. Keyingi bosqich uchun kamida {PASS_RATE}% kerak.</p>
+        <h1>ARAB TILI FONETIKA</h1>
+        <p>Turli bosqichlarda arabcha harflar, so'zlar va mashqlar. Yangi bosqichni ochish uchun kamida 76% ball to'plang</p>
       </section>
 
       {pendingExercise && (
