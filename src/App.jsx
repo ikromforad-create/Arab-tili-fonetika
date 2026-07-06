@@ -326,9 +326,9 @@ function getLevelScore(user, lessonOrLevel) {
 
 function sectionTitle(sectionId) {
   if (sectionId === 'letters') return 'Harflar';
-  if (sectionId === 'words') return "So'zlar";
-  if (sectionId === 'sentences') return 'Jumlalar';
-  if (sectionId === 'oral') return "Og'zaki mashqlar";
+  if (sectionId === 'words') return 'TEST';
+  if (sectionId === 'sentences') return "OG'ZAKI MASHQ";
+  if (sectionId === 'oral') return "OG'ZAKI MASHQ";
   return 'Mashqlar';
 }
 
@@ -1322,15 +1322,14 @@ function personalRatingRows(user) {
     const level = index + 1;
     const score = getLevelScore(user, level);
     const sections = score?.sections || {};
-    const words = sections.words?.score || 0;
-    const sentences = sections.sentences?.score || 0;
+    const test = sections.words?.score || 0;
     const oral = sections.oral?.score || 0;
     return {
       level,
-      words,
-      sentences,
+      title: level === 1 ? '1-DARS' : `${level}-DARS`,
+      test,
       oral,
-      total: words + sentences + oral,
+      total: test + oral,
       percent: score?.percent ?? null,
       completedSections: score?.completedSections || 0,
       requiredSections: requiredSectionCount(level),
@@ -1952,14 +1951,14 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
               <div className="personal-rating-row" key={row.level}>
                 <div className="level-badge">{row.level}</div>
                 <div>
-                  <strong>{row.level}-bosqich</strong>
+                  <strong>{row.title}</strong>
                   <small>
-                    So'zlar: {row.words} ball - Jumlalar: {row.sentences} ball{row.requiredSections > 2 ? ` - Og'zaki: ${row.oral} ball` : ''}
+                    TEST: {row.test} ball - OG'ZAKI MASHQ: {row.oral} ball
                   </small>
                 </div>
                 <div className="leaderboard-score">
-                  <b>{row.total} ball</b>
                   <small>{row.percent === null ? `${row.completedSections}/${row.requiredSections} bo'lim` : `${row.percent}%`}</small>
+                  <b>{row.total} ball</b>
                 </div>
               </div>
             ))}
@@ -2140,7 +2139,7 @@ function SectionStep({ step, onDone }) {
     <section className="lesson-card section-card">
       <div className="section-number">{step.title}</div>
       <h1>{step.subtitle}</h1>
-      <p>{step.description || (step.subtitle === "So'zlar" ? "Avval so'zlarni yodlang, keyin mashqlarda mustahkamlang." : "Endi shu darsdagi jumlalarni o'rganamiz.")}</p>
+      <p>{step.description || (step.subtitle === 'TEST' ? "Avval testni yeching, keyin mashqlarda mustahkamlang." : "Endi shu darsdagi og'zaki mashqni bajaramiz.")}</p>
       <button className="primary-btn compact" onClick={onDone}>Boshlash</button>
     </section>
   );
