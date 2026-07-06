@@ -1328,12 +1328,6 @@ function personalRatingRows(user) {
     return {
       level,
       title: level === 1 ? '1-DARS' : `${level}-DARS`,
-      parts: level <= 2
-        ? []
-        : [
-            { label: 'TEST', score: sections.words?.score || 0 },
-            { label: "OG'ZAKI MASHQ", score: sections.oral?.score || 0 },
-          ],
       total,
       percent,
       completedSections: score?.completedSections || 0,
@@ -1964,11 +1958,6 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                 <div className="level-badge">{row.level}</div>
                 <div>
                   <strong className="personal-rating-title">{row.title}</strong>
-                  {row.parts.length > 0 && (
-                    <small>
-                      {row.parts.map((part) => `${part.label}: ${part.score} ball`).join(' - ')}
-                    </small>
-                  )}
                 </div>
                 <div className="leaderboard-score">
                   <small>{row.percent === null ? `${row.completedSections}/${row.requiredSections} bo'lim` : `${row.percent}%`}</small>
