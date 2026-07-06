@@ -192,6 +192,17 @@ const ALPHABET_LETTER_AUDIO_FILES = new Map([
   ['و', 'vav.mp3'],
   ['ي', 'ya.mp3'],
 ]);
+const LESSON_3_INTRO_ITEMS = [
+  { arabic: 'أَ', uzbek: 'a' },
+  { arabic: 'إِ', uzbek: 'i' },
+  { arabic: 'أُ', uzbek: "u" },
+  { arabic: 'رَ', uzbek: 'ra' },
+  { arabic: 'رِ', uzbek: 'ri' },
+  { arabic: 'رُ', uzbek: 'ru' },
+  { arabic: 'أَرْ', uzbek: 'ar' },
+  { arabic: 'إِرْ', uzbek: 'ir' },
+  { arabic: 'أُرْ', uzbek: 'ur' },
+];
 const ACCOUNT_PLANS = {
   indiv: [
     { value: 'indiv', label: 'INDIV', title: '1 ta individual o’qituvchi hisobi', limit: '20 tagacha o’quvchi hisobi' },
@@ -973,7 +984,7 @@ function makeOralPracticeItems(lesson) {
     return shuffle(ALPHABET_LESSON_2_LETTERS, lesson.seed * 92).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
   }
   if (lesson.level === 3 && !lesson.isReview) {
-    return shuffle(lesson.words, lesson.seed * 93).map((item) => ({ ...item, oralType: 'word' }));
+    return shuffle(LESSON_3_INTRO_ITEMS, lesson.seed * 93).map((item) => ({ ...item, oralType: 'intro', speech: item.uzbek }));
   }
   const words = shuffle(lesson.words, lesson.seed * 70)
     .slice(0, ORAL_PRACTICE_WORD_COUNT)
@@ -1004,10 +1015,10 @@ function makeSectionFlow(lesson, sectionId) {
     ];
   }
   if (lesson.level === 3 && !lesson.isReview) {
-    const introItems = lesson.introItems || lesson.words;
+    const introItems = LESSON_3_INTRO_ITEMS;
     return [
-      { type: 'section', title: "1-BO'LIM", subtitle: "HARFLAR VA SO'ZLAR", description: "Avval shu darsdagi harflar va so'zlar bilan tanishamiz, keyin aralash og'zaki mashq qilamiz." },
-      { type: 'study', title: "HARFLAR VA SO'ZLAR", mode: 'intro', items: introItems, canSkipToTest: false },
+      { type: 'section', title: "1-BO'LIM", subtitle: "HAMZA VA RO'", description: "Avval shu darsdagi hamza va ro' shakllari bilan tanishamiz, keyin aralash og'zaki mashq qilamiz." },
+      { type: 'study', title: "HAMZA VA RO'", mode: 'intro', items: introItems, canSkipToTest: false },
       { type: 'oral', title: "ARALASH OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
     ];
   }
@@ -1070,7 +1081,7 @@ function makeReviewLesson(baseLessons, review) {
 function lessonTitle(lesson) {
   if (lesson?.level === 1 && !lesson?.isReview) return '1-DARS: ARAB HARFLARI (1-QISM)';
   if (lesson?.level === 2 && !lesson?.isReview) return '2-DARS: ARAB HARFLARI (2-QISM)';
-  if (lesson?.level === 3 && !lesson?.isReview) return "3-DARS: HARFLAR VA SO'ZLAR";
+  if (lesson?.level === 3 && !lesson?.isReview) return "3-DARS: HAMZA VA RO'";
   return lesson.title || `${lesson.level}-bosqich`;
 }
 
@@ -2058,7 +2069,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
       letters: lesson.level === 1
         ? "Alifdan sodgacha bo'lgan harflar, test va og'zaki mashq."
         : "Qolgan harflar, test va og'zaki mashq.",
-      intro: "Avval harflar va so'zlar bilan tanishasiz, so'ng aralash og'zaki mashq qilasiz.",
+      intro: "Avval hamza va ro' shakllari bilan tanishasiz, so'ng aralash og'zaki mashq qilasiz.",
       words: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich so'zlaridan takrorlash mashqlari.` : "Arabcha so'zlarni yodlash va mashqlarini bajarish.",
       sentences: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich jumlalaridan takrorlash mashqlari.` : "Jumlalar, tarjima tanlash va so'zlardan gap tuzish.",
       oral: "Arabcha so'zlar va jumlalarni to'g'ri o'qib berish.",
@@ -2096,7 +2107,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
             {isAlphabetLesson
               ? alphabetStartText
               : isIntroLesson
-                ? "Bu darsda avval shu bo'limdagi harflar va so'zlar bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
+                ? "Bu darsda avval hamza va ro' shakllari bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
               : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
           </p>
           <div className="average-box">
@@ -2105,15 +2116,15 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
           </div>
         </div>
         {isAlphabetLesson ? (
-          <div className="section-grid">
-            <article className="section-choice review-choice">
-              <div className="section-choice-head">
-                <span>1-BO'LIM</span>
-                <strong>ARAB HARFLARI</strong>
-              </div>
-              <p>{lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
+        <div className="section-grid">
+          <article className="section-choice review-choice">
+            <div className="section-choice-head">
+              <span>1-BO'LIM</span>
+              <strong>HAMZA VA RO'</strong>
+            </div>
+              <p>{lesson.level === 3 ? "Hamza va ro' shakllarini o'rganish, keyin og'zaki mashqlar bilan mustahkamlash uchun dars." : lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
               <div className="section-actions">
-                <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('letters', { restart: true })}>
+                <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection(lesson.level === 3 ? 'intro' : 'letters', { restart: true })}>
                   BOSHLASH
                 </button>
               </div>
@@ -2124,9 +2135,9 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
             <article className="section-choice review-choice">
               <div className="section-choice-head">
                 <span>1-BO'LIM</span>
-                <strong>HARFLAR VA SO'ZLAR</strong>
+                <strong>HAMZA VA RO'</strong>
               </div>
-              <p>Avval shu darsdagi harflar va so'zlar bilan tanishasiz, keyin aralash og'zaki mashq qilasiz.</p>
+              <p>Hamza va ro' shakllarini tanishtirgandan so'ng aralash og'zaki mashq qilasiz.</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('intro', { restart: true })}>
                   BOSHLASH
