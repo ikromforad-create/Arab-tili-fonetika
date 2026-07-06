@@ -204,15 +204,15 @@ const LESSON_3_INTRO_AUDIO_FILES = new Map([
   ['أُرْ', 'ur.mp3'],
 ]);
 const LESSON_3_INTRO_ITEMS = [
-  { arabic: 'أَ', uzbek: 'a' },
-  { arabic: 'إِ', uzbek: 'i' },
-  { arabic: 'أُ', uzbek: "u" },
-  { arabic: 'رَ', uzbek: 'ra' },
-  { arabic: 'رِ', uzbek: 'ri' },
-  { arabic: 'رُ', uzbek: 'ru' },
-  { arabic: 'أَرْ', uzbek: 'ar' },
-  { arabic: 'إِرْ', uzbek: 'ir' },
-  { arabic: 'أُرْ', uzbek: 'ur' },
+  { arabic: 'أَ', uzbek: 'a', accepted: ['a', 'أَ', 'ا', 'آ', 'أَا'] },
+  { arabic: 'إِ', uzbek: 'i', accepted: ['i', 'إِ', 'إِي', 'إِيء'] },
+  { arabic: 'أُ', uzbek: 'u', accepted: ['u', 'أُ', 'أُو', 'أُوءْ'] },
+  { arabic: 'رَ', uzbek: 'ro', accepted: ['ra', 'ro', 'رَ', 'رَا', 'رَاءْ'] },
+  { arabic: 'رِ', uzbek: 'ri', accepted: ['ri', 'رِ', 'رِي', 'رِيءْ'] },
+  { arabic: 'رُ', uzbek: 'ru', accepted: ['ru', 'رُ', 'رُو', 'رُوءْ'] },
+  { arabic: 'أَرْ', uzbek: 'ar', accepted: ['ar', 'أَرْ', 'أَارْ'] },
+  { arabic: 'إِرْ', uzbek: 'ir', accepted: ['ir', 'إِرْ', 'إِيرْ'] },
+  { arabic: 'أُرْ', uzbek: 'ur', accepted: ['ur', 'أُرْ', 'أُورْ'] },
 ];
 const ACCOUNT_PLANS = {
   indiv: [
