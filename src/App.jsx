@@ -1017,8 +1017,8 @@ function makeSectionFlow(lesson, sectionId) {
   if (lesson.level === 3 && !lesson.isReview) {
     const introItems = LESSON_3_INTRO_ITEMS;
     return [
-      { type: 'section', title: "1-BO'LIM", subtitle: "HAMZA VA RO'", description: "Avval shu darsdagi hamza va ro' shakllari bilan tanishamiz, keyin aralash og'zaki mashq qilamiz." },
-      { type: 'study', title: "HAMZA VA RO'", mode: 'intro', items: introItems, canSkipToTest: false },
+      { type: 'section', title: "1-BO'LIM", subtitle: 'HAMZA VA RO', description: "Avval shu darsdagi hamza va ro shakllari bilan tanishamiz, keyin aralash og'zaki mashq qilamiz." },
+      { type: 'study', title: 'HAMZA VA RO', mode: 'intro', items: introItems, canSkipToTest: false },
       { type: 'oral', title: "ARALASH OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
     ];
   }
@@ -1081,7 +1081,7 @@ function makeReviewLesson(baseLessons, review) {
 function lessonTitle(lesson) {
   if (lesson?.level === 1 && !lesson?.isReview) return '1-DARS: ARAB HARFLARI (1-QISM)';
   if (lesson?.level === 2 && !lesson?.isReview) return '2-DARS: ARAB HARFLARI (2-QISM)';
-  if (lesson?.level === 3 && !lesson?.isReview) return "3-DARS: HAMZA VA RO'";
+  if (lesson?.level === 3 && !lesson?.isReview) return '3-DARS: HAMZA VA RO';
   return lesson.title || `${lesson.level}-bosqich`;
 }
 
@@ -2069,7 +2069,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
       letters: lesson.level === 1
         ? "Alifdan sodgacha bo'lgan harflar, test va og'zaki mashq."
         : "Qolgan harflar, test va og'zaki mashq.",
-      intro: "Avval hamza va ro' shakllari bilan tanishasiz, so'ng aralash og'zaki mashq qilasiz.",
+      intro: "Avval hamza va ro shakllari bilan tanishasiz, so'ng aralash og'zaki mashq qilasiz.",
       words: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich so'zlaridan takrorlash mashqlari.` : "Arabcha so'zlarni yodlash va mashqlarini bajarish.",
       sentences: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich jumlalaridan takrorlash mashqlari.` : "Jumlalar, tarjima tanlash va so'zlardan gap tuzish.",
       oral: "Arabcha so'zlar va jumlalarni to'g'ri o'qib berish.",
@@ -2107,7 +2107,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
             {isAlphabetLesson
               ? alphabetStartText
               : isIntroLesson
-                ? "Bu darsda avval hamza va ro' shakllari bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
+                ? "Bu darsda avval hamza va ro shakllari bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
               : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
           </p>
           <div className="average-box">
@@ -2120,9 +2120,9 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
           <article className="section-choice review-choice">
             <div className="section-choice-head">
               <span>1-BO'LIM</span>
-              <strong>HAMZA VA RO'</strong>
+              <strong>HAMZA VA RO</strong>
             </div>
-              <p>{lesson.level === 3 ? "Hamza va ro' shakllarini o'rganish, keyin og'zaki mashqlar bilan mustahkamlash uchun dars." : lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
+              <p>{lesson.level === 3 ? "Hamza va ro shakllarini o'rganish, keyin og'zaki mashqlar bilan mustahkamlash uchun dars." : lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection(lesson.level === 3 ? 'intro' : 'letters', { restart: true })}>
                   BOSHLASH
@@ -2135,9 +2135,9 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
             <article className="section-choice review-choice">
               <div className="section-choice-head">
                 <span>1-BO'LIM</span>
-                <strong>HAMZA VA RO'</strong>
+                <strong>HAMZA VA RO</strong>
               </div>
-              <p>Hamza va ro' shakllarini tanishtirgandan so'ng aralash og'zaki mashq qilasiz.</p>
+              <p>Hamza va ro shakllarini tanishtirgandan so'ng aralash og'zaki mashq qilasiz.</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('intro', { restart: true })}>
                   BOSHLASH
