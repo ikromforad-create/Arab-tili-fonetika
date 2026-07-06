@@ -192,6 +192,17 @@ const ALPHABET_LETTER_AUDIO_FILES = new Map([
   ['و', 'vav.mp3'],
   ['ي', 'ya.mp3'],
 ]);
+const LESSON_3_INTRO_AUDIO_FILES = new Map([
+  ['أَ', 'a.mp3'],
+  ['إِ', 'i.mp3'],
+  ['أُ', 'u.mp3'],
+  ['رَ', 'ro.mp3'],
+  ['رِ', 'ri.mp3'],
+  ['رُ', 'ru.mp3'],
+  ['أَرْ', 'ar.mp3'],
+  ['إِرْ', 'ir.mp3'],
+  ['أُرْ', 'ur.mp3'],
+]);
 const LESSON_3_INTRO_ITEMS = [
   { arabic: 'أَ', uzbek: 'a' },
   { arabic: 'إِ', uzbek: 'i' },
@@ -762,6 +773,8 @@ function pronunciationAudioKey(text) {
 
 function localPronunciationUrl(text) {
   const normalized = normalizeArabicSpeechText(text);
+  const introFile = LESSON_3_INTRO_AUDIO_FILES.get(normalized);
+  if (introFile) return `/audio/ar/intro/${introFile}`;
   const letterFile = ALPHABET_LETTER_AUDIO_FILES.get(normalized);
   if (letterFile) return `/audio/ar/letters/${letterFile}`;
   return `/audio/ar/${pronunciationAudioKey(normalized)}.mp3`;
