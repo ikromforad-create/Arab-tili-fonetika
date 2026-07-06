@@ -39,15 +39,14 @@ import {
 } from './authClient';
 
 const PASS_RATE = 76;
-const BASE_LESSONS = 11;
-const ACTIVE_LESSONS = 11;
+const BASE_LESSONS = 5;
+const ACTIVE_LESSONS = 6;
 const UNLOCK_ALL_LEVELS = false;
 const LEGACY_UNLOCKED_USERNAME = 'ochiq-bosqichlar';
 const ADMIN_USERNAME = 'admin';
 const MID_REVIEW_AFTER_LEVEL = 5;
 const REVIEW_LEVELS = [
   { throughLevel: 5, key: 'review-1-5', title: '1-5 bosqich takrorlash', displayLevel: 'T', seed: 95 },
-  { throughLevel: 10, key: 'review-1-10', title: '1-10 bosqich takrorlash', displayLevel: 'T10', seed: 190 },
 ];
 const STORAGE_KEY = 'arab-tili-fonetika-state-v1';
 const ANNOUNCEMENT_SESSION_KEY = 'arab-tili-fonetika-oral-practice-announcement-2026-06-10';
@@ -2862,8 +2861,6 @@ export default function App() {
     return [
       ...baseLessons.filter((lesson) => lesson.level <= MID_REVIEW_AFTER_LEVEL),
       makeReviewLesson(baseLessons, REVIEW_LEVELS[0]),
-      ...baseLessons.filter((lesson) => lesson.level > MID_REVIEW_AFTER_LEVEL),
-      makeReviewLesson(baseLessons, REVIEW_LEVELS[1]),
     ];
   }, [sentenceMap]);
   const user = state.users.find((item) => item.username === state.currentUsername);
