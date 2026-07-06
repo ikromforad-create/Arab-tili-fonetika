@@ -1,6 +1,7 @@
 begin;
 create extension if not exists pgcrypto;
 drop table if exists public.auth_sessions cascade;
+drop table if exists public.profile_progress cascade;
 drop table if exists public.profiles cascade;
 create table public.profiles (
   id uuid primary key default gen_random_uuid(),
@@ -21,6 +22,11 @@ create table public.auth_sessions (
   profile_id uuid not null references public.profiles(id) on delete cascade,
   created_at timestamptz not null default now(),
   expires_at timestamptz not null
+);
+create table public.profile_progress (
+  profile_id uuid primary key references public.profiles(id) on delete cascade,
+  progress jsonb not null default '{"unlockedLevel":1,"bestScores":{},"exerciseProgress":{}}'::jsonb,
+  updated_at timestamptz not null default now()
 );
 insert into public.profiles (username, first_name, last_name, is_admin, password_hash)
 values ('admin', 'admin', 'admin', true, crypt('admin', gen_salt('bf')));

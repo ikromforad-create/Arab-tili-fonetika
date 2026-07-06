@@ -18,6 +18,13 @@ async function ensureSchema() {
     schemaReadyPromise = (async () => {
       await pool.query(`alter table if exists public.profiles add column if not exists plan text not null default ''`);
       await pool.query(`
+        create table if not exists public.profile_progress (
+          profile_id uuid primary key references public.profiles(id) on delete cascade,
+          progress jsonb not null default '{"unlockedLevel":1,"bestScores":{},"exerciseProgress":{}}'::jsonb,
+          updated_at timestamptz not null default now()
+        )
+      `);
+      await pool.query(`
         update public.profiles
         set plan = case
           when account_type = 'center' then 'center'

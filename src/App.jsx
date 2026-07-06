@@ -3043,7 +3043,11 @@ export default function App() {
     let active = true;
     getProfileProgress(user.id)
       .then((progress) => {
-        if (active) updateUser({ ...user, progress });
+        if (active) updateUser({
+          ...user,
+          progress,
+          exerciseProgress: progress.exerciseProgress || {},
+        });
       })
       .catch((error) => console.error(error));
     return () => {
@@ -3067,20 +3071,32 @@ export default function App() {
   function saveExerciseProgress(lesson, sectionId, progress) {
     if (!user) return;
     const key = exerciseProgressKey(lesson, sectionId);
-    updateUser({
-      ...user,
-      exerciseProgress: {
-        ...(user.exerciseProgress || {}),
-        [key]: {
-          ...(user.exerciseProgress?.[key] || {}),
-          lessonLevel: lesson.level,
-          scoreKey: scoreKeyForLesson(lesson),
-          sectionId,
-          ...progress,
-          updatedAt: new Date().toISOString(),
-        },
+    const nextExerciseProgress = {
+      ...(user.exerciseProgress || {}),
+      [key]: {
+        ...(user.exerciseProgress?.[key] || {}),
+        lessonLevel: lesson.level,
+        scoreKey: scoreKeyForLesson(lesson),
+        sectionId,
+        ...progress,
+        updatedAt: new Date().toISOString(),
       },
-    });
+    };
+    const nextUser = {
+      ...user,
+      exerciseProgress: nextExerciseProgress,
+      progress: {
+        ...(user.progress || {}),
+        exerciseProgress: nextExerciseProgress,
+      },
+    };
+    updateUser(nextUser);
+    if (user.id) {
+      saveSectionResult({
+        profileId: user.id,
+        progress: nextUser.progress,
+      }).catch((error) => console.error(error));
+    }
   }
 
   function clearExerciseProgress(lesson, sectionId) {
@@ -3126,6 +3142,7 @@ export default function App() {
       : authedUser;
     const enrichedUser = {
       ...normalizedUser,
+      exerciseProgress: normalizedUser.exerciseProgress || normalizedUser.progress?.exerciseProgress || {},
       plan: normalizedUser.plan || defaultPlanForAccountType(getProfileAccountType(normalizedUser)),
     };
     const stateNow = loadState();
@@ -3263,12 +3280,11 @@ export default function App() {
     updateUser(updatedUser);
     if (user.id && !activeLesson.excludeFromRating) {
       const remoteProgress = await saveSectionResult({
-        userId: user.id,
-        lessonId: activeLesson.lesson,
-        sectionKey: activeSection,
-        score: result.score,
-        total: result.total,
-        percent: result.percent,
+        profileId: user.id,
+        progress: {
+          ...updatedUser.progress,
+          exerciseProgress: updatedUser.exerciseProgress || {},
+        },
       });
       updateUser({ ...updatedUser, progress: remoteProgress });
     }

@@ -45,7 +45,7 @@ export async function loginProfile(payload) {
     plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
     parentProfileId: user.parent_profile_id || null,
     avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {} },
+    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
     isAdmin: Boolean(user.is_admin),
     sessionToken: user.session_token,
   };
@@ -62,7 +62,7 @@ export async function createProfileByAdmin(payload) {
     plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
     parentProfileId: user.parent_profile_id || null,
     avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {} },
+    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
     isAdmin: Boolean(user.is_admin),
   };
 }
@@ -78,7 +78,7 @@ export async function createProfile(payload) {
     plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
     parentProfileId: user.parent_profile_id || null,
     avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {} },
+    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
     isAdmin: Boolean(user.is_admin),
   };
 }
@@ -93,8 +93,23 @@ export async function getUsers() {
   return users || [];
 }
 
-export async function getProfileProgress() { return { unlockedLevel: 1, bestScores: {} }; }
-export async function saveSectionResult() { return { unlockedLevel: 1, bestScores: {} }; }
+export async function getProfileProgress(profileId) {
+  const response = await fetch(apiUrl(`/api/profile-progress?profileId=${encodeURIComponent(profileId)}`));
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload?.error || 'Progress yuklanmadi.');
+  return payload.progress || { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} };
+}
+
+export async function saveSectionResult(payload) {
+  const response = await fetch(apiUrl('/api/profile-progress'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result?.error || 'Progress saqlanmadi.');
+  return result.progress || { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} };
+}
 export async function uploadProfileAvatar({ userId, file }) {
   const reader = new FileReader();
   const avatar = await new Promise((resolve, reject) => {
@@ -116,7 +131,7 @@ export async function updateProfilePlan(payload) {
     plan: user.plan || '',
     parentProfileId: user.parent_profile_id || null,
     avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {} },
+    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
     isAdmin: Boolean(user.is_admin),
   };
 }
