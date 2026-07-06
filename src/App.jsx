@@ -139,7 +139,7 @@ const ALPHABET_LESSON_1_LETTERS = [
   { arabic: 'د', uzbek: 'dal', speech: 'دال', accepted: ['dal', 'd', 'دَ', 'دَالْ', 'دَالٌ'] },
   { arabic: 'ذ', uzbek: 'zal', speech: 'ذال', accepted: ['zal', 'z', 'ذَ', 'ذَالْ', 'ذَالٌ'] },
   { arabic: 'ر', uzbek: 'ro', speech: 'راء', accepted: ['ro', 'r', 'رَ', 'رَا', 'رَاءْ'] },
-  { arabic: 'ز', uzbek: 'za', speech: 'زاي', accepted: ['za', 'z', 'زَ', 'زَا', 'زَاءْ'] },
+  { arabic: 'ز', uzbek: 'za', speech: 'زاي', accepted: ['za', 'z', 'زَ', 'زَا', 'زَايْ', 'زَاءْ'] },
   { arabic: 'س', uzbek: 'sin', speech: 'سين', accepted: ['sin', 's', 'سِينْ', 'سِ', 'سِينٌ'] },
   { arabic: 'ش', uzbek: 'shin', speech: 'شين', accepted: ['shin', 'sh', 'شِ', 'شِينْ', 'شين'] },
   { arabic: 'ص', uzbek: 'sod', speech: 'صاد', accepted: ['sod', 'sad', 's', 'صَ', 'صَادٌ', 'صَادْ'] },
