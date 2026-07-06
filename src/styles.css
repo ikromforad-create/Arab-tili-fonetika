@@ -1409,6 +1409,15 @@ textarea:focus {
   font-size: clamp(54px, 12vw, 96px);
 }
 
+.study-arabic.intro {
+  min-height: 200px;
+  font-size: clamp(86px, 18vw, 170px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #102015;
+  text-shadow: 0 14px 28px rgba(20, 76, 42, 0.12);
+}
+
 .study-arabic.sentence {
   font-size: clamp(30px, 6vw, 48px);
 }
