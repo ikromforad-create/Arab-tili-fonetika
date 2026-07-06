@@ -326,6 +326,7 @@ function getLevelScore(user, lessonOrLevel) {
 
 function sectionTitle(sectionId) {
   if (sectionId === 'letters') return 'Harflar';
+  if (sectionId === 'intro') return "Harflar va so'zlar";
   if (sectionId === 'words') return 'TEST';
   if (sectionId === 'sentences') return "OG'ZAKI MASHQ";
   if (sectionId === 'oral') return "OG'ZAKI MASHQ";
@@ -337,6 +338,7 @@ function getLessonSectionIds(lessonOrLevel) {
     ? Number(lessonOrLevel.lesson || lessonOrLevel.level)
     : Number(lessonOrLevel);
   const isReview = typeof lessonOrLevel === 'object' && lessonOrLevel.isReview;
+  if (level === 3 && !isReview) return ['intro'];
   if ((level === 1 || level === 2) && !isReview) return ['letters'];
   return Number.isInteger(level) && level >= 1 && level <= ACTIVE_LESSONS && !isReview
     ? ['words', 'sentences', 'oral']
@@ -970,6 +972,9 @@ function makeOralPracticeItems(lesson) {
   if (lesson.level === 2 && !lesson.isReview) {
     return shuffle(ALPHABET_LESSON_2_LETTERS, lesson.seed * 92).map((item) => ({ ...item, oralType: 'letter', speech: item.uzbek }));
   }
+  if (lesson.level === 3 && !lesson.isReview) {
+    return shuffle(lesson.words, lesson.seed * 93).map((item) => ({ ...item, oralType: 'word' }));
+  }
   const words = shuffle(lesson.words, lesson.seed * 70)
     .slice(0, ORAL_PRACTICE_WORD_COUNT)
     .map((item) => ({ ...item, oralType: 'word' }));
@@ -996,6 +1001,14 @@ function makeSectionFlow(lesson, sectionId) {
       { type: 'study', title: 'ARAB HARFLARI', mode: 'letters', items: letters, canSkipToTest: false },
       { type: 'quiz', title: "1-MASHQ: HARF NOMINI TOPING", questions: makeChoiceQuestions(letters, 'arabic', 'uzbek', lesson.seed * 12, letters.length) },
       { type: 'oral', title: "OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
+    ];
+  }
+  if (lesson.level === 3 && !lesson.isReview) {
+    const introItems = lesson.introItems || lesson.words;
+    return [
+      { type: 'section', title: "1-BO'LIM", subtitle: "HARFLAR VA SO'ZLAR", description: "Avval shu darsdagi harflar va so'zlar bilan tanishamiz, keyin aralash og'zaki mashq qilamiz." },
+      { type: 'study', title: "HARFLAR VA SO'ZLAR", mode: 'intro', items: introItems, canSkipToTest: false },
+      { type: 'oral', title: "ARALASH OG'ZAKI MASHQ", items: makeOralPracticeItems(lesson) },
     ];
   }
   const words = lesson.words;
@@ -1057,6 +1070,7 @@ function makeReviewLesson(baseLessons, review) {
 function lessonTitle(lesson) {
   if (lesson?.level === 1 && !lesson?.isReview) return '1-DARS: ARAB HARFLARI (1-QISM)';
   if (lesson?.level === 2 && !lesson?.isReview) return '2-DARS: ARAB HARFLARI (2-QISM)';
+  if (lesson?.level === 3 && !lesson?.isReview) return "3-DARS: HARFLAR VA SO'ZLAR";
   return lesson.title || `${lesson.level}-bosqich`;
 }
 
@@ -1194,6 +1208,16 @@ function ErrorReportButton({ user, context }) {
     setComment('');
   }
 
+  async function fileToDataUrl(file) {
+    if (!file) return '';
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ''));
+      reader.onerror = () => reject(new Error('Screenshot o‘qilmadi.'));
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function submit(event) {
     event.preventDefault();
     if (!screenshot && !comment.trim()) {
@@ -1203,14 +1227,19 @@ function ErrorReportButton({ user, context }) {
     setSubmitting(true);
     setStatus('');
     try {
+      const screenshotPayload = screenshot
+        ? { name: screenshot.name, dataUrl: await fileToDataUrl(screenshot) }
+        : null;
       await submitErrorReport({
-        user,
-        screenshot,
-        comment,
+        profileId: user?.id || null,
+        username: user?.username || '',
+        screenshot: screenshotPayload,
+        message: comment,
+        pageUrl: window.location.href,
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
         context: {
           ...context,
-          pageUrl: window.location.href,
-          viewport: `${window.innerWidth}x${window.innerHeight}`,
+          userAgent: navigator.userAgent,
         },
       });
       setStatus('Xabaringiz yuborildi. Rahmat!');
@@ -2020,6 +2049,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
 function LevelSections({ user, lesson, onBack, onStartSection }) {
   const levelScore = getLevelScore(user, lesson);
   const isAlphabetLesson = (lesson.level === 1 || lesson.level === 2) && !lesson.isReview;
+  const isIntroLesson = lesson.level === 3 && !lesson.isReview;
   const alphabetStartText = lesson.level === 1
     ? "Bu darsda arab harflarini alifdan sodgacha o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz."
     : "Bu darsda qolgan arab harflarini o'rganasiz. Avval tanishasiz, keyin test va og'zaki mashq qilasiz.";
@@ -2028,6 +2058,7 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
       letters: lesson.level === 1
         ? "Alifdan sodgacha bo'lgan harflar, test va og'zaki mashq."
         : "Qolgan harflar, test va og'zaki mashq.",
+      intro: "Avval harflar va so'zlar bilan tanishasiz, so'ng aralash og'zaki mashq qilasiz.",
       words: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich so'zlaridan takrorlash mashqlari.` : "Arabcha so'zlarni yodlash va mashqlarini bajarish.",
       sentences: lesson.isReview ? `1-${lesson.reviewThroughLevel} bosqich jumlalaridan takrorlash mashqlari.` : "Jumlalar, tarjima tanlash va so'zlardan gap tuzish.",
       oral: "Arabcha so'zlar va jumlalarni to'g'ri o'qib berish.",
@@ -2064,6 +2095,8 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
           <p>
             {isAlphabetLesson
               ? alphabetStartText
+              : isIntroLesson
+                ? "Bu darsda avval shu bo'limdagi harflar va so'zlar bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
               : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
           </p>
           <div className="average-box">
@@ -2081,6 +2114,21 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
               <p>{lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
               <div className="section-actions">
                 <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('letters', { restart: true })}>
+                  BOSHLASH
+                </button>
+              </div>
+            </article>
+          </div>
+        ) : isIntroLesson ? (
+          <div className="section-grid">
+            <article className="section-choice review-choice">
+              <div className="section-choice-head">
+                <span>1-BO'LIM</span>
+                <strong>HARFLAR VA SO'ZLAR</strong>
+              </div>
+              <p>Avval shu darsdagi harflar va so'zlar bilan tanishasiz, keyin aralash og'zaki mashq qilasiz.</p>
+              <div className="section-actions">
+                <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('intro', { restart: true })}>
                   BOSHLASH
                 </button>
               </div>
@@ -2585,6 +2633,7 @@ function StudyStep({ step, initialIndex = 0, onProgress, onDone }) {
   const item = step.items[index];
   const isWords = step.mode === 'words';
   const isLetters = step.mode === 'letters';
+  const isIntro = step.mode === 'intro';
 
   function goToIndex(nextIndex) {
     const safeIndex = Math.min(step.items.length - 1, Math.max(0, nextIndex));
@@ -2596,7 +2645,7 @@ function StudyStep({ step, initialIndex = 0, onProgress, onDone }) {
     <section className="lesson-card study-card">
       <div className="step-kicker">{step.title}</div>
       <div className="study-arabic-wrap">
-        <div className={isLetters ? 'study-arabic letter' : isWords ? 'study-arabic word' : 'study-arabic sentence'} dir="rtl">{item.arabic}</div>
+        <div className={isLetters ? 'study-arabic letter' : isWords ? 'study-arabic word' : isIntro ? 'study-arabic intro' : 'study-arabic sentence'} dir="rtl">{item.arabic}</div>
         <ArabicPronunciationButton text={item.arabic} />
       </div>
       <div className="study-uzbek">{item.uzbek}</div>

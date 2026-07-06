@@ -124,6 +124,32 @@
     {
       "lesson": 3,
       "level": 3,
+      "introItems": [
+        {
+          "arabic": "هَذَا",
+          "uzbek": "bu"
+        },
+        {
+          "arabic": "هَذِهِ",
+          "uzbek": "bu (ayol/narsa)"
+        },
+        {
+          "arabic": "هَؤُلَاءِ",
+          "uzbek": "bular"
+        },
+        {
+          "arabic": "ذَلِكَ",
+          "uzbek": "o'sha"
+        },
+        {
+          "arabic": "تِلْكَ",
+          "uzbek": "o'sha (ayol/narsa)"
+        },
+        {
+          "arabic": "أُولَئِكَ",
+          "uzbek": "o'shalar"
+        }
+      ],
       "words": [
         {
           "arabic": "هَذَا",
