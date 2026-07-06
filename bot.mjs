@@ -37,10 +37,10 @@ function requireAdmin(ctx) {
 }
 
 bot.command('start', async (ctx) => {
-  await ctx.reply(
-    "Dasturdan foydalanish uchun quyidagi DASTUR tugmasini bosing.",
-    { reply_markup: mainKeyboard() },
-  );
+  const keyboard = mainKeyboard();
+  await ctx.reply('Dasturdan foydalanish uchun quyidagi DASTUR tugmasini bosing.', {
+    reply_markup: keyboard,
+  });
 });
 
 bot.command('game', async (ctx) => {
@@ -79,19 +79,27 @@ bot.catch((error) => {
   console.error('Bot xatosi:', error.error);
 });
 
-await bot.api.raw.setChatMenuButton({
-  menu_button: {
-    type: 'web_app',
-    text: 'DASTUR',
-    web_app: { url: webAppUrl },
-  },
-});
+try {
+  await bot.api.setChatMenuButton({
+    menu_button: {
+      type: 'web_app',
+      text: 'DASTUR',
+      web_app: { url: webAppUrl },
+    },
+  });
+} catch (error) {
+  console.error('Chat menu button sozlanmadi:', error);
+}
 
-await bot.api.setMyCommands([
-  { command: 'start', description: 'DASTUR tugmasini ochish' },
-  { command: 'game', description: 'Dastur tugmasini yuborish' },
-  { command: 'id', description: 'Telegram ID ni ko‘rish' },
-]);
+try {
+  await bot.api.setMyCommands([
+    { command: 'start', description: 'DASTUR tugmasini ochish' },
+    { command: 'game', description: 'Dastur tugmasini yuborish' },
+    { command: 'id', description: 'Telegram ID ni ko‘rish' },
+  ]);
+} catch (error) {
+  console.error('Bot komandalarini sozlashda xato:', error);
+}
 
 await bot.start({
   onStart: (info) => {

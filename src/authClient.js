@@ -135,6 +135,9 @@ export async function updateProfilePlan(payload) {
     isAdmin: Boolean(user.is_admin),
   };
 }
-export async function submitErrorReport() {}
+export async function submitErrorReport(payload) {
+  const { report } = await apiRequest('/api/error-reports', payload);
+  return report;
+}
 export async function recordTelegramWebAppSession() {}
 export async function recordSiteAppSession() {}
