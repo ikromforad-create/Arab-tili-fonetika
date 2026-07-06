@@ -1322,15 +1322,20 @@ function personalRatingRows(user) {
     const level = index + 1;
     const score = getLevelScore(user, level);
     const sections = score?.sections || {};
-    const test = sections.words?.score || 0;
-    const oral = sections.oral?.score || 0;
+    const sectionIds = getLessonSectionIds(level);
+    const total = sectionIds.reduce((sum, sectionId) => sum + (sections[sectionId]?.score || 0), 0);
+    const percent = score?.percent ?? null;
     return {
       level,
       title: level === 1 ? '1-DARS' : `${level}-DARS`,
-      test,
-      oral,
-      total: test + oral,
-      percent: score?.percent ?? null,
+      parts: level <= 2
+        ? [{ label: 'HARFLAR', score: sections.letters?.score || 0 }]
+        : [
+            { label: 'TEST', score: sections.words?.score || 0 },
+            { label: "OG'ZAKI MASHQ", score: sections.oral?.score || 0 },
+          ],
+      total,
+      percent,
       completedSections: score?.completedSections || 0,
       requiredSections: requiredSectionCount(level),
     };
@@ -1960,7 +1965,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                 <div>
                   <strong>{row.title}</strong>
                   <small>
-                    TEST: {row.test} ball - OG'ZAKI MASHQ: {row.oral} ball
+                    {row.parts.map((part) => `${part.label}: ${part.score} ball`).join(' - ')}
                   </small>
                 </div>
                 <div className="leaderboard-score">
