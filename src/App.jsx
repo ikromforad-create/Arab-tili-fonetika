@@ -337,7 +337,7 @@ function getLessonSectionIds(lessonOrLevel) {
     ? Number(lessonOrLevel.lesson || lessonOrLevel.level)
     : Number(lessonOrLevel);
   const isReview = typeof lessonOrLevel === 'object' && lessonOrLevel.isReview;
-  if (level === 1 && !isReview) return ['letters'];
+  if ((level === 1 || level === 2) && !isReview) return ['letters'];
   return Number.isInteger(level) && level >= 1 && level <= ACTIVE_LESSONS && !isReview
     ? ['words', 'sentences', 'oral']
     : ['words', 'sentences'];
