@@ -6,10 +6,22 @@ const DEFAULT_PROGRESS = {
   exerciseProgress: {},
 };
 
+function deriveUnlockedLevel(progress, fallback = 1) {
+  const bestScores = progress?.bestScores && typeof progress.bestScores === 'object' ? progress.bestScores : {};
+  const derived = Object.entries(bestScores).reduce((maxLevel, [key, score]) => {
+    const level = Number(key);
+    if (!Number.isInteger(level) || level < 1) return maxLevel;
+    if ((score?.percent || 0) >= 76) return Math.max(maxLevel, level + 1);
+    return maxLevel;
+  }, fallback);
+  return Math.max(fallback, derived);
+}
+
 function normalizeProgress(progress) {
   const unlockedLevel = Number(progress?.unlockedLevel || 1);
+  const derivedUnlockedLevel = deriveUnlockedLevel(progress, Number.isFinite(unlockedLevel) && unlockedLevel >= 1 ? unlockedLevel : 1);
   return {
-    unlockedLevel: Number.isFinite(unlockedLevel) && unlockedLevel >= 1 ? unlockedLevel : 1,
+    unlockedLevel: derivedUnlockedLevel,
     bestScores: progress?.bestScores && typeof progress.bestScores === 'object' ? progress.bestScores : {},
     exerciseProgress: progress?.exerciseProgress && typeof progress.exerciseProgress === 'object' ? progress.exerciseProgress : {},
   };
