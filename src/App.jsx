@@ -2121,44 +2121,21 @@ function LevelSections({ user, lesson, onBack, onStartSection }) {
               ? alphabetStartText
               : isIntroLesson
                 ? "Bu darsda avval hamza va ro shakllari bilan tanishasiz, keyin aralashtirib og'zaki mashq qilasiz."
-              : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
+                : `Keyingi bosqich ochilishi uchun bo'limlarning o'rtacha natijasi kamida ${PASS_RATE}% bo'lishi kerak.`}
           </p>
           <div className="average-box">
             <strong>{average === null ? "Hali to'liq emas" : `${average}% o'rtacha`}</strong>
             <StarRating percent={average || 0} />
           </div>
-        </div>
-        {isAlphabetLesson ? (
-        <div className="section-grid">
-          <article className="section-choice review-choice">
-            <div className="section-choice-head">
-              <span>1-BO'LIM</span>
-              <strong>HAMZA VA RO</strong>
+          {(isAlphabetLesson || isIntroLesson) && (
+            <div className="section-actions section-actions-top">
+              <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection(lesson.level === 3 ? 'intro' : 'letters', { restart: true })}>
+                BOSHLASH
+              </button>
             </div>
-              <p>{lesson.level === 3 ? "Hamza va ro shakllarini o'rganish, keyin og'zaki mashqlar bilan mustahkamlash uchun dars." : lesson.level === 1 ? "Alifdan sodgacha bo'lgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars." : "Qolgan arab harflari bilan tanishish, test va og'zaki mashq uchun dars."}</p>
-              <div className="section-actions">
-                <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection(lesson.level === 3 ? 'intro' : 'letters', { restart: true })}>
-                  BOSHLASH
-                </button>
-              </div>
-            </article>
-          </div>
-        ) : isIntroLesson ? (
-          <div className="section-grid">
-            <article className="section-choice review-choice">
-              <div className="section-choice-head">
-                <span>1-BO'LIM</span>
-                <strong>HAMZA VA RO</strong>
-              </div>
-              <p>Hamza va ro shakllarini tanishtirgandan so'ng aralash og'zaki mashq qilasiz.</p>
-              <div className="section-actions">
-                <button className="primary-btn section-start-btn" type="button" onClick={() => onStartSection('intro', { restart: true })}>
-                  BOSHLASH
-                </button>
-              </div>
-            </article>
-          </div>
-        ) : (
+          )}
+        </div>
+        {!(isAlphabetLesson || isIntroLesson) && (
           <div className="section-grid">
             {sectionConfigs.map((section) => (
               <SectionChoice
