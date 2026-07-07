@@ -212,7 +212,7 @@ textarea:focus {
 
 .secondary-btn.danger {
   background: #ffe9e7;
-  color: #9b2d22;
+  color: #d61f1f;
 }
 
 .profile-admin-actions {
@@ -220,6 +220,16 @@ textarea:focus {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.profile-admin-actions .secondary-btn {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .test-start-btn {
@@ -1986,7 +1996,7 @@ textarea:focus {
 
 .secondary-btn.danger {
   background: rgba(255, 94, 94, 0.16);
-  color: #ffd5d5;
+  color: #ff5b5b;
 }
 
 .pronounce-btn {
