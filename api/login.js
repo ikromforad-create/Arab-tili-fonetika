@@ -13,9 +13,11 @@ export default async function handler(req, res) {
   const username = String(body.username || '').trim().toLowerCase();
   const password = String(body.password || '');
   const result = await query(
-    `select id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan
+    `select id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan, archived_at
      from public.profiles
-     where lower(username) = $1 and (password_hash = $2 or password_hash = crypt($2, password_hash))`,
+     where lower(username) = $1
+       and archived_at is null
+       and (password_hash = $2 or password_hash = crypt($2, password_hash))`,
     [username, password],
   );
   const user = result.rows[0];

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.end(JSON.stringify({ error: 'Method not allowed' }));
   }
   const result = await query(
-    `select id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan, created_at, updated_at
+    `select id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan, archived_at, created_at, updated_at
      from public.profiles
      order by created_at desc`,
   );

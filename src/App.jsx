@@ -23,8 +23,10 @@ import sentencesMarkdown from '../data/shifohiyya-1-lessons-1-10-sentences.md?ra
 import { getTelegramUser, getTelegramWebApp, initTelegramWebApp, isTelegramWebApp } from './telegramWebApp';
 import {
   getSiteClientId,
+  archiveProfile,
   createProfileByAdmin,
   createProfile,
+  deleteProfile,
   getUsers,
   loginProfile,
   makeSessionId,
@@ -635,18 +637,22 @@ function getProfileParentId(profile) {
   return profile?.parentProfileId || profile?.parent_profile_id || null;
 }
 
+function isArchivedProfile(profile) {
+  return Boolean(profile?.archivedAt || profile?.archived_at);
+}
+
 function getChildrenProfiles(profile, users) {
   if (!profile?.id) return [];
   const profileKeys = new Set([profile.id, profile.username].filter(Boolean));
   const accountType = getProfileAccountType(profile);
   if (accountType === 'center') {
-    return users.filter((candidate) => profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'teacher');
+    return users.filter((candidate) => !isArchivedProfile(candidate) && profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'teacher');
   }
   if (accountType === 'teacher') {
-    return users.filter((candidate) => profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'student');
+    return users.filter((candidate) => !isArchivedProfile(candidate) && profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'student');
   }
   if (accountType === 'indiv') {
-    return users.filter((candidate) => profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'student');
+    return users.filter((candidate) => !isArchivedProfile(candidate) && profileKeys.has(getProfileParentId(candidate)) && getProfileAccountType(candidate) === 'student');
   }
   return [];
 }
@@ -1517,7 +1523,19 @@ function LevelMap({ user, lessons, pendingExercise, onStart, onResumeExercise, o
   );
 }
 
-function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpload, onCreateAccount, onUpdateProfilePlan }) {
+function AccountScreen({
+  user,
+  users,
+  allUsers,
+  leaderboard,
+  onBack,
+  onLogout,
+  onAvatarUpload,
+  onCreateAccount,
+  onUpdateProfilePlan,
+  onArchiveProfile,
+  onDeleteProfile,
+}) {
   const requesterType = getRequesterAccountType(user);
   const isAdminProfile = requesterType === 'admin';
   const isCenterProfile = requesterType === 'center';
@@ -1545,7 +1563,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
   const teacherCandidates = getTeacherCandidates(users, effectiveCenterId);
   const childrenProfiles = getChildrenProfiles(user, users);
   const showRatingSection = isVisibleRatingRole(requesterType);
-  const adminHierarchy = isAdminProfile ? getAdminHierarchy(users) : { centers: [], indivs: [] };
+  const adminHierarchy = isAdminProfile ? getAdminHierarchy(allUsers) : { centers: [], indivs: [] };
   const selectedTeacher = isCenterProfile
     ? childrenProfiles.find((candidate) => candidate.id === selectedTeacherId) || null
     : null;
@@ -1827,7 +1845,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                   <article className="admin-hierarchy-center" key={center.id}>
                     <div className="admin-hierarchy-center-head">
                       <strong>{getProfileDisplayName(center)}</strong>
-                      <small>@{center.username} · {getAccountTypeLabel(getProfileAccountType(center))}</small>
+                      <small>@{center.username} · {getAccountTypeLabel(getProfileAccountType(center))}{isArchivedProfile(center) ? ' · Arxivlangan' : ''}</small>
                       {getPlanUsage(center, users) && (
                         <span className="plan-pill compact">
                           SIZNING TARIFINGIZ: {getPlanUsage(center, users).label} · {getPlanUsage(center, users).title} · {getPlanUsage(center, users).limitText}. {getPlanUsage(center, users).usageText}
@@ -1847,6 +1865,16 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                           </label>
                         </div>
                       )}
+                      <div className="profile-admin-actions">
+                        {!isArchivedProfile(center) && (
+                          <button className="secondary-btn compact" type="button" onClick={() => handleArchive(center)}>
+                            Arxivlash
+                          </button>
+                        )}
+                        <button className="secondary-btn compact danger" type="button" onClick={() => handleDelete(center)}>
+                          O'chirish
+                        </button>
+                      </div>
                     </div>
                     {teachers.length ? (
                       <div className="admin-hierarchy-teachers">
@@ -1854,14 +1882,34 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                           <div className="admin-hierarchy-teacher" key={teacher.id}>
                             <div className="admin-hierarchy-teacher-head">
                               <strong>{getProfileDisplayName(teacher)}</strong>
-                              <small>@{teacher.username} · {getAccountTypeLabel(getProfileAccountType(teacher))}</small>
+                              <small>@{teacher.username} · {getAccountTypeLabel(getProfileAccountType(teacher))}{isArchivedProfile(teacher) ? ' · Arxivlangan' : ''}</small>
+                              <div className="profile-admin-actions">
+                                {!isArchivedProfile(teacher) && (
+                                  <button className="secondary-btn compact" type="button" onClick={() => handleArchive(teacher)}>
+                                    Arxivlash
+                                  </button>
+                                )}
+                                <button className="secondary-btn compact danger" type="button" onClick={() => handleDelete(teacher)}>
+                                  O'chirish
+                                </button>
+                              </div>
                             </div>
                             {students.length ? (
                               <div className="admin-hierarchy-students">
                                 {students.map((student) => (
                                   <div className="admin-hierarchy-student" key={student.id}>
                                     <strong>{getProfileDisplayName(student)}</strong>
-                                    <small>@{student.username} · {getAccountTypeLabel(getProfileAccountType(student))}</small>
+                                    <small>@{student.username} · {getAccountTypeLabel(getProfileAccountType(student))}{isArchivedProfile(student) ? ' · Arxivlangan' : ''}</small>
+                                    <div className="profile-admin-actions">
+                                      {!isArchivedProfile(student) && (
+                                        <button className="secondary-btn compact" type="button" onClick={() => handleArchive(student)}>
+                                          Arxivlash
+                                        </button>
+                                      )}
+                                      <button className="secondary-btn compact danger" type="button" onClick={() => handleDelete(student)}>
+                                        O'chirish
+                                      </button>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
@@ -1895,7 +1943,7 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                   <article className="admin-hierarchy-center" key={indiv.id}>
                     <div className="admin-hierarchy-center-head">
                       <strong>{getProfileDisplayName(indiv)}</strong>
-                      <small>@{indiv.username} · {getAccountTypeLabel(getProfileAccountType(indiv))}</small>
+                      <small>@{indiv.username} · {getAccountTypeLabel(getProfileAccountType(indiv))}{isArchivedProfile(indiv) ? ' · Arxivlangan' : ''}</small>
                       {getPlanUsage(indiv, users) && (
                         <span className="plan-pill compact">
                           SIZNING TARIFINGIZ: {getPlanUsage(indiv, users).label} · {getPlanUsage(indiv, users).title} · {getPlanUsage(indiv, users).limitText}. {getPlanUsage(indiv, users).usageText}
@@ -1915,13 +1963,33 @@ function AccountScreen({ user, users, leaderboard, onBack, onLogout, onAvatarUpl
                           </label>
                         </div>
                       )}
+                      <div className="profile-admin-actions">
+                        {!isArchivedProfile(indiv) && (
+                          <button className="secondary-btn compact" type="button" onClick={() => handleArchive(indiv)}>
+                            Arxivlash
+                          </button>
+                        )}
+                        <button className="secondary-btn compact danger" type="button" onClick={() => handleDelete(indiv)}>
+                          O'chirish
+                        </button>
+                      </div>
                     </div>
                     {students.length ? (
                       <div className="admin-hierarchy-students">
                         {students.map((student) => (
                           <div className="admin-hierarchy-student" key={student.id}>
                             <strong>{getProfileDisplayName(student)}</strong>
-                            <small>@{student.username} · {getAccountTypeLabel(getProfileAccountType(student))}</small>
+                            <small>@{student.username} · {getAccountTypeLabel(getProfileAccountType(student))}{isArchivedProfile(student) ? ' · Arxivlangan' : ''}</small>
+                            <div className="profile-admin-actions">
+                              {!isArchivedProfile(student) && (
+                                <button className="secondary-btn compact" type="button" onClick={() => handleArchive(student)}>
+                                  Arxivlash
+                                </button>
+                              )}
+                              <button className="secondary-btn compact danger" type="button" onClick={() => handleDelete(student)}>
+                                O'chirish
+                              </button>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -2970,18 +3038,19 @@ export default function App() {
     ];
   }, [sentenceMap]);
   const user = state.users.find((item) => item.username === state.currentUsername);
+  const visibleUsers = useMemo(() => state.users.filter((candidate) => !isArchivedProfile(candidate)), [state.users]);
   const displayLeaderboard = useMemo(() => {
-    const localPlayers = localLeaderboard(state.users);
+    const localPlayers = localLeaderboard(visibleUsers);
     const adminOnly = (players) => players.filter((player) => isAdminUsername(player.username));
-  const normalizedRemote = adminOnly(leaderboard);
+    const normalizedRemote = adminOnly(leaderboard).filter((player) => !isArchivedProfile(player));
     if (!leaderboard.length) return localPlayers;
 
     const seen = new Set(normalizedRemote.flatMap((player) => [player.id, player.username].filter(Boolean)));
-  return [
+    return [
       ...normalizedRemote,
       ...localPlayers.filter((player) => !seen.has(player.id) && !seen.has(player.username)),
     ].sort((a, b) => (b.total_score || 0) - (a.total_score || 0) || (b.average_percent || 0) - (a.average_percent || 0));
-  }, [leaderboard, state.users]);
+  }, [leaderboard, visibleUsers]);
   const activeLesson = lessons.find((lesson) => lesson.level === activeLevel);
   const pendingExercise = user ? findLatestExerciseProgress(user, lessons) : null;
   const reportContext = {
@@ -3348,6 +3417,43 @@ export default function App() {
     await refreshUsersFromDb();
   }
 
+  async function handleArchiveProfile(profileId) {
+    const updatedProfiles = await archiveProfile({
+      requesterToken: user.sessionToken,
+      profileId,
+    });
+    if (!updatedProfiles.length) return;
+    await refreshUsersFromDb();
+    if (updatedProfiles.some((profile) => profile.username === user.username)) {
+      setState((current) => ({ ...current, currentUsername: null }));
+    }
+  }
+
+  async function handleDeleteProfile(username) {
+    await deleteProfile({
+      requesterToken: user.sessionToken,
+      username,
+    });
+    await refreshUsersFromDb();
+    if (username === user.username) {
+      setState((current) => ({ ...current, currentUsername: null }));
+    }
+  }
+
+  async function handleArchive(profile) {
+    const label = getProfileDisplayName(profile) || profile.username;
+    if (!window.confirm(`"${label}" profilini arxivlashni tasdiqlaysizmi?`)) return;
+    await onArchiveProfile(profile.id);
+    await refreshUsersFromDb();
+  }
+
+  async function handleDelete(profile) {
+    const label = getProfileDisplayName(profile) || profile.username;
+    if (!window.confirm(`"${label}" profilini butunlay o'chirishni tasdiqlaysizmi?`)) return;
+    await onDeleteProfile(profile.username);
+    await refreshUsersFromDb();
+  }
+
   async function completeLesson(result) {
     const bestScores = user.progress.bestScores || {};
     const activeScoreKey = scoreKeyForLesson(activeLesson);
@@ -3401,7 +3507,7 @@ export default function App() {
   if (!user) {
     screen = <AuthScreen onAuth={handleAuth} telegramUser={telegramUser} />;
   } else if (showAccount) {
-    screen = <AccountScreen user={user} users={state.users} leaderboard={displayLeaderboard} onBack={() => setShowAccount(false)} onAvatarUpload={handleAvatarUpload} onLogout={() => sync({ ...state, currentUsername: null })} onCreateAccount={handleCreateAccount} onUpdateProfilePlan={handleUpdateProfilePlan} />;
+    screen = <AccountScreen user={user} users={visibleUsers} allUsers={state.users} leaderboard={displayLeaderboard} onBack={() => setShowAccount(false)} onAvatarUpload={handleAvatarUpload} onLogout={() => sync({ ...state, currentUsername: null })} onCreateAccount={handleCreateAccount} onUpdateProfilePlan={handleUpdateProfilePlan} onArchiveProfile={handleArchiveProfile} onDeleteProfile={handleDeleteProfile} />;
   } else if (lastResult && activeLesson && activeSection) {
     screen = <ResultScreen result={lastResult} lesson={activeLesson} sectionId={activeSection} user={user} onHome={() => { setLastResult(null); setActiveSection(null); }} />;
   } else if (activeLesson && activeSection) {

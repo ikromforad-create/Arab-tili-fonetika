@@ -11,6 +11,7 @@ create table public.profiles (
   avatar_url text,
   account_type text not null default 'student',
   plan text not null default '',
+  archived_at timestamptz,
   parent_profile_id uuid references public.profiles(id) on delete set null,
   is_admin boolean not null default false,
   password_hash text not null,

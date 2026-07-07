@@ -41,7 +41,7 @@ export default async function handler(req, res) {
      set plan = $1,
          updated_at = now()
      where id = $2
-     returning id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan`,
+     returning id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan, archived_at`,
     [plan, profileId],
   );
 

@@ -201,7 +201,7 @@ export default async function handler(req, res) {
   const created = await query(
     `insert into public.profiles (username, first_name, last_name, password_hash, account_type, parent_profile_id)
      values ($1, $2, $3, $4, $5, $6)
-     returning id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan`,
+     returning id, username, first_name, last_name, avatar_url, account_type, parent_profile_id, is_admin, plan, archived_at`,
     [username, firstName, lastName, password, accountType, parentProfileId],
   );
   res.setHeader('Content-Type', 'application/json');

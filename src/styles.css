@@ -210,6 +210,18 @@ textarea:focus {
   color: #244333;
 }
 
+.secondary-btn.danger {
+  background: #ffe9e7;
+  color: #9b2d22;
+}
+
+.profile-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
 .test-start-btn {
   background: #e4f6eb;
   color: #0d7548;
@@ -1970,6 +1982,11 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.1);
   color: #f8fbff;
   border-color: rgba(255, 255, 255, 0.14);
+}
+
+.secondary-btn.danger {
+  background: rgba(255, 94, 94, 0.16);
+  color: #ffd5d5;
 }
 
 .pronounce-btn {

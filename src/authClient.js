@@ -25,6 +25,23 @@ export function makeSessionId() {
   return crypto.randomUUID();
 }
 
+function normalizeProfilePayload(user) {
+  return {
+    id: user.id,
+    username: user.username,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    accountType: user.account_type || 'student',
+    plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
+    parentProfileId: user.parent_profile_id || null,
+    avatar: user.avatar_url || '',
+    archivedAt: user.archived_at || null,
+    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
+    isAdmin: Boolean(user.is_admin),
+    sessionToken: user.session_token,
+  };
+}
+
 export function getSiteClientId() {
   const key = 'arab-tili-fonetika-site-client-id-v1';
   const existing = localStorage.getItem(key);
@@ -36,51 +53,17 @@ export function getSiteClientId() {
 
 export async function loginProfile(payload) {
   const { user } = await apiRequest('/api/login', payload);
-  return {
-    id: user.id,
-    username: user.username,
-    firstName: user.first_name,
-    lastName: user.last_name,
-    accountType: user.account_type || 'student',
-    plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
-    parentProfileId: user.parent_profile_id || null,
-    avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
-    isAdmin: Boolean(user.is_admin),
-    sessionToken: user.session_token,
-  };
+  return normalizeProfilePayload(user);
 }
 
 export async function createProfileByAdmin(payload) {
   const { user } = await apiRequest('/api/create-profile', payload);
-  return {
-    id: user.id,
-    username: user.username,
-    firstName: user.first_name,
-    lastName: user.last_name,
-    accountType: user.account_type || 'student',
-    plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
-    parentProfileId: user.parent_profile_id || null,
-    avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
-    isAdmin: Boolean(user.is_admin),
-  };
+  return normalizeProfilePayload(user);
 }
 
 export async function createProfile(payload) {
   const { user } = await apiRequest('/api/create-profile', payload);
-  return {
-    id: user.id,
-    username: user.username,
-    firstName: user.first_name,
-    lastName: user.last_name,
-    accountType: user.account_type || 'student',
-    plan: user.plan || defaultPlanForAccountType(user.account_type || 'student'),
-    parentProfileId: user.parent_profile_id || null,
-    avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
-    isAdmin: Boolean(user.is_admin),
-  };
+  return normalizeProfilePayload(user);
 }
 
 export async function getLeaderboard() {
@@ -122,18 +105,16 @@ export async function uploadProfileAvatar({ userId, file }) {
 
 export async function updateProfilePlan(payload) {
   const { user } = await apiRequest('/api/update-profile-plan', payload);
-  return {
-    id: user.id,
-    username: user.username,
-    firstName: user.first_name,
-    lastName: user.last_name,
-    accountType: user.account_type || 'student',
-    plan: user.plan || '',
-    parentProfileId: user.parent_profile_id || null,
-    avatar: user.avatar_url || '',
-    progress: { unlockedLevel: 1, bestScores: {}, exerciseProgress: {} },
-    isAdmin: Boolean(user.is_admin),
-  };
+  return normalizeProfilePayload(user);
+}
+
+export async function archiveProfile(payload) {
+  const { users } = await apiRequest('/api/archive-profile', payload);
+  return (users || []).map((user) => normalizeProfilePayload(user));
+}
+
+export async function deleteProfile(payload) {
+  return apiRequest('/api/delete-profile', payload);
 }
 export async function submitErrorReport(payload) {
   const { report } = await apiRequest('/api/error-reports', payload);

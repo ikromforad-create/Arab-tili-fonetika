@@ -17,6 +17,7 @@ async function ensureSchema() {
   if (!schemaReadyPromise) {
     schemaReadyPromise = (async () => {
       await pool.query(`alter table if exists public.profiles add column if not exists plan text not null default ''`);
+      await pool.query(`alter table if exists public.profiles add column if not exists archived_at timestamptz`);
       await pool.query(`
         create table if not exists public.profile_progress (
           profile_id uuid primary key references public.profiles(id) on delete cascade,
