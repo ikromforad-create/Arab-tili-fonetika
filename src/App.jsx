@@ -1555,6 +1555,7 @@ function AccountScreen({
     parentTeacherId: isDirectStudentOnlyProfile ? user.id : '',
   });
   const [accountStatus, setAccountStatus] = useState('');
+  const [adminActionStatus, setAdminActionStatus] = useState('');
   const [accountBusy, setAccountBusy] = useState(false);
   const personalRows = personalRatingRows(user);
   const canManageAccounts = requesterType !== 'student';
@@ -1831,6 +1832,12 @@ function AccountScreen({
               </small>
             </form>
           </section>
+        )}
+
+        {adminActionStatus && (
+          <div className="admin-action-banner">
+            {adminActionStatus}
+          </div>
         )}
 
         {isAdminProfile && (
@@ -3443,15 +3450,27 @@ export default function App() {
   async function handleArchive(profile) {
     const label = getProfileDisplayName(profile) || profile.username;
     if (!window.confirm(`"${label}" profilini arxivlashni tasdiqlaysizmi?`)) return;
-    await onArchiveProfile(profile.id);
-    await refreshUsersFromDb();
+    setAdminActionStatus('');
+    try {
+      await onArchiveProfile(profile.id);
+      await refreshUsersFromDb();
+      setAdminActionStatus(`"${label}" arxivlandi.`);
+    } catch (error) {
+      setAdminActionStatus(error.message || 'Arxivlash bajarilmadi.');
+    }
   }
 
   async function handleDelete(profile) {
     const label = getProfileDisplayName(profile) || profile.username;
     if (!window.confirm(`"${label}" profilini butunlay o'chirishni tasdiqlaysizmi?`)) return;
-    await onDeleteProfile(profile.username);
-    await refreshUsersFromDb();
+    setAdminActionStatus('');
+    try {
+      await onDeleteProfile(profile.username);
+      await refreshUsersFromDb();
+      setAdminActionStatus(`"${label}" o'chirildi.`);
+    } catch (error) {
+      setAdminActionStatus(error.message || "O‘chirish bajarilmadi.");
+    }
   }
 
   async function completeLesson(result) {

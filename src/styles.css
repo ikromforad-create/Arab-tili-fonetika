@@ -232,6 +232,16 @@ textarea:focus {
   cursor: pointer;
 }
 
+.admin-action-banner {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ecfff3;
+  color: #17643c;
+  font-weight: 800;
+  border: 1px solid #c6ead4;
+}
+
 .test-start-btn {
   background: #e4f6eb;
   color: #0d7548;
@@ -1996,7 +2006,7 @@ textarea:focus {
 
 .secondary-btn.danger {
   background: rgba(255, 94, 94, 0.16);
-  color: #ff5b5b;
+  color: #ff2b2b;
 }
 
 .pronounce-btn {
