@@ -2550,6 +2550,7 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
   const [locked, setLocked] = useState(false);
   const [status, setStatus] = useState('');
   const stopTimerRef = useRef(null);
+  const finishTimerRef = useRef(null);
   const item = step.items[index];
   const isSentence = item.oralType === 'sentence';
   const isLetter = item.oralType === 'letter';
@@ -2560,7 +2561,19 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
 
   useEffect(() => () => {
     if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
+    if (finishTimerRef.current) window.clearTimeout(finishTimerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!locked || !status.includes("To'g'ri") || index !== step.items.length - 1) return undefined;
+    if (finishTimerRef.current) window.clearTimeout(finishTimerRef.current);
+    finishTimerRef.current = window.setTimeout(() => {
+      onDone();
+    }, 450);
+    return () => {
+      if (finishTimerRef.current) window.clearTimeout(finishTimerRef.current);
+    };
+  }, [index, locked, onDone, status, step.items.length]);
 
   function markResult(isCorrect) {
     setLocked(true);
@@ -2629,6 +2642,7 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
 
   function next() {
     if (stopTimerRef.current) window.clearTimeout(stopTimerRef.current);
+    if (finishTimerRef.current) window.clearTimeout(finishTimerRef.current);
     setLocked(false);
     setStatus('');
     if (index === step.items.length - 1) onDone();
