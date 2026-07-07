@@ -2514,6 +2514,35 @@ function isLetterSpeechMatch(item, heard) {
   }));
 }
 
+function isAcceptedSpeechMatch(item, heard) {
+  const accepted = Array.isArray(item?.accepted) ? item.accepted : [];
+  const heardLatin = normalizeLatinSpeech(heard);
+  const heardArabic = normalizeArabicSpeech(heard);
+  const heardTranslit = transliterateArabicToLatin(heard);
+  const expectedCandidates = [
+    item?.uzbek,
+    item?.speech,
+    item?.arabic,
+    ...accepted,
+  ].map((value) => String(value || '').trim()).filter(Boolean);
+  const heardCandidates = [heardLatin, heardArabic, heardTranslit].filter(Boolean);
+
+  return expectedCandidates.some((expected) => {
+    const normalizedExpectedLatin = normalizeLatinSpeech(expected);
+    const normalizedExpectedArabic = normalizeArabicSpeech(expected);
+    const transliteratedExpected = transliterateArabicToLatin(expected);
+    const candidates = [normalizedExpectedLatin, normalizedExpectedArabic, transliteratedExpected]
+      .filter(Boolean)
+      .map((candidate) => candidate.replace(/\s/g, ''));
+    return candidates.some((candidate) => heardCandidates.some((heardCandidate) => {
+      const compactHeard = heardCandidate.replace(/\s/g, '');
+      if (candidate === compactHeard) return true;
+      if (candidate.length <= 3 && compactHeard.length <= 3 && candidate[0] === compactHeard[0]) return true;
+      return textSimilarity(candidate, compactHeard) >= 0.8;
+    }));
+  });
+}
+
 function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionChange }) {
   const safeInitialIndex = Math.min(step.items.length - 1, Math.max(0, initialIndex || 0));
   const [index, setIndex] = useState(safeInitialIndex);
@@ -2567,7 +2596,11 @@ function OralPracticeStep({ step, initialIndex = 0, onDone, onPoint, onQuestionC
         window.setTimeout(() => reject(new Error('Timeout')), ORAL_PRACTICE_RECORDING_MS + 6000);
       });
       const transcript = await Promise.race([recordingPromise, watchdogPromise]);
-      const matched = isLetter ? isLetterSpeechMatch(item, transcript) : isArabicSpeechMatch(expectedSpeech, transcript);
+      const matched = item.oralType === 'intro'
+        ? isAcceptedSpeechMatch(item, transcript)
+        : isLetter
+          ? isLetterSpeechMatch(item, transcript)
+          : isArabicSpeechMatch(expectedSpeech, transcript);
       setStatus(transcript ? `Eshitilgan: ${transcript}` : 'Ovoz matnga aylantirilmadi');
       markResult(matched);
       setListening(false);
