@@ -2454,6 +2454,27 @@ function textSimilarity(left, right) {
   return 1 - (levenshteinDistance(left, right) / longest);
 }
 
+function normalizeSpeechLoose(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\u0300-\u036f]/g, '')
+    .replace(/[’'ʻʻ`´]/g, '')
+    .replace(/[\s\-_.،,!?؟:;()[\]{}]/g, '')
+    .replace(/[^a-z0-9اأإآءىويئر]+/g, '');
+}
+
+function looseSpeechMatch(left, right) {
+  const compactLeft = normalizeSpeechLoose(left);
+  const compactRight = normalizeSpeechLoose(right);
+  if (!compactLeft || !compactRight) return false;
+  if (compactLeft === compactRight) return true;
+  if (compactLeft.length <= 2 && compactRight.length <= 2 && compactLeft[0] === compactRight[0]) return true;
+  if (compactLeft.length <= 4 && compactRight.length <= 4 && compactLeft[0] === compactRight[0]) return true;
+  const threshold = Math.max(compactLeft.length, compactRight.length) <= 4 ? 0.55 : 0.72;
+  return textSimilarity(compactLeft, compactRight) >= threshold;
+}
+
 function bestTokenSimilarity(expectedToken, heardTokens) {
   return heardTokens.reduce((best, heardToken) => Math.max(best, textSimilarity(expectedToken, heardToken)), 0);
 }
@@ -2497,49 +2518,28 @@ function isArabicSpeechMatch(expected, heard) {
 }
 
 function isLetterSpeechMatch(item, heard) {
-  const heardLatin = normalizeLatinSpeech(heard);
-  const heardArabic = normalizeArabicSpeech(heard);
-  const heardTranslit = transliterateArabicToLatin(heard);
-  const heardCanonical = heardArabic ? (LETTER_ARABIC_TO_LATIN.get(heardArabic) || '') : '';
   const candidates = getLetterSpeechCandidates(item);
-  const compared = [heardLatin, heardArabic, heardTranslit, heardCanonical].filter(Boolean);
+  const compared = [heard, normalizeLatinSpeech(heard), normalizeArabicSpeech(heard), transliterateArabicToLatin(heard)]
+    .filter(Boolean);
   if (!candidates.length || !compared.length) return false;
-  return candidates.some((candidate) => compared.some((value) => {
-    if (candidate === value) return true;
-    const compactCandidate = candidate.replace(/\s/g, '');
-    const compactValue = value.replace(/\s/g, '');
-    if (compactCandidate === compactValue) return true;
-    if (candidate.length <= 3 && compactValue.length <= 3 && candidate[0] === compactValue[0]) return true;
-    return textSimilarity(compactCandidate, compactValue) >= 0.8;
-  }));
+  return candidates.some((candidate) => compared.some((value) => looseSpeechMatch(candidate, value)));
 }
 
 function isAcceptedSpeechMatch(item, heard) {
   const accepted = Array.isArray(item?.accepted) ? item.accepted : [];
-  const heardLatin = normalizeLatinSpeech(heard);
-  const heardArabic = normalizeArabicSpeech(heard);
-  const heardTranslit = transliterateArabicToLatin(heard);
   const expectedCandidates = [
     item?.uzbek,
     item?.speech,
     item?.arabic,
     ...accepted,
   ].map((value) => String(value || '').trim()).filter(Boolean);
-  const heardCandidates = [heardLatin, heardArabic, heardTranslit].filter(Boolean);
+  const heardCandidates = [heard, normalizeLatinSpeech(heard), normalizeArabicSpeech(heard), transliterateArabicToLatin(heard)]
+    .filter(Boolean);
 
   return expectedCandidates.some((expected) => {
-    const normalizedExpectedLatin = normalizeLatinSpeech(expected);
-    const normalizedExpectedArabic = normalizeArabicSpeech(expected);
-    const transliteratedExpected = transliterateArabicToLatin(expected);
-    const candidates = [normalizedExpectedLatin, normalizedExpectedArabic, transliteratedExpected]
-      .filter(Boolean)
-      .map((candidate) => candidate.replace(/\s/g, ''));
-    return candidates.some((candidate) => heardCandidates.some((heardCandidate) => {
-      const compactHeard = heardCandidate.replace(/\s/g, '');
-      if (candidate === compactHeard) return true;
-      if (candidate.length <= 3 && compactHeard.length <= 3 && candidate[0] === compactHeard[0]) return true;
-      return textSimilarity(candidate, compactHeard) >= 0.8;
-    }));
+    const candidates = [normalizeLatinSpeech(expected), normalizeArabicSpeech(expected), transliterateArabicToLatin(expected), expected]
+      .filter(Boolean);
+    return candidates.some((candidate) => heardCandidates.some((heardCandidate) => looseSpeechMatch(candidate, heardCandidate)));
   });
 }
 
